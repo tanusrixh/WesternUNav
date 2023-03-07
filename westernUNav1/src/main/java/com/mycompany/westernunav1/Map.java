@@ -3,6 +3,7 @@
  */
 
 package com.mycompany.westernunav1;
+import javax.swing.*;
 
 /**
  *
