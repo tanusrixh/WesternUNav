@@ -13,24 +13,29 @@ public class PointofInterest {
     
     private String poiname;
     private String poidescription;
-    private Map poilocation;
+    private String poilocation;
     
-    public String getName(){
+    public String getPoiname() {
         return poiname;
-}
-    public void setName(String name){
-        poiname = name;
     }
-    public String getDescription(){
+
+    public void setPoiname(String poiname) {
+        this.poiname = poiname;
+    }
+
+    public String getPoidescription() {
         return poidescription;
-}
-    public void setDescription(String description){
-        poidescription = description;
     }
-    public Map getLocation(){
+
+    public void setPoidescription(String poidescription) {
+        this.poidescription = poidescription;
+    }
+
+    public String getPoilocation() {
         return poilocation;
-}
-    public void setLocation(Map location){
-        poilocation = location;
+    }
+
+    public void setPoilocation(String poilocation) {
+        this.poilocation = poilocation;
     }
 }
