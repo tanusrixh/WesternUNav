@@ -10,6 +10,7 @@ import javax.swing.*;
  * @author Nosheen
  */
 public class PointofInterest {
+    
     private String poiname;
     private String poidescription;
     private Map poilocation;
