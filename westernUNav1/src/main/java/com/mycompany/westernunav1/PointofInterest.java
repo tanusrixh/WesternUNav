@@ -9,6 +9,7 @@ import javax.swing.*;
  *
  * @author Nosheen
  */
+
 public class PointofInterest {
     /*private variables*/
     private String poiname;
