@@ -12,6 +12,7 @@ import javax.swing.*;
  */
 public class Building {
     
+    
     /** The building's name*/
     private String name;
     
