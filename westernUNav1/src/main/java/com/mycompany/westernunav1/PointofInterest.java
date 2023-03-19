@@ -15,7 +15,7 @@ public class PointofInterest {
     /*private variables*/
     private String poiname;
     private String poidescription;
-    private Map poilocation;
+    private Building poilocation;
     /*get point of interest name*/
     public String getPoiname() {
         return poiname;
@@ -37,12 +37,12 @@ public class PointofInterest {
     }
     
     /*get point of interest location*/
-    public Map getPoilocation() {
+    public Building getPoilocation() {
         return poilocation;
     }
 
     /*set point of interest location*/
-    public void setPoilocation(Map poilocation) {
+    public void setPoilocation(Building poilocation) {
         this.poilocation = poilocation;
     }
 }
