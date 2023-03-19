@@ -16,7 +16,6 @@ public class PointofInterest {
     private String poiname;
     private String poidescription;
     private String poilocation;
-    private String poi;
     /*get point of interest name*/
     public String getPoiname() {
         return poiname;
