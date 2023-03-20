@@ -1,0 +1,11 @@
+[
+    {
+        "name" : "test1",
+        "loginCredentials" : "willencryptlater"
+    },
+    {
+        "name" : "test2",
+        "loginCredentials" : "willencryptlater2"
+    }
+    
+]
