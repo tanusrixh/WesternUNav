@@ -8,7 +8,6 @@ import javax.swing.*;
 /**
  *
  * @author tanusri
- * @author nour
  */
 public class Building {
     
