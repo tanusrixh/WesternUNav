@@ -7,8 +7,42 @@ import javax.swing.*;
 
 /**
  *
- * @author tanusri
+ * @author Nosheen
  */
+
+
 public class PointofInterest {
+    /*private variables*/
+    private String poiname;
+    private String poidescription;
+    private Building poilocation;
+    /*get point of interest name*/
+    public String getPoiname() {
+        return poiname;
+    }
+
+    /*set point of interest name*/
+    public void setPoiname(String poiname) {
+        this.poiname = poiname;
+    }
     
+    /*get point of interest description*/
+    public String getPoidescription() {
+        return poidescription;
+    }
+
+    /*set point of interest description*/
+    public void setPoidescription(String poidescription) {
+        this.poidescription = poidescription;
+    }
+    
+    /*get point of interest location*/
+    public Building getPoilocation() {
+        return poilocation;
+    }
+
+    /*set point of interest location*/
+    public void setPoilocation(Building poilocation) {
+        this.poilocation = poilocation;
+    }
 }
