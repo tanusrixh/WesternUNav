@@ -13,6 +13,7 @@ import javax.swing.*;//import required package
  */
 import javax.swing.*;//import required package
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import java.io.FileReader;
 import java.io.FileNotFoundException;
@@ -77,14 +78,48 @@ public class User {
         
         JSONParser userInfo = new JSONParser();
         
+        User newUser = new User();
+        
         try{
             
             FileReader openLogin;
             openLogin = new FileReader("loginInfo.json");
             System.out.println("success\n");
-            JSONArray obj = (JSONArray) userInfo.parse(openLogin);
+            Object obj =  userInfo.parse(openLogin);
+            JSONArray arr = (JSONArray)obj;
+            JSONObject jsonobj = (JSONObject)arr.get(0);
             
-            System.out.println(obj.get(0));
+            Scanner userCred = new Scanner(System.in);
+            System.out.println("Enter Username: ");
+            
+            String getUserName = userCred.nextLine();
+            
+            while(getUserName.equals(jsonobj.get("name")) == false){
+                if(getUserName.equals(jsonobj.get("name")) == true){
+                    break;
+                }
+                System.out.println("Invalid. Enter Valid Username: ");
+                getUserName = userCred.nextLine();
+            }
+            
+            System.out.println("Enter Password: ");
+            String getPassword = userCred.nextLine();
+            
+            while(getPassword.equals(jsonobj.get("loginCredentials")) == false){
+                if(getPassword.equals(jsonobj.get("loginCredentials")) == true){
+                    
+                    break;
+                }
+                System.out.println("Invalid. Enter Valid Password: ");
+                getPassword = userCred.nextLine();
+            }
+            
+            newUser.setName(getUserName);
+            newUser.setLoginCredentials(getPassword);
+            
+            
+            System.out.println("Access Granted.");
+            System.out.println("Welcome: " + newUser.getName());
             
             
             openLogin.close();
