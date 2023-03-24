@@ -4,16 +4,12 @@
  */
 package com.mycompany.westernunav1;
 
-/**
- *
- * @author tanusri
- */
-import javax.swing.*;  
+import java.util.ArrayList;
+import javax.swing.JPanel;
+
 import java.awt.*;  
 import java.awt.event.*;  
 import java.lang.Exception;
-
-import java.util.ArrayList;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -25,19 +21,29 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-
-public class User extends javax.swing.JFrame implements ActionListener{
+/**
+ *
+ * @author tanusri
+ */
+public class User extends javax.swing.JFrame {
     
     private String name; //UserName of the person
     private String loginCredentials; //Password of the person
     private ArrayList<PointofInterest> savedPOI; //Saved POI's associated with the user info
 
+    /**
+     * Creates new form User
+     */
+    public User() {
+        initComponents();
+    }
+    
     public User(String name, String loginCredentials, ArrayList<PointofInterest> savedPOI) {
         this.name = name;
         this.loginCredentials = loginCredentials;
         this.savedPOI = savedPOI;
     }
-
+    
     public String getName() {
         return name;
     }
@@ -46,9 +52,8 @@ public class User extends javax.swing.JFrame implements ActionListener{
         return loginCredentials;
     }
 
-    /**
-     * Creates new form NewJFrame
-     */
+
+
     public ArrayList<PointofInterest> getSavedPOI() {
         return savedPOI;
     }
@@ -65,11 +70,6 @@ public class User extends javax.swing.JFrame implements ActionListener{
         this.savedPOI = savedPOI;
     }
 
-    public User() {
-        initComponents();
-         jButton1.addActionListener(this);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,78 +79,143 @@ public class User extends javax.swing.JFrame implements ActionListener{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jPopupMenu2 = new javax.swing.JPopupMenu();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-
-        jPopupMenu1.setToolTipText("Incorrect Password");
+        AppLayers = new javax.swing.JLayeredPane();
+        LoginPage = new javax.swing.JPanel();
+        Login = new javax.swing.JButton();
+        UserID = new javax.swing.JTextField();
+        Pass = new javax.swing.JTextField();
+        Buildings = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Username:");
+        AppLayers.setLayout(new java.awt.CardLayout());
 
-        jLabel2.setText("Password:");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        Login.setText("Login");
+        Login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                LoginActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Login");
+        UserID.setText("User");
+        UserID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserIDActionPerformed(evt);
+            }
+        });
+
+        Pass.setText("Pass");
+
+        javax.swing.GroupLayout LoginPageLayout = new javax.swing.GroupLayout(LoginPage);
+        LoginPage.setLayout(LoginPageLayout);
+        LoginPageLayout.setHorizontalGroup(
+            LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoginPageLayout.createSequentialGroup()
+                .addGap(234, 234, 234)
+                .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Pass)
+                    .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(UserID))
+                .addContainerGap(243, Short.MAX_VALUE))
+        );
+        LoginPageLayout.setVerticalGroup(
+            LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(Login)
+                .addGap(76, 76, 76))
+        );
+
+        AppLayers.add(LoginPage, "card2");
+
+        javax.swing.GroupLayout BuildingsLayout = new javax.swing.GroupLayout(Buildings);
+        Buildings.setLayout(BuildingsLayout);
+        BuildingsLayout.setHorizontalGroup(
+            BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 549, Short.MAX_VALUE)
+        );
+        BuildingsLayout.setVerticalGroup(
+            BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        AppLayers.add(Buildings, "card3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(68, 68, 68)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(jButton1)))
-                .addContainerGap(88, Short.MAX_VALUE))
+            .addComponent(AppLayers)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(74, 74, 74)
-                .addComponent(jButton1)
-                .addContainerGap(65, Short.MAX_VALUE))
+            .addComponent(AppLayers, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-   
     
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    /*
+    Method for the login button, when the user enters the correct login 
+    credentials, the JFrame will switch from the login panel to the Buildings 
+    Panel where the user can choose the building they would like to save POI's
+    for.
+    */
+    private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
+        JSONParser userInfo = new JSONParser();
         
+        User newUser = new User();
         
-        
-    }//GEN-LAST:event_jTextField1ActionPerformed
+        try{
+            
+            FileReader openLogin;
+            openLogin = new FileReader("loginInfo.json");
+            System.out.println("success\n"); // to test that the JSON file opened successfully
+            Object obj =  userInfo.parse(openLogin);
+            JSONArray arr = (JSONArray)obj;
+            JSONObject jsonobj = (JSONObject)arr.get(0); // get the username and password stored at index 0 in the login JSON file
+                        
+            String userID = UserID.getText();
+            String pass = Pass.getText();
+            
+            if(userID.equals(jsonobj.get("name")) == true && pass.equals(jsonobj.get("loginCredentials")) == true){
+                switchPanels(Buildings);
+                JOptionPane.showMessageDialog(null,"Access Granted. Welcome " + userID);
+                newUser.setName(userID);
+                newUser.setLoginCredentials(pass);
+                
+            }else{
+                JOptionPane.showMessageDialog(null,"Incorrect User/Password!");
+            
+            }
+         
+            
+            openLogin.close();
+            
+        }catch (FileNotFoundException ae){
+            
+            System.out.println("FileNotFound\n");
+            
+        }catch(IOException se){
+            
+           System.out.println("ErrorClosingFile\n");
+           
+        }catch(ParseException de){
+            
+           System.out.println("ErrorParsing\n");
+           
+        }
+    }//GEN-LAST:event_LoginActionPerformed
 
+    private void UserIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UserIDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,8 +244,6 @@ public class User extends javax.swing.JFrame implements ActionListener{
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -188,68 +251,27 @@ public class User extends javax.swing.JFrame implements ActionListener{
                 new User().setVisible(true);
             }
         });
-        
-                
+    }
+    
+    
+    /*
+    switchPanels method will switch between panels provided the user enters the 
+    appropriate input. (i.e. for the login page, if the user enters the correct
+    login credentials they will be redirected to the buildings page).
+    */
+    public void switchPanels(JPanel panel){
+        AppLayers.removeAll();
+        AppLayers.add(panel);
+        AppLayers.repaint();
+        AppLayers.revalidate();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JPopupMenu jPopupMenu2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLayeredPane AppLayers;
+    private javax.swing.JPanel Buildings;
+    private javax.swing.JButton Login;
+    private javax.swing.JPanel LoginPage;
+    private javax.swing.JTextField Pass;
+    private javax.swing.JTextField UserID;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-                JSONParser userInfo = new JSONParser();
-        
-        User newUser = new User();
-        
-        try{
-            
-            FileReader openLogin;
-            openLogin = new FileReader("loginInfo.json");
-            System.out.println("success\n");
-            Object obj =  userInfo.parse(openLogin);
-            JSONArray arr = (JSONArray)obj;
-            JSONObject jsonobj = (JSONObject)arr.get(0);
-                        
-            String userID = jTextField1.getText();
-            String pass = jTextField2.getText();
-            
-            if(userID.equals(jsonobj.get("name")) == true && pass.equals(jsonobj.get("loginCredentials")) == true){
-                System.out.println("Access Granted.");
-                System.out.println("Welcome: " + userID);
-                JOptionPane.showMessageDialog(null,"Access Granted. Welcome " + userID);
-                new User().setVisible(false);
-                
-            }else{
-                JOptionPane.showMessageDialog(null,"Incorrect User/Password!");
-            
-            }
-         
-            
-            openLogin.close();
-            
-        }catch (FileNotFoundException ae){
-            
-            System.out.println("FileNotFound\n");
-            
-        }catch(IOException se){
-            
-           System.out.println("ErrorClosingFile\n");
-           
-        }catch(ParseException de){
-            
-           System.out.println("ErrorParsing\n");
-           
-        }
-        
-    }
-   
-    
-
 }
