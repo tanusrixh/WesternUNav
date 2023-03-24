@@ -223,6 +223,8 @@ public class User extends javax.swing.JFrame implements ActionListener{
             if(userID.equals(jsonobj.get("name")) == true && pass.equals(jsonobj.get("loginCredentials")) == true){
                 System.out.println("Access Granted.");
                 System.out.println("Welcome: " + userID);
+                JOptionPane.showMessageDialog(null,"Access Granted. Welcome " + userID);
+                new User().setVisible(false);
                 
             }else{
                 JOptionPane.showMessageDialog(null,"Incorrect User/Password!");

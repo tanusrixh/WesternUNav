@@ -1,4 +1,5 @@
-{
+[
+    {
     "Floor Number": 1, 
     "Rooms": [["150B", "Mechanical"], 
               ["112", "Description"], 
@@ -41,7 +42,7 @@
               ["140B-1", "Description"], 
               ["140B-3", "Description"]
              ]
-}
+},
 {
     "Floor Number": 2,
     "Rooms": [["229", "Description"], 
@@ -70,3 +71,4 @@
               ["200", "Description"]
              ]
 }
+]
