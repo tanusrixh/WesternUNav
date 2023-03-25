@@ -97,8 +97,8 @@ public class User extends javax.swing.JFrame {
             dropDownMenu = new javax.swing.JComboBox<>();
             try{
 
-                BufferedImage image = ImageIO.read(new File("./logoImage.jpg"));
-                jLabel2 = new JLabel(new ImageIcon(image));
+                BufferedImage image1 = ImageIO.read(new File("./logoImage.jpg"));
+                jLabel2 = new JLabel(new ImageIcon(image1));
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -179,8 +179,8 @@ public class User extends javax.swing.JFrame {
                 .addContainerGap(204, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addComponent(jLabel2)
+                .addGap(34, 34, 34))
         );
         BuildingsLayout.setVerticalGroup(
             BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +189,7 @@ public class User extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(68, 68, 68)
                 .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         AppLayers.add(Buildings, "card3");
