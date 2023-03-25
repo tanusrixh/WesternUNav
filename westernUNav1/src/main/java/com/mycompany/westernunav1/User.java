@@ -110,143 +110,143 @@ public class User extends javax.swing.JFrame {
                         try{
 
                             BufferedImage image4 = ImageIO.read(new File("./AR_image.jpg"));
-                            jLabel5 = new JLabel(new ImageIcon(image4);
+                            jLabel5 = new JLabel(new ImageIcon(image4));
 
-                                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-                                AppLayers.setLayout(new java.awt.CardLayout());
+                            AppLayers.setLayout(new java.awt.CardLayout());
 
-                                Login.setText("Login");
-                                Login.addActionListener(new java.awt.event.ActionListener() {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                        LoginActionPerformed(evt);
-                                    }
-                                });
-
-                                UserID.setText("User");
-                                UserID.addActionListener(new java.awt.event.ActionListener() {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                        UserIDActionPerformed(evt);
-                                    }
-                                });
-
-                                Pass.setText("Pass");
-
-                            }catch(IOException exception){
-                                System.out.println("error.");
-                            }
-                            jLabel1.setText("Logo of Uwo");
-
-                            javax.swing.GroupLayout LoginPageLayout = new javax.swing.GroupLayout(LoginPage);
-                            LoginPage.setLayout(LoginPageLayout);
-                            LoginPageLayout.setHorizontalGroup(
-                                LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(LoginPageLayout.createSequentialGroup()
-                                    .addGap(234, 234, 234)
-                                    .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(Pass)
-                                        .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(UserID))
-                                    .addContainerGap(243, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
-                                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1)
-                                    .addGap(85, 85, 85))
-                            );
-                            LoginPageLayout.setVerticalGroup(
-                                LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
-                                    .addGap(38, 38, 38)
-                                    .addComponent(jLabel1)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                                    .addComponent(Login)
-                                    .addGap(76, 76, 76))
-                            );
-
-                            AppLayers.add(LoginPage, "card2");
-
-                            dropDownMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Middlesex College", "Almuni Hall", "Advanced Facility for Avian Research"}));
-                            dropDownMenu.addActionListener(new java.awt.event.ActionListener() {
+                            Login.setText("Login");
+                            Login.addActionListener(new java.awt.event.ActionListener() {
                                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                    dropDownMenuActionPerformed(evt);
+                                    LoginActionPerformed(evt);
                                 }
                             });
+
+                            UserID.setText("User");
+                            UserID.addActionListener(new java.awt.event.ActionListener() {
+                                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    UserIDActionPerformed(evt);
+                                }
+                            });
+
+                            Pass.setText("Pass");
 
                         }catch(IOException exception){
                             System.out.println("error.");
                         }
-                        jLabel2.setText("Logo Of Uwo");
+                        jLabel1.setText("Logo of Uwo");
+
+                        javax.swing.GroupLayout LoginPageLayout = new javax.swing.GroupLayout(LoginPage);
+                        LoginPage.setLayout(LoginPageLayout);
+                        LoginPageLayout.setHorizontalGroup(
+                            LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(LoginPageLayout.createSequentialGroup()
+                                .addGap(234, 234, 234)
+                                .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Pass)
+                                    .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(UserID))
+                                .addContainerGap(243, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addGap(77, 77, 77))
+                        );
+                        LoginPageLayout.setVerticalGroup(
+                            LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                                .addComponent(Login)
+                                .addGap(76, 76, 76))
+                        );
+
+                        AppLayers.add(LoginPage, "card2");
+
+                        dropDownMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Middlesex College", "Almuni Hall", "Advanced Facility for Avian Research"}));
+                        dropDownMenu.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                dropDownMenuActionPerformed(evt);
+                            }
+                        });
 
                     }catch(IOException exception){
                         System.out.println("error.");
                     }
-                    jLabel3.setText("Alumni Hall");
+                    jLabel2.setText("Logo Of Uwo");
 
                 }catch(IOException exception){
                     System.out.println("error.");
                 }
-                jLabel4.setText("Middlesex College");
+                jLabel3.setText("Alumni Hall");
 
             }catch(IOException exception){
                 System.out.println("error.");
             }
-            jLabel5.setText("Advanced Facility for Avian Research");
+            jLabel4.setText("Middlesex College");
 
-            javax.swing.GroupLayout BuildingsLayout = new javax.swing.GroupLayout(Buildings);
-            Buildings.setLayout(BuildingsLayout);
-            BuildingsLayout.setHorizontalGroup(
-                BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addGap(34, 34, 34))
-                .addGroup(BuildingsLayout.createSequentialGroup()
-                    .addGap(183, 183, 183)
-                    .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(BuildingsLayout.createSequentialGroup()
-                    .addGap(25, 25, 25)
+        }catch(IOException exception){
+            System.out.println("error.");
+        }
+        jLabel5.setText("Advanced Facility for Avian Research");
+
+        javax.swing.GroupLayout BuildingsLayout = new javax.swing.GroupLayout(Buildings);
+        Buildings.setLayout(BuildingsLayout);
+        BuildingsLayout.setHorizontalGroup(
+            BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(34, 34, 34))
+            .addGroup(BuildingsLayout.createSequentialGroup()
+                .addGap(183, 183, 183)
+                .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(BuildingsLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(105, 105, 105)
+                .addComponent(jLabel5)
+                .addGap(64, 64, 64))
+        );
+        BuildingsLayout.setVerticalGroup(
+            BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BuildingsLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel2)
+                .addGap(68, 68, 68)
+                .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addGroup(BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
                     .addComponent(jLabel4)
-                    .addGap(105, 105, 105)
-                    .addComponent(jLabel5)
-                    .addGap(64, 64, 64))
-            );
-            BuildingsLayout.setVerticalGroup(
-                BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(BuildingsLayout.createSequentialGroup()
-                    .addGap(39, 39, 39)
-                    .addComponent(jLabel2)
-                    .addGap(68, 68, 68)
-                    .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
-                    .addGroup(BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel5))
-                    .addGap(24, 24, 24))
-            );
+                    .addComponent(jLabel5))
+                .addGap(24, 24, 24))
+        );
 
-            AppLayers.add(Buildings, "card3");
+        AppLayers.add(Buildings, "card3");
 
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-            getContentPane().setLayout(layout);
-            layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(AppLayers)
-            );
-            layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(AppLayers, javax.swing.GroupLayout.Alignment.TRAILING)
-            );
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(AppLayers)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(AppLayers, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
 
-            pack();
-        }// </editor-fold>//GEN-END:initComponents
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
     
     
     /*
