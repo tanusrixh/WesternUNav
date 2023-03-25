@@ -7,7 +7,8 @@ package com.mycompany.westernunav1;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
-import java.awt.*;  
+import java.awt.*; 
+import java.awt.image.*;
 import java.awt.event.*;  
 import java.lang.Exception;
 
@@ -15,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -85,6 +87,7 @@ public class User extends javax.swing.JFrame {
         UserID = new javax.swing.JTextField();
         Pass = new javax.swing.JTextField();
         Buildings = new javax.swing.JPanel();
+        dropDownMenu = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,15 +135,28 @@ public class User extends javax.swing.JFrame {
 
         AppLayers.add(LoginPage, "card2");
 
+        dropDownMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Middlesex College", "Almuni Hall", "Advanced Facility for Avian Research"}));
+        dropDownMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dropDownMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout BuildingsLayout = new javax.swing.GroupLayout(Buildings);
         Buildings.setLayout(BuildingsLayout);
         BuildingsLayout.setHorizontalGroup(
             BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGroup(BuildingsLayout.createSequentialGroup()
+                .addGap(183, 183, 183)
+                .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         BuildingsLayout.setVerticalGroup(
             BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(BuildingsLayout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         AppLayers.add(Buildings, "card3");
@@ -217,6 +233,10 @@ public class User extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_UserIDActionPerformed
 
+    private void dropDownMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dropDownMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -273,5 +293,6 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JPanel LoginPage;
     private javax.swing.JTextField Pass;
     private javax.swing.JTextField UserID;
+    private javax.swing.JComboBox<String> dropDownMenu;
     // End of variables declaration//GEN-END:variables
 }
