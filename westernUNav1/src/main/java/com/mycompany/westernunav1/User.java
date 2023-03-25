@@ -99,114 +99,154 @@ public class User extends javax.swing.JFrame {
 
                 BufferedImage image1 = ImageIO.read(new File("./logoImage.jpg"));
                 jLabel2 = new JLabel(new ImageIcon(image1));
+                try{
 
-                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                    BufferedImage image2 = ImageIO.read(new File("./AH_image.jpg"));
+                    jLabel3 = new JLabel(new ImageIcon(image2));
+                    try{
 
-                AppLayers.setLayout(new java.awt.CardLayout());
+                        BufferedImage image3 = ImageIO.read(new File("./MC_image.jpg"));
+                        jLabel4 = new JLabel(new ImageIcon(image3));
+                        try{
 
-                Login.setText("Login");
-                Login.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        LoginActionPerformed(evt);
+                            BufferedImage image4 = ImageIO.read(new File("./AR_image.jpg"));
+                            jLabel5 = new JLabel(new ImageIcon(image4);
+
+                                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+                                AppLayers.setLayout(new java.awt.CardLayout());
+
+                                Login.setText("Login");
+                                Login.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                        LoginActionPerformed(evt);
+                                    }
+                                });
+
+                                UserID.setText("User");
+                                UserID.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                        UserIDActionPerformed(evt);
+                                    }
+                                });
+
+                                Pass.setText("Pass");
+
+                            }catch(IOException exception){
+                                System.out.println("error.");
+                            }
+                            jLabel1.setText("Logo of Uwo");
+
+                            javax.swing.GroupLayout LoginPageLayout = new javax.swing.GroupLayout(LoginPage);
+                            LoginPage.setLayout(LoginPageLayout);
+                            LoginPageLayout.setHorizontalGroup(
+                                LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(LoginPageLayout.createSequentialGroup()
+                                    .addGap(234, 234, 234)
+                                    .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(Pass)
+                                        .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(UserID))
+                                    .addContainerGap(243, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
+                                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel1)
+                                    .addGap(85, 85, 85))
+                            );
+                            LoginPageLayout.setVerticalGroup(
+                                LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
+                                    .addGap(38, 38, 38)
+                                    .addComponent(jLabel1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                                    .addComponent(Login)
+                                    .addGap(76, 76, 76))
+                            );
+
+                            AppLayers.add(LoginPage, "card2");
+
+                            dropDownMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Middlesex College", "Almuni Hall", "Advanced Facility for Avian Research"}));
+                            dropDownMenu.addActionListener(new java.awt.event.ActionListener() {
+                                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    dropDownMenuActionPerformed(evt);
+                                }
+                            });
+
+                        }catch(IOException exception){
+                            System.out.println("error.");
+                        }
+                        jLabel2.setText("Logo Of Uwo");
+
+                    }catch(IOException exception){
+                        System.out.println("error.");
                     }
-                });
+                    jLabel3.setText("Alumni Hall");
 
-                UserID.setText("User");
-                UserID.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        UserIDActionPerformed(evt);
-                    }
-                });
-
-                Pass.setText("Pass");
+                }catch(IOException exception){
+                    System.out.println("error.");
+                }
+                jLabel4.setText("Middlesex College");
 
             }catch(IOException exception){
                 System.out.println("error.");
             }
-            jLabel1.setText("Logo of Uwo");
+            jLabel5.setText("Advanced Facility for Avian Research");
 
-            javax.swing.GroupLayout LoginPageLayout = new javax.swing.GroupLayout(LoginPage);
-            LoginPage.setLayout(LoginPageLayout);
-            LoginPageLayout.setHorizontalGroup(
-                LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(LoginPageLayout.createSequentialGroup()
-                    .addGap(234, 234, 234)
-                    .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Pass)
-                        .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(UserID))
-                    .addContainerGap(243, Short.MAX_VALUE))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
+            javax.swing.GroupLayout BuildingsLayout = new javax.swing.GroupLayout(Buildings);
+            Buildings.setLayout(BuildingsLayout);
+            BuildingsLayout.setHorizontalGroup(
+                BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addGap(85, 85, 85))
+                    .addComponent(jLabel2)
+                    .addGap(34, 34, 34))
+                .addGroup(BuildingsLayout.createSequentialGroup()
+                    .addGap(183, 183, 183)
+                    .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(BuildingsLayout.createSequentialGroup()
+                    .addGap(25, 25, 25)
+                    .addComponent(jLabel3)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addGap(105, 105, 105)
+                    .addComponent(jLabel5)
+                    .addGap(64, 64, 64))
             );
-            LoginPageLayout.setVerticalGroup(
-                LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
-                    .addGap(38, 38, 38)
-                    .addComponent(jLabel1)
-                    .addGap(18, 18, 18)
-                    .addComponent(UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                    .addComponent(Login)
-                    .addGap(76, 76, 76))
+            BuildingsLayout.setVerticalGroup(
+                BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(BuildingsLayout.createSequentialGroup()
+                    .addGap(39, 39, 39)
+                    .addComponent(jLabel2)
+                    .addGap(68, 68, 68)
+                    .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                    .addGroup(BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5))
+                    .addGap(24, 24, 24))
             );
 
-            AppLayers.add(LoginPage, "card2");
+            AppLayers.add(Buildings, "card3");
 
-            dropDownMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Middlesex College", "Almuni Hall", "Advanced Facility for Avian Research"}));
-            dropDownMenu.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    dropDownMenuActionPerformed(evt);
-                }
-            });
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(AppLayers)
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(AppLayers, javax.swing.GroupLayout.Alignment.TRAILING)
+            );
 
-        }catch(IOException exception){
-            System.out.println("error.");
-        }
-        jLabel2.setText("Logo Of Uwo");
-
-        javax.swing.GroupLayout BuildingsLayout = new javax.swing.GroupLayout(Buildings);
-        Buildings.setLayout(BuildingsLayout);
-        BuildingsLayout.setHorizontalGroup(
-            BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BuildingsLayout.createSequentialGroup()
-                .addGap(183, 183, 183)
-                .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(204, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(34, 34, 34))
-        );
-        BuildingsLayout.setVerticalGroup(
-            BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BuildingsLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel2)
-                .addGap(68, 68, 68)
-                .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(156, Short.MAX_VALUE))
-        );
-
-        AppLayers.add(Buildings, "card3");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(AppLayers)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(AppLayers, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+            pack();
+        }// </editor-fold>//GEN-END:initComponents
     
     
     /*
@@ -274,6 +314,12 @@ public class User extends javax.swing.JFrame {
         LoginPage.add(jLabel1);
         Buildings.add(jLabel2);
     }
+    
+    public void displayBuildings(){
+        Buildings.add(jLabel3);
+        Buildings.add(jLabel4);
+        Buildings.add(jLabel5);
+    }
  
     /**
      * @param args the command line arguments
@@ -337,5 +383,8 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> dropDownMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }
