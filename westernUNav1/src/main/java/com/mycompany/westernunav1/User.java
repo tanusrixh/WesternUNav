@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import java.awt.*; 
 import java.awt.image.*;
 import java.awt.event.*;  
+import java.io.File;
 import java.lang.Exception;
 
 import java.io.FileNotFoundException;
@@ -17,6 +18,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -86,28 +89,37 @@ public class User extends javax.swing.JFrame {
         Login = new javax.swing.JButton();
         UserID = new javax.swing.JTextField();
         Pass = new javax.swing.JTextField();
-        Buildings = new javax.swing.JPanel();
-        dropDownMenu = new javax.swing.JComboBox<>();
+        try{
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            BufferedImage image = ImageIO.read(new File("./logoImage.jpg"));
+            jLabel1 = new JLabel(new ImageIcon(image));
+            Buildings = new javax.swing.JPanel();
+            dropDownMenu = new javax.swing.JComboBox<>();
 
-        AppLayers.setLayout(new java.awt.CardLayout());
+            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Login.setText("Login");
-        Login.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoginActionPerformed(evt);
-            }
-        });
+            AppLayers.setLayout(new java.awt.CardLayout());
 
-        UserID.setText("User");
-        UserID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserIDActionPerformed(evt);
-            }
-        });
+            Login.setText("Login");
+            Login.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    LoginActionPerformed(evt);
+                }
+            });
 
-        Pass.setText("Pass");
+            UserID.setText("User");
+            UserID.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    UserIDActionPerformed(evt);
+                }
+            });
+
+            Pass.setText("Pass");
+
+        }catch(IOException exception){
+            System.out.println("error.");
+        }
+        jLabel1.setText("Logo of Uwo");
 
         javax.swing.GroupLayout LoginPageLayout = new javax.swing.GroupLayout(LoginPage);
         LoginPage.setLayout(LoginPageLayout);
@@ -120,15 +132,21 @@ public class User extends javax.swing.JFrame {
                     .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(UserID))
                 .addContainerGap(243, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(111, 111, 111))
         );
         LoginPageLayout.setVerticalGroup(
             LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(44, 44, 44)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(Login)
                 .addGap(76, 76, 76))
         );
@@ -236,11 +254,18 @@ public class User extends javax.swing.JFrame {
     private void dropDownMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownMenuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dropDownMenuActionPerformed
-
+    
+    public void displayLogo(){
+        LoginPage.add(jLabel1);
+    }
+ 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]){
+        
+        
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -294,5 +319,6 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JTextField Pass;
     private javax.swing.JTextField UserID;
     private javax.swing.JComboBox<String> dropDownMenu;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
