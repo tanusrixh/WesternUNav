@@ -95,70 +95,79 @@ public class User extends javax.swing.JFrame {
             jLabel1 = new JLabel(new ImageIcon(image));
             Buildings = new javax.swing.JPanel();
             dropDownMenu = new javax.swing.JComboBox<>();
+            try{
 
-            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                BufferedImage image = ImageIO.read(new File("./logoImage.jpg"));
+                jLabel2 = new JLabel(new ImageIcon(image));
 
-            AppLayers.setLayout(new java.awt.CardLayout());
+                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-            Login.setText("Login");
-            Login.addActionListener(new java.awt.event.ActionListener() {
+                AppLayers.setLayout(new java.awt.CardLayout());
+
+                Login.setText("Login");
+                Login.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        LoginActionPerformed(evt);
+                    }
+                });
+
+                UserID.setText("User");
+                UserID.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        UserIDActionPerformed(evt);
+                    }
+                });
+
+                Pass.setText("Pass");
+
+            }catch(IOException exception){
+                System.out.println("error.");
+            }
+            jLabel1.setText("Logo of Uwo");
+
+            javax.swing.GroupLayout LoginPageLayout = new javax.swing.GroupLayout(LoginPage);
+            LoginPage.setLayout(LoginPageLayout);
+            LoginPageLayout.setHorizontalGroup(
+                LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(LoginPageLayout.createSequentialGroup()
+                    .addGap(234, 234, 234)
+                    .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(Pass)
+                        .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(UserID))
+                    .addContainerGap(243, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addGap(85, 85, 85))
+            );
+            LoginPageLayout.setVerticalGroup(
+                LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
+                    .addGap(38, 38, 38)
+                    .addComponent(jLabel1)
+                    .addGap(18, 18, 18)
+                    .addComponent(UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                    .addComponent(Login)
+                    .addGap(76, 76, 76))
+            );
+
+            AppLayers.add(LoginPage, "card2");
+
+            dropDownMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Middlesex College", "Almuni Hall", "Advanced Facility for Avian Research"}));
+            dropDownMenu.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    LoginActionPerformed(evt);
+                    dropDownMenuActionPerformed(evt);
                 }
             });
-
-            UserID.setText("User");
-            UserID.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    UserIDActionPerformed(evt);
-                }
-            });
-
-            Pass.setText("Pass");
 
         }catch(IOException exception){
             System.out.println("error.");
         }
-        jLabel1.setText("Logo of Uwo");
-
-        javax.swing.GroupLayout LoginPageLayout = new javax.swing.GroupLayout(LoginPage);
-        LoginPage.setLayout(LoginPageLayout);
-        LoginPageLayout.setHorizontalGroup(
-            LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoginPageLayout.createSequentialGroup()
-                .addGap(234, 234, 234)
-                .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Pass)
-                    .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(UserID))
-                .addContainerGap(243, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(111, 111, 111))
-        );
-        LoginPageLayout.setVerticalGroup(
-            LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addComponent(Login)
-                .addGap(76, 76, 76))
-        );
-
-        AppLayers.add(LoginPage, "card2");
-
-        dropDownMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Middlesex College", "Almuni Hall", "Advanced Facility for Avian Research"}));
-        dropDownMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dropDownMenuActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("Logo Of Uwo");
 
         javax.swing.GroupLayout BuildingsLayout = new javax.swing.GroupLayout(Buildings);
         Buildings.setLayout(BuildingsLayout);
@@ -168,13 +177,19 @@ public class User extends javax.swing.JFrame {
                 .addGap(183, 183, 183)
                 .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(204, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
         BuildingsLayout.setVerticalGroup(
             BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BuildingsLayout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(39, 39, 39)
+                .addComponent(jLabel2)
+                .addGap(68, 68, 68)
                 .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         AppLayers.add(Buildings, "card3");
@@ -257,6 +272,7 @@ public class User extends javax.swing.JFrame {
     
     public void displayLogo(){
         LoginPage.add(jLabel1);
+        Buildings.add(jLabel2);
     }
  
     /**
@@ -320,5 +336,6 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JTextField UserID;
     private javax.swing.JComboBox<String> dropDownMenu;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
