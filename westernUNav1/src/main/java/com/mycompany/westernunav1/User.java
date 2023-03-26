@@ -14,6 +14,7 @@ import java.io.File;
 import java.lang.Exception;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JOptionPane;
@@ -139,6 +140,7 @@ public class User extends javax.swing.JFrame{
         jLabel5 = new javax.swing.JLabel();
         currFirstName = new javax.swing.JTextField();
         newPass = new javax.swing.JTextField();
+        changePassButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -318,11 +320,19 @@ public class User extends javax.swing.JFrame{
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
         jLabel5.setText("New Password:");
 
+        changePassButton.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        changePassButton.setText("Enter");
+        changePassButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changePassButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout forgotPassPageLayout = new javax.swing.GroupLayout(forgotPassPage);
         forgotPassPage.setLayout(forgotPassPageLayout);
         forgotPassPageLayout.setHorizontalGroup(
             forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(forgotPassPageLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, forgotPassPageLayout.createSequentialGroup()
                 .addContainerGap(497, Short.MAX_VALUE)
                 .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -330,6 +340,7 @@ public class User extends javax.swing.JFrame{
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(changePassButton)
                     .addComponent(jLabel2)
                     .addComponent(currUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(currFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,7 +364,9 @@ public class User extends javax.swing.JFrame{
                 .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(newPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(642, Short.MAX_VALUE))
+                .addGap(64, 64, 64)
+                .addComponent(changePassButton)
+                .addContainerGap(543, Short.MAX_VALUE))
         );
 
         AppLayers.add(forgotPassPage, "card5");
@@ -390,8 +403,8 @@ public class User extends javax.swing.JFrame{
             openLogin = new FileReader("loginInfo.json");
             System.out.println("success\n"); // to test that the JSON file opened successfully
             Object obj = userInfo.parse(openLogin);
-            JSONArray arr = (JSONArray) obj;
-            JSONObject jsonobj = (JSONObject) arr.get(0); // get the username and password stored at index 0 in the login JSON file
+            //JSONArray arr = (JSONArray) obj;
+            JSONObject jsonobj = (JSONObject) obj; // get the username and password stored at index 0 in the login JSON file
 
             String userID = UserID.getText();
             String pass = Pass.getText();
@@ -441,6 +454,51 @@ public class User extends javax.swing.JFrame{
         // TODO add your handling code here:
         switchPanels(forgotPassPage);
     }//GEN-LAST:event_forgotPassActionPerformed
+
+    private void changePassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePassButtonActionPerformed
+        // TODO add your handling code here:
+        JSONParser changeUserInfo = new JSONParser();
+
+        try {
+
+            FileReader openLogin;
+            openLogin = new FileReader("loginInfo.json");
+            System.out.println("success\n"); // to test that the JSON file opened successfully
+            JSONObject currJsonObj = (JSONObject) changeUserInfo.parse(openLogin); // get the username and password stored at index 0 in the login JSON file
+
+            String userID = currUserID.getText();
+            String firstName = currFirstName.getText();
+            String changePass = newPass.getText();
+
+            if (userID.equals(currJsonObj.get("name")) == true && firstName.equals(currJsonObj.get("firstName")) == true) {
+                switchPanels(LoginPage);
+                currJsonObj.put("loginCredentials", changePass);
+                JOptionPane.showMessageDialog(null, "Password Successfully Changed.\nPlease log in again. ");
+                FileOutputStream outputStream = new FileOutputStream("loginInfo.json"); 
+                byte[] strToBytes = currJsonObj.toString().getBytes(); 
+                outputStream.write(strToBytes); 
+                outputStream.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "Incorrect Username or Password!\n Please try again.");
+
+            }
+
+            openLogin.close();
+
+        } catch (FileNotFoundException ae) {
+
+            System.out.println("FileNotFound\n");
+
+        } catch (IOException se) {
+
+            System.out.println("ErrorClosingFile\n");
+
+        } catch (ParseException de) {
+
+            System.out.println("ErrorParsing\n");
+
+        }
+    }//GEN-LAST:event_changePassButtonActionPerformed
 
     public void displayLogo() {
         LoginPage.add(logo);
@@ -511,6 +569,7 @@ public class User extends javax.swing.JFrame{
     private javax.swing.JLabel MCImage;
     private javax.swing.JTextField Pass;
     private javax.swing.JTextField UserID;
+    private javax.swing.JButton changePassButton;
     private javax.swing.JTextField currFirstName;
     private javax.swing.JTextField currUserID;
     private javax.swing.JComboBox<String> dropDownMenu;

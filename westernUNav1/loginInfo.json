@@ -1,14 +1,1 @@
-[
-	{
-	"name":"test1", 
-	"firstName":"Tester", 
-	"loginCredentials":"willencryptlater"
-	},
-
-	{
-	"name":"test2", 
-	"firstName":"Tester2", 
-	"loginCredentials":"willencryptlater2"
-	}
-
-]
+{"firstName":"Tester","name":"test1","loginCredentials":"newpass"}
