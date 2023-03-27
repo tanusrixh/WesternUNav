@@ -131,7 +131,6 @@ public class User extends javax.swing.JFrame{
         }catch(IOException except5){
             System.out.println("error.5");
         }
-        jSplitPane1 = new javax.swing.JSplitPane();
         forgotPassPage = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -254,7 +253,7 @@ public class User extends javax.swing.JFrame{
         Buildings.setMaximumSize(new java.awt.Dimension(1920, 1080));
         Buildings.setPreferredSize(new java.awt.Dimension(1920, 1080));
 
-        dropDownMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Middlesex College", "Almuni Hall", "Advanced Facility for Avian Research"}));
+        dropDownMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Select a building---","Middlesex College", "Almuni Hall", "Advanced Facility for Avian Research"}));
         dropDownMenu.setLocation(new java.awt.Point(screenSize.width/3, screenSize.height/2));
         dropDownMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,9 +284,9 @@ public class User extends javax.swing.JFrame{
                 .addComponent(logo2, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
-                .addGap(0, 221, Short.MAX_VALUE)
+                .addGap(0, 227, Short.MAX_VALUE)
                 .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(662, 662, 662))
+                .addGap(656, 656, 656))
         );
         BuildingsLayout.setVerticalGroup(
             BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,7 +303,6 @@ public class User extends javax.swing.JFrame{
         );
 
         AppLayers.add(Buildings, "card3");
-        AppLayers.add(jSplitPane1, "card4");
 
         forgotPassPage.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -353,8 +351,8 @@ public class User extends javax.swing.JFrame{
                 .addGap(14, 14, 14)
                 .addComponent(jLabel2)
                 .addGap(72, 72, 72)
-                .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(currUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,6 +442,21 @@ public class User extends javax.swing.JFrame{
 
     private void dropDownMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownMenuActionPerformed
         // TODO add your handling code here:
+        if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Middlesex College")){
+            Map middlesex = new Map();
+            middlesex.show();
+            dispose();
+        }
+        if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Alumni Hall")){
+            Map alumni = new Map();
+            alumni.show();
+            dispose();
+        }
+        if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Advanced Facility for Avian Research")){
+            Map avian = new Map();
+            avian.show();
+            dispose();
+        }
     }//GEN-LAST:event_dropDownMenuActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
@@ -580,7 +593,6 @@ public class User extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel logo;
     private javax.swing.JLabel logo2;
     private javax.swing.JTextField newPass;

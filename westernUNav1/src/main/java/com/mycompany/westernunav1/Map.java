@@ -30,7 +30,18 @@ public class Map extends javax.swing.JFrame {
     }
 
     public Map(ArrayList<Building> buildings) {
+        
         this.buildings = buildings;
+        for(int i = 0; i < this.buildings.size(); i++){
+            if(this.buildings.get(i).getName().equals("Alumni Hall")){
+            }
+            if(this.buildings.get(i).getName().equals("Advanced Facility for Avian Research")){
+            }
+            if(this.buildings.get(i).getName().equals("Middlesex College")){
+            }
+        }       
+
+        
     }
     /**
      * Creates new form NewJFrame
@@ -48,18 +59,25 @@ public class Map extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLayeredPane1 = new javax.swing.JLayeredPane();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
+        setPreferredSize(new java.awt.Dimension(1920, 1080));
+        getContentPane().setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jLayeredPane1, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -101,5 +119,6 @@ public class Map extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLayeredPane jLayeredPane1;
     // End of variables declaration//GEN-END:variables
 }
