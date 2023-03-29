@@ -101,36 +101,6 @@ public class User extends javax.swing.JFrame{
         passwordLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         forgotPass = new javax.swing.JButton();
-        Buildings = new javax.swing.JPanel();
-        dropDownMenu = new javax.swing.JComboBox<>();
-        try{
-            BufferedImage image2 = ImageIO.read(new File("./logoImage.jpg"));
-            Image logoimage2 = image2.getScaledInstance(screenSize.width/2, screenSize.height/6, Image.SCALE_DEFAULT);
-            logo2 = new JLabel(new ImageIcon(logoimage2));
-        }catch(IOException excep_two){
-            System.out.println("error.2");
-        }
-        try{
-            BufferedImage image3 = ImageIO.read(new File("./AR_image.jpg"));
-            Image arimage = image3.getScaledInstance(screenSize.width/3, screenSize.height/3, Image.SCALE_DEFAULT);
-            ARImage = new JLabel(new ImageIcon(arimage));
-        }catch(IOException except3){
-            System.out.println("error.3");
-        }
-        try{
-            BufferedImage image4 = ImageIO.read(new File("./AH_image.jpg"));
-            Image ahimage = image4.getScaledInstance(screenSize.width/3, screenSize.height/3, Image.SCALE_DEFAULT);
-            AHImage = new JLabel(new ImageIcon(ahimage));
-        }catch(IOException except4){
-            System.out.println("error.4");
-        }
-        try{
-            BufferedImage image5 = ImageIO.read(new File("./MC_image.jpg"));
-            Image mcimage = image5.getScaledInstance(screenSize.width/3, screenSize.height/3, Image.SCALE_DEFAULT);
-            MCImage = new JLabel(new ImageIcon(mcimage));
-        }catch(IOException except5){
-            System.out.println("error.5");
-        }
         forgotPassPage = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -166,7 +136,6 @@ public class User extends javax.swing.JFrame{
 
         this.setSize(screenSize.width, screenSize.height);
         LoginPage.setSize(screenSize.width, screenSize.height);
-        Buildings.setSize(screenSize.width, screenSize.height);
 
         Login.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
         Login.setText("Login");
@@ -247,62 +216,6 @@ public class User extends javax.swing.JFrame{
         );
 
         AppLayers.add(LoginPage, "card2");
-
-        Buildings.setBackground(new java.awt.Color(255, 255, 255));
-        Buildings.setFocusTraversalPolicyProvider(true);
-        Buildings.setMaximumSize(new java.awt.Dimension(1920, 1080));
-        Buildings.setPreferredSize(new java.awt.Dimension(1920, 1080));
-
-        dropDownMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Select a building---","Middlesex College", "Almuni Hall", "Advanced Facility for Avian Research"}));
-        dropDownMenu.setLocation(new java.awt.Point(screenSize.width/3, screenSize.height/2));
-        dropDownMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dropDownMenuActionPerformed(evt);
-            }
-        });
-
-        logo2.setText(null);
-
-        ARImage.setText(null);
-
-        AHImage.setText(null);
-
-        MCImage.setText(null);
-
-        javax.swing.GroupLayout BuildingsLayout = new javax.swing.GroupLayout(Buildings);
-        Buildings.setLayout(BuildingsLayout);
-        BuildingsLayout.setHorizontalGroup(
-            BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BuildingsLayout.createSequentialGroup()
-                .addComponent(AHImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MCImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ARImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(235, 235, 235))
-            .addGroup(BuildingsLayout.createSequentialGroup()
-                .addComponent(logo2, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
-                .addGap(0, 227, Short.MAX_VALUE)
-                .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(656, 656, 656))
-        );
-        BuildingsLayout.setVerticalGroup(
-            BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BuildingsLayout.createSequentialGroup()
-                .addComponent(logo2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(191, 191, 191)
-                .addComponent(dropDownMenu)
-                .addGap(27, 27, 27)
-                .addGroup(BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AHImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MCImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ARImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(431, 431, 431))
-        );
-
-        AppLayers.add(Buildings, "card3");
 
         forgotPassPage.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -394,6 +307,8 @@ public class User extends javax.swing.JFrame{
         // TODO add your handling code here:
         User newUser = new User();
         JSONParser userInfo = new JSONParser();
+        JSONParser buildingsParser = new JSONParser();
+        buildingList = new ArrayList<Building>();
 
         try {
 
@@ -401,14 +316,17 @@ public class User extends javax.swing.JFrame{
             openLogin = new FileReader("loginInfo.json");
             System.out.println("success\n"); // to test that the JSON file opened successfully
             Object obj = userInfo.parse(openLogin);
-            //JSONArray arr = (JSONArray) obj;
             JSONObject jsonobj = (JSONObject) obj; // get the username and password stored at index 0 in the login JSON file
 
             String userID = UserID.getText();
             String pass = Pass.getText();
 
             if (userID.equals(jsonobj.get("name")) == true && pass.equals(jsonobj.get("loginCredentials")) == true) {
-                switchPanels(Buildings);
+
+              
+                Map displayMaps = new Map();
+                displayMaps.show();
+                dispose();
                
                 JOptionPane.showMessageDialog(null, "Access Granted. Welcome " + userID);
                 newUser.setName(userID);
@@ -439,25 +357,6 @@ public class User extends javax.swing.JFrame{
     private void UserIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UserIDActionPerformed
-
-    private void dropDownMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownMenuActionPerformed
-        // TODO add your handling code here:
-        if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Middlesex College")){
-            Map middlesex = new Map();
-            middlesex.show();
-            dispose();
-        }
-        if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Alumni Hall")){
-            Map alumni = new Map();
-            alumni.show();
-            dispose();
-        }
-        if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Advanced Facility for Avian Research")){
-            Map avian = new Map();
-            avian.show();
-            dispose();
-        }
-    }//GEN-LAST:event_dropDownMenuActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         // TODO add your handling code here:
@@ -515,10 +414,7 @@ public class User extends javax.swing.JFrame{
 
     public void displayLogo() {
         LoginPage.add(logo);
-        Buildings.add(logo2);
-        Buildings.add(ARImage);
-        Buildings.add(AHImage);
-        Buildings.add(MCImage);
+
     }
 
 
@@ -573,19 +469,14 @@ public class User extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel AHImage;
-    private javax.swing.JLabel ARImage;
     private javax.swing.JLayeredPane AppLayers;
-    private javax.swing.JPanel Buildings;
     private javax.swing.JButton Login;
     private javax.swing.JPanel LoginPage;
-    private javax.swing.JLabel MCImage;
     private javax.swing.JTextField Pass;
     private javax.swing.JTextField UserID;
     private javax.swing.JButton changePassButton;
     private javax.swing.JTextField currFirstName;
     private javax.swing.JTextField currUserID;
-    private javax.swing.JComboBox<String> dropDownMenu;
     private javax.swing.JButton forgotPass;
     private javax.swing.JPanel forgotPassPage;
     private javax.swing.JLabel jLabel1;
@@ -594,10 +485,9 @@ public class User extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel logo;
-    private javax.swing.JLabel logo2;
     private javax.swing.JTextField newPass;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel useridLabel;
     // End of variables declaration//GEN-END:variables
-
+    private ArrayList<Building> buildingList;
 }
