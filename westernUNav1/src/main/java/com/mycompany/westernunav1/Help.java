@@ -15,7 +15,7 @@ public class Help extends javax.swing.JFrame{
     }
     
     private void initComponents() {
-
+        
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane13 = new javax.swing.JScrollPane();
         jTextArea13 = new javax.swing.JTextArea();
@@ -62,7 +62,9 @@ public class Help extends javax.swing.JFrame{
         jTextArea21 = new javax.swing.JTextArea();
         jScrollPane22 = new javax.swing.JScrollPane();
         jTextArea22 = new javax.swing.JTextArea();
-
+        
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
+        setPreferredSize(new java.awt.Dimension(1920, 1080));
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTextArea13.setEditable(false);
