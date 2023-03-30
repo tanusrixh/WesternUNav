@@ -1,6 +1,10 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileS    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+ystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.westernunav1;
 
@@ -101,6 +105,7 @@ public class User extends javax.swing.JFrame{
         passwordLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         forgotPass = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         forgotPassPage = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -113,8 +118,6 @@ public class User extends javax.swing.JFrame{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(1920, 1080));
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -164,6 +167,13 @@ public class User extends javax.swing.JFrame{
             }
         });
 
+        jButton1.setText("Help_Button");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout LoginPageLayout = new javax.swing.GroupLayout(LoginPage);
         LoginPage.setLayout(LoginPageLayout);
         LoginPageLayout.setHorizontalGroup(
@@ -190,7 +200,11 @@ public class User extends javax.swing.JFrame{
                                         .addComponent(Login, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addGap(282, 282, 282)
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(58, 58, 58))
         );
         LoginPageLayout.setVerticalGroup(
             LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +226,9 @@ public class User extends javax.swing.JFrame{
                 .addComponent(forgotPass)
                 .addGap(44, 44, 44)
                 .addComponent(Login)
-                .addContainerGap(429, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(59, 59, 59))
         );
 
         AppLayers.add(LoginPage, "card2");
@@ -467,6 +483,10 @@ public class User extends javax.swing.JFrame{
         AppLayers.repaint();
         AppLayers.revalidate();
     }
+    
+     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new Help().setVisible(true);        // TODO add your handling code here:
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane AppLayers;
@@ -479,6 +499,7 @@ public class User extends javax.swing.JFrame{
     private javax.swing.JTextField currUserID;
     private javax.swing.JButton forgotPass;
     private javax.swing.JPanel forgotPassPage;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
