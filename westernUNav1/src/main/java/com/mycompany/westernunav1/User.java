@@ -36,6 +36,24 @@ public class User extends javax.swing.JFrame{
     private String name; //UserName of the person
     private String loginCredentials; //Password of the person
     private ArrayList<PointofInterest> savedPOI; //Saved POI's associated with the user info
+    private ArrayList<PointofInterest> favePOI; //Saved favourite POI's associated with the user info
+    private boolean isDeveloper; //True if user is developer and false otherwise
+
+    public void setFavePOI(ArrayList<PointofInterest> favePOI) {
+        this.favePOI = favePOI;
+    }
+
+    public void setIsDeveloper(boolean isDeveloper) {
+        this.isDeveloper = isDeveloper;
+    }
+
+    public ArrayList<PointofInterest> getFavePOI() {
+        return favePOI;
+    }
+
+    public boolean isIsDeveloper() {
+        return isDeveloper;
+    }
 
     /**
      * Creates new form User
@@ -311,22 +329,24 @@ public class User extends javax.swing.JFrame{
         buildingList = new ArrayList<Building>();
 
         try {
-
+            String userID = UserID.getText();
+            String pass = Pass.getText();
+            
             FileReader openLogin;
-            openLogin = new FileReader("loginInfo.json");
+            openLogin = new FileReader(userID + ".json");
             System.out.println("success\n"); // to test that the JSON file opened successfully
             Object obj = userInfo.parse(openLogin);
             JSONObject jsonobj = (JSONObject) obj; // get the username and password stored at index 0 in the login JSON file
 
-            String userID = UserID.getText();
-            String pass = Pass.getText();
+            
 
             if (userID.equals(jsonobj.get("name")) == true && pass.equals(jsonobj.get("loginCredentials")) == true) {
-
+                newUser.setName(userID);
+                
               
-                Map displayMaps = new Map();
+                Map displayMaps = new Map(newUser);
                 displayMaps.show();
-                dispose();
+                this.dispose();
                
                 JOptionPane.showMessageDialog(null, "Access Granted. Welcome " + userID);
                 newUser.setName(userID);
@@ -340,6 +360,7 @@ public class User extends javax.swing.JFrame{
             openLogin.close();
 
         } catch (FileNotFoundException ae) {
+            JOptionPane.showMessageDialog(null, "Incorrect Username!\n Please try again.");
 
             System.out.println("FileNotFound\n");
 
@@ -372,13 +393,13 @@ public class User extends javax.swing.JFrame{
         JSONParser changeUserInfo = new JSONParser();
 
         try {
-
+            String userID = currUserID.getText();
             FileReader openLogin;
-            openLogin = new FileReader("loginInfo.json");
+            openLogin = new FileReader(userID + ".json");
             System.out.println("success\n"); // to test that the JSON file opened successfully
             JSONObject currJsonObj = (JSONObject) changeUserInfo.parse(openLogin); // get the username and password stored at index 0 in the login JSON file
 
-            String userID = currUserID.getText();
+            
             String firstName = currFirstName.getText();
             String changePass = newPass.getText();
 
@@ -386,19 +407,21 @@ public class User extends javax.swing.JFrame{
                 switchPanels(LoginPage);
                 currJsonObj.put("loginCredentials", changePass);
                 JOptionPane.showMessageDialog(null, "Password Successfully Changed.\nPlease log in again. ");
-                FileOutputStream outputStream = new FileOutputStream("loginInfo.json"); 
+                
+                FileOutputStream outputStream = new FileOutputStream(userID + ".json"); 
                 byte[] strToBytes = currJsonObj.toString().getBytes(); 
                 outputStream.write(strToBytes); 
                 outputStream.close();
+                
             } else {
-                JOptionPane.showMessageDialog(null, "Incorrect Username or Password!\n Please try again.");
+                JOptionPane.showMessageDialog(null, "Incorrect Username or Password!\nPlease try again.");
 
             }
 
             openLogin.close();
 
         } catch (FileNotFoundException ae) {
-
+            JOptionPane.showMessageDialog(null, "Incorrect Username or First Name!\nPlease try again.");
             System.out.println("FileNotFound\n");
 
         } catch (IOException se) {
@@ -412,6 +435,9 @@ public class User extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_changePassButtonActionPerformed
 
+    /*
+    Method to display the UWO Logo on login page
+    */
     public void displayLogo() {
         LoginPage.add(logo);
 
