@@ -26,10 +26,10 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 /**
  *
@@ -43,6 +43,14 @@ public class User extends javax.swing.JFrame{
     private ArrayList<PointofInterest> favePOI; //Saved favourite POI's associated with the user info
     private boolean isDeveloper; //True if user is developer and false otherwise
 
+    public User(String name, String loginCredentials, ArrayList<PointofInterest> savedPOI, ArrayList<PointofInterest> favePOI, boolean isDeveloper) {
+        this.name = name;
+        this.loginCredentials = loginCredentials;
+        this.savedPOI = savedPOI;
+        this.favePOI = favePOI;
+        this.isDeveloper = isDeveloper;
+    }
+
     public void setFavePOI(ArrayList<PointofInterest> favePOI) {
         this.favePOI = favePOI;
     }
@@ -55,7 +63,7 @@ public class User extends javax.swing.JFrame{
         return favePOI;
     }
 
-    public boolean isIsDeveloper() {
+    public boolean getIsDeveloper() {
         return isDeveloper;
     }
 
@@ -108,10 +116,10 @@ public class User extends javax.swing.JFrame{
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         AppLayers = new javax.swing.JLayeredPane();
-        LoginPage = new javax.swing.JPanel();
-        UserID = new javax.swing.JTextField();
-        Pass = new javax.swing.JTextField();
-        Login = new javax.swing.JButton();
+        loginPage = new javax.swing.JPanel();
+        loginUserID = new javax.swing.JTextField();
+        loginPass = new javax.swing.JTextField();
+        buttonLogin = new javax.swing.JButton();
         try{
             BufferedImage image = ImageIO.read(new File("./logoImage.jpg"));
             Image logoimage = image.getScaledInstance(screenSize.width/3, screenSize.height/7, Image.SCALE_DEFAULT);
@@ -123,16 +131,17 @@ public class User extends javax.swing.JFrame{
         passwordLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         forgotPass = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        helpButton = new javax.swing.JButton();
         forgotPassPage = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        forgotPassLabel = new javax.swing.JLabel();
+        userNameLabel = new javax.swing.JLabel();
+        fNameLabel = new javax.swing.JLabel();
         currUserID = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        newPassLabel = new javax.swing.JLabel();
         currFirstName = new javax.swing.JTextField();
         newPass = new javax.swing.JTextField();
         changePassButton = new javax.swing.JButton();
+        noChangeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -145,24 +154,24 @@ public class User extends javax.swing.JFrame{
         AppLayers.setBackground(new java.awt.Color(255, 255, 255));
         AppLayers.setLayout(new java.awt.CardLayout());
 
-        LoginPage.setBackground(new java.awt.Color(255, 255, 255));
-        LoginPage.setMaximumSize(new java.awt.Dimension(1920, 1080));
-        LoginPage.setPreferredSize(new java.awt.Dimension(1920, 1080));
+        loginPage.setBackground(new java.awt.Color(255, 255, 255));
+        loginPage.setMaximumSize(new java.awt.Dimension(1920, 1080));
+        loginPage.setPreferredSize(new java.awt.Dimension(1920, 1080));
 
-        UserID.addActionListener(new java.awt.event.ActionListener() {
+        loginUserID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserIDActionPerformed(evt);
+                loginUserIDActionPerformed(evt);
             }
         });
 
         this.setSize(screenSize.width, screenSize.height);
-        LoginPage.setSize(screenSize.width, screenSize.height);
+        loginPage.setSize(screenSize.width, screenSize.height);
 
-        Login.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        Login.setText("Login");
-        Login.addActionListener(new java.awt.event.ActionListener() {
+        buttonLogin.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        buttonLogin.setText("Login");
+        buttonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoginActionPerformed(evt);
+                buttonLoginActionPerformed(evt);
             }
         });
 
@@ -185,91 +194,99 @@ public class User extends javax.swing.JFrame{
             }
         });
 
-        jButton1.setText("Help_Button");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        helpButton.setText("Help");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout LoginPageLayout = new javax.swing.GroupLayout(LoginPage);
-        LoginPage.setLayout(LoginPageLayout);
-        LoginPageLayout.setHorizontalGroup(
-            LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoginPageLayout.createSequentialGroup()
-                .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LoginPageLayout.createSequentialGroup()
+        javax.swing.GroupLayout loginPageLayout = new javax.swing.GroupLayout(loginPage);
+        loginPage.setLayout(loginPageLayout);
+        loginPageLayout.setHorizontalGroup(
+            loginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(loginPageLayout.createSequentialGroup()
+                .addGroup(loginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(loginPageLayout.createSequentialGroup()
                         .addGap(188, 188, 188)
                         .addComponent(jLabel1))
-                    .addGroup(LoginPageLayout.createSequentialGroup()
+                    .addGroup(loginPageLayout.createSequentialGroup()
                         .addGap(69, 69, 69)
-                        .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(LoginPageLayout.createSequentialGroup()
+                        .addGroup(loginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(loginPageLayout.createSequentialGroup()
                                 .addComponent(useridLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(UserID, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(LoginPageLayout.createSequentialGroup()
+                                .addComponent(loginUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(loginPageLayout.createSequentialGroup()
                                 .addComponent(passwordLabel)
                                 .addGap(20, 20, 20)
-                                .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(loginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(loginPass, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(loginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(forgotPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(Login, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                        .addComponent(buttonLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addGap(282, 282, 282)
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(108, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPageLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(helpButton)
                 .addGap(58, 58, 58))
         );
-        LoginPageLayout.setVerticalGroup(
-            LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPageLayout.createSequentialGroup()
-                .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(LoginPageLayout.createSequentialGroup()
+        loginPageLayout.setVerticalGroup(
+            loginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPageLayout.createSequentialGroup()
+                .addGroup(loginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(loginPageLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jLabel1)
                         .addGap(44, 44, 44)
-                        .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(loginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(loginUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(useridLabel)))
                     .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(80, 80, 80)
-                .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(loginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordLabel))
                 .addGap(70, 70, 70)
                 .addComponent(forgotPass)
                 .addGap(44, 44, 44)
-                .addComponent(Login)
+                .addComponent(buttonLogin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(helpButton)
                 .addGap(59, 59, 59))
         );
 
-        AppLayers.add(LoginPage, "card2");
+        AppLayers.add(loginPage, "card2");
 
         forgotPassPage.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        jLabel2.setText("Forgot Password?");
+        forgotPassLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        forgotPassLabel.setText("Forgot Password?");
 
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        jLabel3.setText("Username:");
+        userNameLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        userNameLabel.setText("Username:");
 
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        jLabel4.setText("First Name:");
+        fNameLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        fNameLabel.setText("First Name:");
 
-        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        jLabel5.setText("New Password:");
+        newPassLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        newPassLabel.setText("New Password:");
 
         changePassButton.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        changePassButton.setText("Enter");
+        changePassButton.setText("Change Password");
         changePassButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 changePassButtonActionPerformed(evt);
+            }
+        });
+
+        noChangeButton.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        noChangeButton.setText("Back Home");
+        noChangeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noChangeButtonActionPerformed(evt);
             }
         });
 
@@ -277,41 +294,52 @@ public class User extends javax.swing.JFrame{
         forgotPassPage.setLayout(forgotPassPageLayout);
         forgotPassPageLayout.setHorizontalGroup(
             forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, forgotPassPageLayout.createSequentialGroup()
-                .addContainerGap(497, Short.MAX_VALUE)
+            .addGroup(forgotPassPageLayout.createSequentialGroup()
+                .addContainerGap(469, Short.MAX_VALUE)
                 .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(changePassButton)
-                    .addComponent(jLabel2)
-                    .addComponent(currUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(currFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(537, 537, 537))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, forgotPassPageLayout.createSequentialGroup()
+                        .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(forgotPassPageLayout.createSequentialGroup()
+                                .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(newPassLabel)
+                                    .addComponent(fNameLabel)
+                                    .addComponent(userNameLabel))
+                                .addGap(18, 18, 18)
+                                .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(forgotPassLabel)
+                                    .addComponent(currUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(currFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(forgotPassPageLayout.createSequentialGroup()
+                                .addComponent(changePassButton)
+                                .addGap(12, 12, 12)))
+                        .addGap(565, 565, 565))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, forgotPassPageLayout.createSequentialGroup()
+                        .addComponent(noChangeButton)
+                        .addGap(613, 613, 613))))
         );
         forgotPassPageLayout.setVerticalGroup(
             forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(forgotPassPageLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel2)
+                .addComponent(forgotPassLabel)
                 .addGap(72, 72, 72)
                 .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userNameLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(currUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
+                    .addComponent(fNameLabel)
                     .addComponent(currFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(newPassLabel)
                     .addComponent(newPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
+                .addGap(61, 61, 61)
                 .addComponent(changePassButton)
-                .addContainerGap(543, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(noChangeButton)
+                .addContainerGap(480, Short.MAX_VALUE))
         );
 
         AppLayers.add(forgotPassPage, "card5");
@@ -337,30 +365,45 @@ public class User extends javax.swing.JFrame{
     for.
      */
     
-    private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
+    private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
         // TODO add your handling code here:
         User newUser = new User();
-        JSONParser userInfo = new JSONParser();
-        JSONParser buildingsParser = new JSONParser();
         buildingList = new ArrayList<Building>();
+        ArrayList<PointofInterest> userPOI = new ArrayList<PointofInterest>();
+        ArrayList<PointofInterest> favUserPOI = new ArrayList<PointofInterest>();
 
         try {
-            String userID = UserID.getText();
-            String pass = Pass.getText();
-            
+            String userID = loginUserID.getText();
+            String pass = loginPass.getText();
+
             FileReader openLogin;
             openLogin = new FileReader(userID + ".json");
             System.out.println("success\n"); // to test that the JSON file opened successfully
-            Object obj = userInfo.parse(openLogin);
-            JSONObject jsonobj = (JSONObject) obj; // get the username and password stored at index 0 in the login JSON file
-
+            JSONTokener tok = new JSONTokener(openLogin);
+            JSONObject jsonobj = new JSONObject(tok); // get the username and password stored at index 0 in the login JSON file
+            JSONArray poiArr = jsonobj.getJSONArray("poi");
+            JSONArray favPoiArr = jsonobj.getJSONArray("favourites");
             
 
             if (userID.equals(jsonobj.get("name")) == true && pass.equals(jsonobj.get("loginCredentials")) == true) {
                 newUser.setName(userID);
+                newUser.setIsDeveloper((boolean)jsonobj.get("isDeveloper"));
                 
-              
-                Map displayMaps = new Map(newUser);
+                for(int i = 0; i < poiArr.length(); i++){
+                    PointofInterest poi = (PointofInterest)poiArr.get(i);
+                    userPOI.add(i, poi);
+                }
+                
+                for(int i = 0; i < favPoiArr.length(); i++){
+                    PointofInterest favpoi = (PointofInterest)favPoiArr.get(i);
+                    favUserPOI.add(i, favpoi);
+                }
+                
+                
+                newUser.setSavedPOI(userPOI);
+                newUser.setFavePOI(favUserPOI);
+               
+                MapSelector displayMaps = new MapSelector(newUser);
                 displayMaps.show();
                 this.dispose();
                
@@ -369,14 +412,14 @@ public class User extends javax.swing.JFrame{
                 newUser.setLoginCredentials(pass);
 
             } else {
-                JOptionPane.showMessageDialog(null, "Incorrect Username or Password!\n Please try again.");
+                JOptionPane.showMessageDialog(null, "Incorrect Password!\nPlease try again.");
 
             }
 
             openLogin.close();
 
         } catch (FileNotFoundException ae) {
-            JOptionPane.showMessageDialog(null, "Incorrect Username!\n Please try again.");
+            JOptionPane.showMessageDialog(null, "Incorrect Username!\nPlease try again.");
 
             System.out.println("FileNotFound\n");
 
@@ -384,16 +427,12 @@ public class User extends javax.swing.JFrame{
 
             System.out.println("ErrorClosingFile\n");
 
-        } catch (ParseException de) {
+        } 
+    }//GEN-LAST:event_buttonLoginActionPerformed
 
-            System.out.println("ErrorParsing\n");
-
-        }
-    }//GEN-LAST:event_LoginActionPerformed
-
-    private void UserIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserIDActionPerformed
+    private void loginUserIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginUserIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_UserIDActionPerformed
+    }//GEN-LAST:event_loginUserIDActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         // TODO add your handling code here:
@@ -401,26 +440,29 @@ public class User extends javax.swing.JFrame{
 
     private void forgotPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotPassActionPerformed
         // TODO add your handling code here:
+        loginUserID.setText("");
+        loginPass.setText("");
         switchPanels(forgotPassPage);
     }//GEN-LAST:event_forgotPassActionPerformed
 
     private void changePassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePassButtonActionPerformed
         // TODO add your handling code here:
-        JSONParser changeUserInfo = new JSONParser();
+        
 
         try {
             String userID = currUserID.getText();
             FileReader openLogin;
             openLogin = new FileReader(userID + ".json");
             System.out.println("success\n"); // to test that the JSON file opened successfully
-            JSONObject currJsonObj = (JSONObject) changeUserInfo.parse(openLogin); // get the username and password stored at index 0 in the login JSON file
+            JSONTokener tok = new JSONTokener(openLogin);
+            JSONObject currJsonObj = new JSONObject(tok); // get the username and password stored at index 0 in the login JSON file
 
             
             String firstName = currFirstName.getText();
             String changePass = newPass.getText();
 
             if (userID.equals(currJsonObj.get("name")) == true && firstName.equals(currJsonObj.get("firstName")) == true) {
-                switchPanels(LoginPage);
+                switchPanels(loginPage);
                 currJsonObj.put("loginCredentials", changePass);
                 JOptionPane.showMessageDialog(null, "Password Successfully Changed.\nPlease log in again. ");
                 
@@ -430,32 +472,40 @@ public class User extends javax.swing.JFrame{
                 outputStream.close();
                 
             } else {
-                JOptionPane.showMessageDialog(null, "Incorrect Username or Password!\nPlease try again.");
+                JOptionPane.showMessageDialog(null, "Incorrect First Name!\nPlease try again.");
 
             }
-
+            currUserID.setText("");
+            currFirstName.setText("");
+            newPass.setText("");
             openLogin.close();
 
         } catch (FileNotFoundException ae) {
-            JOptionPane.showMessageDialog(null, "Incorrect Username or First Name!\nPlease try again.");
+            JOptionPane.showMessageDialog(null, "Incorrect Username!\nPlease try again.");
             System.out.println("FileNotFound\n");
 
         } catch (IOException se) {
 
             System.out.println("ErrorClosingFile\n");
 
-        } catch (ParseException de) {
-
-            System.out.println("ErrorParsing\n");
-
-        }
+        } 
     }//GEN-LAST:event_changePassButtonActionPerformed
+
+    private void noChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noChangeButtonActionPerformed
+        // TODO add your handling code here:
+        int input = JOptionPane.showOptionDialog(null, "Going back will not reset password.\nContinue?","Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+
+        if(input == JOptionPane.OK_OPTION)
+        {
+            switchPanels(loginPage);
+        }
+    }//GEN-LAST:event_noChangeButtonActionPerformed
 
     /*
     Method to display the UWO Logo on login page
     */
     public void displayLogo() {
-        LoginPage.add(logo);
+        loginPage.add(logo);
 
     }
 
@@ -516,24 +566,25 @@ public class User extends javax.swing.JFrame{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane AppLayers;
-    private javax.swing.JButton Login;
-    private javax.swing.JPanel LoginPage;
-    private javax.swing.JTextField Pass;
-    private javax.swing.JTextField UserID;
+    private javax.swing.JButton buttonLogin;
     private javax.swing.JButton changePassButton;
     private javax.swing.JTextField currFirstName;
     private javax.swing.JTextField currUserID;
+    private javax.swing.JLabel fNameLabel;
     private javax.swing.JButton forgotPass;
+    private javax.swing.JLabel forgotPassLabel;
     private javax.swing.JPanel forgotPassPage;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton helpButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel loginPage;
+    private javax.swing.JTextField loginPass;
+    private javax.swing.JTextField loginUserID;
     private javax.swing.JLabel logo;
     private javax.swing.JTextField newPass;
+    private javax.swing.JLabel newPassLabel;
+    private javax.swing.JButton noChangeButton;
     private javax.swing.JLabel passwordLabel;
+    private javax.swing.JLabel userNameLabel;
     private javax.swing.JLabel useridLabel;
     // End of variables declaration//GEN-END:variables
     private ArrayList<Building> buildingList;
