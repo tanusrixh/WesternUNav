@@ -131,7 +131,6 @@ public class User extends javax.swing.JFrame{
         passwordLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         forgotPass = new javax.swing.JButton();
-        helpButton = new javax.swing.JButton();
         forgotPassPage = new javax.swing.JPanel();
         forgotPassLabel = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
@@ -194,13 +193,6 @@ public class User extends javax.swing.JFrame{
             }
         });
 
-        helpButton.setText("Help");
-        helpButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout loginPageLayout = new javax.swing.GroupLayout(loginPage);
         loginPage.setLayout(loginPageLayout);
         loginPageLayout.setHorizontalGroup(
@@ -227,11 +219,7 @@ public class User extends javax.swing.JFrame{
                                         .addComponent(buttonLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addGap(282, 282, 282)
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPageLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(helpButton)
-                .addGap(58, 58, 58))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         loginPageLayout.setVerticalGroup(
             loginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,9 +241,7 @@ public class User extends javax.swing.JFrame{
                 .addComponent(forgotPass)
                 .addGap(44, 44, 44)
                 .addComponent(buttonLogin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
-                .addComponent(helpButton)
-                .addGap(59, 59, 59))
+                .addContainerGap(429, Short.MAX_VALUE))
         );
 
         AppLayers.add(loginPage, "card2");
@@ -560,9 +546,7 @@ public class User extends javax.swing.JFrame{
         AppLayers.revalidate();
     }
     
-     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        new Help().setVisible(true);        // TODO add your handling code here:
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane AppLayers;
@@ -574,7 +558,6 @@ public class User extends javax.swing.JFrame{
     private javax.swing.JButton forgotPass;
     private javax.swing.JLabel forgotPassLabel;
     private javax.swing.JPanel forgotPassPage;
-    private javax.swing.JButton helpButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel loginPage;
     private javax.swing.JTextField loginPass;
