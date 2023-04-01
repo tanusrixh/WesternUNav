@@ -1,57 +1,61 @@
-[
+{"mcfloors":[
     {
-    "Floor Number": 1, 
-    "Rooms": [["1", "Electrical"],
-              ["1A", "Electrical"], 
-              ["3B", "Elevator"], 
-              ["4B", "Women Washroom Non-Accessible"], 
-              ["4C", "Washroom Barrier Free - Universal"], 
-              ["5B", "Men Washroom Non-Accessible"], 
-              ["6", "Classroom"], 
-              ["17", "Classroom"], 
-              ["18A", "Kitchen"], 
-              ["18", "Servery"], 
-              ["19", "Grad Club"], 
-              ["28E", "Men Washroom Non-Accessible"], 
-              ["29A", "Elevator"]
+    "Floor Number": 1, "Floor Name":"Ground Floor",
+    "Rooms": [{"roomNumber":"1", "description":"Electrical","x":10,"y":10},
+              {"roomNumber":"1A", "description":"Electrical","x":10,"y":10}, 
+              {"roomNumber":"3B", "description":"Elevator","x":10,"y":10}, 
+              {"roomNumber":"4B", "description":"Women Washroom Non-Accessible","x":10,"y":10}, 
+              {"roomNumber":"4C", "description":"Washroom Barrier Free - Universal","x":10,"y":10}, 
+              {"roomNumber":"5B", "description":"Men Washroom Non-Accessible","x":10,"y":10}, 
+              {"roomNumber":"6", "description":"Classroom","x":10,"y":10}, 
+              {"roomNumber":"17", "description":"Classroom","x":10,"y":10}, 
+              {"roomNumber":"18A", "description":"Kitchen","x":10,"y":10}, 
+              {"roomNumber":"18", "description":"Servery","x":10,"y":10}, 
+              {"roomNumber":"19", "description":"Grad Club","x":10,"y":10}, 
+              {"roomNumber":"28E", "description":"Men Washroom Non-Accessible","x":10,"y":10}, 
+              {"roomNumber":"29A", "description":"Elevator","x":10,"y":10}
              ]
 },
 {
-    "Floor Number": 2,
-    "Rooms": [["100", "Men Washroom Non-Accessible"], 
-              ["105", "Classroom"], 
-              ["105B", "Classroom"], 
-              ["110", "Classroom"], 
-              ["110D", "Elevator"], 
-              ["110D.1", "Mech. Rm."], 
-              ["139", "Women Washroom Non-Accessible"], 
-              ["140", "Elevator"]
+    "Floor Number": 2, "Floor Name":"First Floor",
+    "Rooms": [{"roomNumber":"100", "description":"Men Washroom Non-Accessible","x":614,"y":441}, 
+              {"roomNumber":"105", "description":"Classroom","x":262,"y":614}, 
+              {"roomNumber":"105B", "description":"Classroom","x":183,"y":526}, 
+              {"roomNumber":"110", "description":"Classroom","x":748,"y":285}, 
+              {"roomNumber":"EL.A", "description":"Elevator","x":819,"y":400}, 
+              {"roomNumber":"110D.1", "description":"Mech. Rm.","x":736,"y":386}, 
+              {"roomNumber":"139", "description":"Women Washroom Non-Accessible","x":1186,"y":592}, 
+              {"roomNumber":"EL.C", "description":"Elevator","x":1151,"y":559},
+              {"roomNumber":"Stair.A", "description":"Stairs","x":126,"y":618},
+              {"roomNumber":"Stair.B", "description":"Stairs","x":322,"y":572},
+              {"roomNumber":"Stair.C", "description":"Stairs","x":885,"y":437},
+              {"roomNumber":"Stair.D", "description":"Stairs","x":1300,"y":641},
              ]
 },
 {
-    "Floor Number": 3, 
+    "Floor Number": 3, "Floor Name":"Second Floor",
     "Rooms": [
-              ["204", "Classroom"],
-              ["205", "Women Washroom Non-Accessible"],
-              ["257", "Elevator"],
-              ["278", "Washroom Barrier Free - Universal"],
-              ["279", "Elevator"]
+              {"roomNumber":"204", "description":"Classroom","x":10,"y":10},
+              {"roomNumber":"205", "description":"Women Washroom Non-Accessible","x":10,"y":10},
+              {"roomNumber":"257", "description":"Elevator","x":10,"y":10},
+              {"roomNumber":"278", "description":"Washroom Barrier Free - Universal","x":10,"y":10},
+              {"roomNumber":"279", "description":"Elevator","x":10,"y":10}
              ]
 },
 {
-    "Floor Number": 4,
+    "Floor Number": 4,	"Floor Name":"Third Floor",
     "Rooms": [
-              ["311", "Men Washroom Non-Accessible"],
-              ["351", "Server Room"],
-              ["354", "Elevator"],
-              ["371", "Elevator"],
-              ["388", "Women Washroom Non-Accessible"]
+              {"roomNumber":"311", "description":"Men Washroom Non-Accessible","x":10,"y":10},
+              {"roomNumber":"351", "description":"Server Room","x":10,"y":10},
+              {"roomNumber":"354", "description":"Elevator","x":10,"y":10},
+              {"roomNumber":"371", "description":"Elevator","x":10,"y":10},
+              {"roomNumber":"388", "description":"Women Washroom Non-Accessible","x":10,"y":10}
              ]
 },
 {
-    "Floor Number": 5,
+    "Floor Number": 5, "Floor Name":"Fourth Floor",
     "Rooms": [
-              ["411", "Elevator"]
+              {"roomNumber":"411", "description":"Elevator","x":10,"y":10}
              ]
 }
-]
+]}

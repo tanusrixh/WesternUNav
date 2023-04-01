@@ -13,17 +13,43 @@ import javax.swing.*;
 
 public class PointofInterest {
     /*private variables*/
-    private String poiname;
+    private String poiroomname;
     private String poidescription;
     private Building poilocation;
+    
+    private int poiX;
+    private int poiY;
+
+    public PointofInterest(String poiname, String poidescription, int poiX, int poiY) {
+        this.poiroomname = poiname;
+        this.poidescription = poidescription;
+        this.poiX = poiX;
+        this.poiY = poiY;
+    }
+
+    public int getPoiX() {
+        return poiX;
+    }
+
+    public void setPoiX(int poiX) {
+        this.poiX = poiX;
+    }
+
+    public int getPoiY() {
+        return poiY;
+    }
+
+    public void setPoiY(int poiY) {
+        this.poiY = poiY;
+    }
     /*get point of interest name*/
-    public String getPoiname() {
-        return poiname;
+    public String getPoiroomname() {
+        return poiroomname;
     }
 
     /*set point of interest name*/
-    public void setPoiname(String poiname) {
-        this.poiname = poiname;
+    public void setPoiroomname(String poiroomname) {
+        this.poiroomname = poiroomname;
     }
     
     /*get point of interest description*/

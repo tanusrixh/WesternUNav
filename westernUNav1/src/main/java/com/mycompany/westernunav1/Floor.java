@@ -19,11 +19,17 @@ public class Floor {
     /**The floor number of the floor*/
     private int floorNumber;
     
-    /**The list of rooms on the floor*/
+    /**The list of rooms on the floor that are built in POIs*/
     private ArrayList<Room> rooms;
+
+    public Floor(int floorNumber, ArrayList<Room> rooms, ArrayList<PointofInterest> pointofInterest) {
+        this.floorNumber = floorNumber;
+        this.rooms = rooms;
+        this.pointofInterest = pointofInterest;
+    }
     
-    /**The list of points of interest on the floor*/
-    private LinkedList<PointofInterest> pointofInterest;
+    /**The list of points of interest on the floor for the user*/
+    private ArrayList<PointofInterest> pointofInterest;
     
     /**
      * Constructs a new floor with the given floor number.
@@ -33,7 +39,7 @@ public class Floor {
     public Floor(int floorNumber) {
         this.floorNumber = floorNumber;
         this.rooms = new ArrayList<Room>();
-        this.pointofInterest = new LinkedList<PointofInterest>();
+        this.pointofInterest = new ArrayList<PointofInterest>();
     }
     
     /**
@@ -84,8 +90,11 @@ public class Floor {
      *
      * @return a list of points of interest on the floor
      */
-    public LinkedList<PointofInterest> getPointsOfInterest(){
+    public ArrayList<PointofInterest> getPointsOfInterest(){
         return this.pointofInterest;
+    }
+
+    public Floor() {
     }
     
     /**
