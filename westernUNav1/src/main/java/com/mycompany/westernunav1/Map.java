@@ -4,66 +4,17 @@
  */
 package com.mycompany.westernunav1;
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 /**
  *
  * @author tanusri
  */
 public class Map extends javax.swing.JFrame {
-    private ArrayList<Building> buildings;
-    private User currUser;
 
-    public void setBuildings(ArrayList<Building> buildings) {
-        this.buildings = buildings;
-    }
-    
-    public void removeBuilding(ArrayList<Building> buildings) {
-        this.buildings = buildings;
-    }
-
-    public ArrayList<Building> getBuildings() {
-        return buildings;
-    }
-    
-    public Building getBuilding(ArrayList<Building> buildings, int index) {
-        return buildings.get(index);
-    }
-
-    public Map(ArrayList<Building> buildings) {
-        
-        this.buildings = buildings;
-        for(int i = 0; i < this.buildings.size(); i++){
-            if(this.buildings.get(i).getName().equals("Alumni Hall")){
-            }
-            if(this.buildings.get(i).getName().equals("Advanced Facility for Avian Research")){
-            }
-            if(this.buildings.get(i).getName().equals("Middlesex College")){
-            }
-        }       
-
-        
-    }
     /**
-     * Creates new form NewJFrame
+     * Creates new form Map
      */
-    public Map(User user) {
-        this.currUser = user;
+    public Map() {
         initComponents();
-        
     }
 
     /**
@@ -75,150 +26,22 @@ public class Map extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
-        Buildings = new javax.swing.JPanel();
-        dropDownMenu = new javax.swing.JComboBox<>();
-        try{
-            BufferedImage image2 = ImageIO.read(new File("./logoImage.jpg"));
-            Image logoimage2 = image2.getScaledInstance(screenSize.width/2, screenSize.height/6, Image.SCALE_DEFAULT);
-            logo2 = new JLabel(new ImageIcon(logoimage2));
-        }catch(IOException excep_two){
-            System.out.println("error.2");
-        }
-        try{
-            BufferedImage image3 = ImageIO.read(new File("./AR_image.jpg"));
-            Image arimage = image3.getScaledInstance(screenSize.width/3, screenSize.height/3, Image.SCALE_DEFAULT);
-            ARImage = new JLabel(new ImageIcon(arimage));
-        }catch(IOException except3){
-            System.out.println("error.3");
-        }
-        try{
-            BufferedImage image4 = ImageIO.read(new File("./AH_image.jpg"));
-            Image ahimage = image4.getScaledInstance(screenSize.width/3, screenSize.height/3, Image.SCALE_DEFAULT);
-            AHImage = new JLabel(new ImageIcon(ahimage));
-        }catch(IOException except4){
-            System.out.println("error.4");
-        }
-        try{
-            BufferedImage image5 = ImageIO.read(new File("./MC_image.jpg"));
-            Image mcimage = image5.getScaledInstance(screenSize.width/3, screenSize.height/3, Image.SCALE_DEFAULT);
-            MCImage = new JLabel(new ImageIcon(mcimage));
-        }catch(IOException except5){
-            System.out.println("error.5");
-        }
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1920, 1080));
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
-        getContentPane().setLayout(new java.awt.CardLayout());
 
-        Buildings.setBackground(new java.awt.Color(255, 255, 255));
-        Buildings.setFocusTraversalPolicyProvider(true);
-        Buildings.setMaximumSize(new java.awt.Dimension(1920, 1080));
-        Buildings.setPreferredSize(new java.awt.Dimension(1920, 1080));
-        this.setSize(screenSize.width, screenSize.height);
-
-        Buildings.setSize(screenSize.width, screenSize.height);
-
-        dropDownMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Select a building---","Middlesex College", "Almuni Hall", "Advanced Facility for Avian Research"}));
-        dropDownMenu.setLocation(new java.awt.Point(screenSize.width/3, screenSize.height/2));
-        dropDownMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dropDownMenuActionPerformed(evt);
-            }
-        });
-
-        logo2.setText(null);
-
-        ARImage.setText(null);
-
-        AHImage.setText(null);
-
-        MCImage.setText(null);
-
-        javax.swing.GroupLayout BuildingsLayout = new javax.swing.GroupLayout(Buildings);
-        Buildings.setLayout(BuildingsLayout);
-        BuildingsLayout.setHorizontalGroup(
-            BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BuildingsLayout.createSequentialGroup()
-                .addComponent(AHImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MCImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ARImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(235, 235, 235))
-            .addGroup(BuildingsLayout.createSequentialGroup()
-                .addComponent(logo2, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
-                .addGap(0, 227, Short.MAX_VALUE)
-                .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(656, 656, 656))
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
-        BuildingsLayout.setVerticalGroup(
-            BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BuildingsLayout.createSequentialGroup()
-                .addComponent(logo2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(191, 191, 191)
-                .addComponent(dropDownMenu)
-                .addGap(27, 27, 27)
-                .addGroup(BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AHImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MCImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ARImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(431, 431, 431))
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
-
-        jLayeredPane1.setLayer(Buildings, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1432, Short.MAX_VALUE)
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(Buildings, javax.swing.GroupLayout.PREFERRED_SIZE, 1420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 891, Short.MAX_VALUE)
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(Buildings, javax.swing.GroupLayout.PREFERRED_SIZE, 879, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-
-        getContentPane().add(jLayeredPane1, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void dropDownMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownMenuActionPerformed
-        // TODO add your handling code here:
-        if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Middlesex College")){
-            //NewJFrame newFrame = new NewJFrame();
-            //newFrame.show();
-            //this.dispose();
-        }
-        if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Alumni Hall")){
-           
-        }
-        if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Advanced Facility for Avian Research")){
-            
-        }
-    }//GEN-LAST:event_dropDownMenuActionPerformed
-    
-    public void displayLogo(){
-        Buildings.add(logo2);
-        Buildings.add(ARImage);
-        Buildings.add(AHImage);
-        Buildings.add(MCImage);
-    }
     /**
      * @param args the command line arguments
      */
@@ -245,24 +68,15 @@ public class Map extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Map.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                //new Map().setVisible(true);
+                new Map().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel AHImage;
-    private javax.swing.JLabel ARImage;
-    private javax.swing.JPanel Buildings;
-    private javax.swing.JLabel MCImage;
-    private javax.swing.JComboBox<String> dropDownMenu;
-    private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JLabel logo2;
     // End of variables declaration//GEN-END:variables
 }

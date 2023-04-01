@@ -14,6 +14,14 @@ public class Building {
     
     /** The building's name*/
     private String name;
+
+    
+    /** Building constructor, creates a new Building object
+     * @param name the building's name
+     */
+    public Building(String name) {
+        this.name = name;
+    }
     
     /** The building's array of floors*/
     private ArrayList<Floor> floors;
