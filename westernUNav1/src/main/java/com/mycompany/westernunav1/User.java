@@ -227,7 +227,7 @@ public class User extends javax.swing.JFrame{
                                         .addComponent(buttonLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addGap(282, 282, 282)
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPageLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(helpButton)
@@ -253,7 +253,7 @@ public class User extends javax.swing.JFrame{
                 .addComponent(forgotPass)
                 .addGap(44, 44, 44)
                 .addComponent(buttonLogin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(helpButton)
                 .addGap(59, 59, 59))
         );
@@ -295,7 +295,7 @@ public class User extends javax.swing.JFrame{
         forgotPassPageLayout.setHorizontalGroup(
             forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(forgotPassPageLayout.createSequentialGroup()
-                .addContainerGap(469, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, forgotPassPageLayout.createSequentialGroup()
                         .addGroup(forgotPassPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -339,7 +339,7 @@ public class User extends javax.swing.JFrame{
                 .addComponent(changePassButton)
                 .addGap(35, 35, 35)
                 .addComponent(noChangeButton)
-                .addContainerGap(480, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         AppLayers.add(forgotPassPage, "card5");
@@ -348,11 +348,11 @@ public class User extends javax.swing.JFrame{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(AppLayers, javax.swing.GroupLayout.DEFAULT_SIZE, 1420, Short.MAX_VALUE)
+            .addComponent(AppLayers)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(AppLayers, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 879, Short.MAX_VALUE)
+            .addComponent(AppLayers, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -515,15 +515,14 @@ public class User extends javax.swing.JFrame{
      */
     public static void main(String args[]) {
 
-        
-        /* Set the Nimbus look and feel */
+        /* Set the Mac OS X look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Mac OS X".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

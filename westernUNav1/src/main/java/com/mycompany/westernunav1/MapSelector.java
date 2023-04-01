@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+
 /**
  *
  * @author tanusri
@@ -46,14 +47,14 @@ public class MapSelector extends javax.swing.JFrame {
     public MapSelector(ArrayList<Building> buildings) {
         
         this.buildings = buildings;
-        for(int i = 0; i < this.buildings.size(); i++){
+        /*for(int i = 0; i < this.buildings.size(); i++){
             if(this.buildings.get(i).getName().equals("Alumni Hall")){
             }
             if(this.buildings.get(i).getName().equals("Advanced Facility for Avian Research")){
             }
             if(this.buildings.get(i).getName().equals("Middlesex College")){
             }
-        }       
+        }*/      
 
         
     }
@@ -76,7 +77,6 @@ public class MapSelector extends javax.swing.JFrame {
     private void initComponents() {
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
         Buildings = new javax.swing.JPanel();
         dropDownMenu = new javax.swing.JComboBox<>();
         try{
@@ -109,6 +109,7 @@ public class MapSelector extends javax.swing.JFrame {
         }
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1920, 1080));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         Buildings.setBackground(new java.awt.Color(255, 255, 255));
@@ -150,7 +151,7 @@ public class MapSelector extends javax.swing.JFrame {
                 .addComponent(logo2, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
-                .addGap(0, 227, Short.MAX_VALUE)
+                .addGap(0, 239, Short.MAX_VALUE)
                 .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(656, 656, 656))
         );
@@ -168,30 +169,7 @@ public class MapSelector extends javax.swing.JFrame {
                 .addGap(431, 431, 431))
         );
 
-        jLayeredPane1.setLayer(Buildings, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1432, Short.MAX_VALUE)
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(Buildings, javax.swing.GroupLayout.PREFERRED_SIZE, 1420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 891, Short.MAX_VALUE)
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(Buildings, javax.swing.GroupLayout.PREFERRED_SIZE, 879, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-
-        getContentPane().add(jLayeredPane1, "card2");
+        getContentPane().add(Buildings, "card3");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -199,9 +177,9 @@ public class MapSelector extends javax.swing.JFrame {
     private void dropDownMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownMenuActionPerformed
         // TODO add your handling code here:
         if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Middlesex College")){
-            //NewJFrame newFrame = new NewJFrame();
-            //newFrame.show();
-            //this.dispose();
+            Map newFrame = new Map();
+            newFrame.show();
+            this.dispose();
         }
         if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Alumni Hall")){
            
@@ -221,14 +199,14 @@ public class MapSelector extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /* Set the Mac OS X look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Mac OS X".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -262,7 +240,6 @@ public class MapSelector extends javax.swing.JFrame {
     private javax.swing.JPanel Buildings;
     private javax.swing.JLabel MCImage;
     private javax.swing.JComboBox<String> dropDownMenu;
-    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLabel logo2;
     // End of variables declaration//GEN-END:variables
 }
