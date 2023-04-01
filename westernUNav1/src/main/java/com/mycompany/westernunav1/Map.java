@@ -25,6 +25,7 @@ import javax.swing.JLabel;
  */
 public class Map extends javax.swing.JFrame {
     private ArrayList<Building> buildings;
+    private User currUser;
 
     public void setBuildings(ArrayList<Building> buildings) {
         this.buildings = buildings;
@@ -59,7 +60,8 @@ public class Map extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
-    public Map() {
+    public Map(User user) {
+        this.currUser = user;
         initComponents();
         
     }
@@ -199,7 +201,9 @@ public class Map extends javax.swing.JFrame {
     private void dropDownMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownMenuActionPerformed
         // TODO add your handling code here:
         if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Middlesex College")){
-            
+            //NewJFrame newFrame = new NewJFrame();
+            //newFrame.show();
+            //this.dispose();
         }
         if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Alumni Hall")){
            
@@ -247,7 +251,7 @@ public class Map extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
-                new Map().setVisible(true);
+                //new Map().setVisible(true);
             }
         });
     }

@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -509,7 +510,7 @@ public class User extends javax.swing.JFrame{
         AppLayers.revalidate();
     }
     
-     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         new Help().setVisible(true);        // TODO add your handling code here:
     }
 
