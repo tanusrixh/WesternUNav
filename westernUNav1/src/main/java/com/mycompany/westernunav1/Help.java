@@ -4,6 +4,8 @@
  */
 package com.mycompany.westernunav1;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author nourfayadh
@@ -59,6 +61,23 @@ public class Help extends javax.swing.JFrame{
         EditPOIText_2 = new javax.swing.JTextArea();
         RemovePOIPanel = new javax.swing.JScrollPane();
         RemovePOIText = new javax.swing.JTextArea();
+        contactUsButton = new javax.swing.JButton();
+        
+        contactUsButton.setText("Contact Us");
+        aboutTextArea = new javax.swing.JTextArea();
+        aboutTextArea.setEditable(false);
+        aboutTextArea.setBackground(new java.awt.Color(255, 255, 255));
+        aboutTextArea.setColumns(20);
+        aboutTextArea.setLineWrap(true);
+        aboutTextArea.setRows(5);
+        aboutTextArea.setWrapStyleWord(true);
+        aboutTextArea.setText("Application Name: WesternUNav\n\nVersion: 1.0\n\nDevelopers: Hala Abudaqqa, Nour Fayadh, Tnusri Harish, Sara Mehravar, Nosheen Sobhani\n\nRelease Date: April 5, 2023");
+        
+        FirstTabMenu.addTab("About", aboutTextArea);
+        JPanel contactUsPanel = new JPanel();
+        contactUsPanel.add(contactUsButton);
+        FirstTabMenu.addTab("Contact Us", contactUsPanel);
+
         
         setMaximumSize(new java.awt.Dimension(1920, 1080));
         setPreferredSize(new java.awt.Dimension(1920, 1080));
@@ -360,4 +379,6 @@ public class Help extends javax.swing.JFrame{
     private javax.swing.JTextArea EditPOIText;
     private javax.swing.JTextArea LogoutText;
     private javax.swing.JTextArea BuildingText;
+    private javax.swing.JButton contactUsButton;
+    private javax.swing.JTextArea aboutTextArea;
 }
