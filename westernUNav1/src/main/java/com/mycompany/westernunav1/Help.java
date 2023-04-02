@@ -4,6 +4,8 @@
  */
 package com.mycompany.westernunav1;
 
+import java.awt.GridLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -63,7 +65,7 @@ public class Help extends javax.swing.JFrame{
         RemovePOIText = new javax.swing.JTextArea();
         contactUsButton = new javax.swing.JButton();
         
-        contactUsButton.setText("Contact Us");
+        
         aboutTextArea = new javax.swing.JTextArea();
         aboutTextArea.setEditable(false);
         aboutTextArea.setBackground(new java.awt.Color(255, 255, 255));
@@ -71,12 +73,28 @@ public class Help extends javax.swing.JFrame{
         aboutTextArea.setLineWrap(true);
         aboutTextArea.setRows(5);
         aboutTextArea.setWrapStyleWord(true);
-        aboutTextArea.setText("Application Name: WesternUNav\n\nVersion: 1.0\n\nDevelopers: Hala Abudaqqa, Nour Fayadh, Tnusri Harish, Sara Mehravar, Nosheen Sobhani\n\nRelease Date: April 5, 2023");
+        aboutTextArea.setText("Application Name: WesternU Navigator\n\nVersion: 1.0\n\nDevelopers: Hala Abudaqqa, Nour Fayadh, Tanusri Harish, Sara Mehravar, Nosheen Sobhani\n\nRelease Date: April 5, 2023");
         
         FirstTabMenu.addTab("About", aboutTextArea);
+        
         JPanel contactUsPanel = new JPanel();
         contactUsPanel.add(contactUsButton);
         FirstTabMenu.addTab("Contact Us", contactUsPanel);
+        contactUsButton.setText("Contact Us");
+        
+        contactUsPanel.setLayout(new GridLayout(0, 1));
+        JLabel emailDescriptionLabel = new JLabel("For any questions, please email:");
+        contactUsPanel.add(emailDescriptionLabel);
+        JLabel teamMember1EmailLabel = new JLabel("habudaqq@uwo.ca");
+        contactUsPanel.add(teamMember1EmailLabel);
+        JLabel teamMember2EmailLabel = new JLabel("nfayadh@uwo.ca");
+        contactUsPanel.add(teamMember2EmailLabel);
+        JLabel teamMember3EmailLabel = new JLabel("tharish@uwo.ca");
+        contactUsPanel.add(teamMember3EmailLabel);
+        JLabel teamMember4EmailLabel = new JLabel("smehrava@uwo.ca");
+        contactUsPanel.add(teamMember4EmailLabel);
+        JLabel teamMember5EmailLabel = new JLabel("nsobhan@uwo.ca");
+        contactUsPanel.add(teamMember5EmailLabel);
 
         
         setMaximumSize(new java.awt.Dimension(1920, 1080));
