@@ -509,7 +509,10 @@ public class User extends javax.swing.JFrame{
 
     }
     
-    /*Method to connect the help button to the help class, in order to display the help page. */
+    /** Method to connect the help button to the help class, in order to display the help page. 
+    * @param evt Default Java Event
+    */
+    
     private void HelpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new Help().setVisible(true);
     }
