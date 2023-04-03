@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -341,7 +342,7 @@ public class MapSelector extends javax.swing.JFrame {
     private void editBuildingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBuildingButtonActionPerformed
         // TODO add your handling code here:
         JTextField buildingName = new JTextField();
-        JTextField buildingCode = new JTextField();
+        JLabel buildingCode = new JLabel();
         JSpinner buildingFloors = new JSpinner();
         JComboBox<String> editMenu = new JComboBox<>();
         
@@ -352,13 +353,21 @@ public class MapSelector extends javax.swing.JFrame {
         Object[] editBuilding = {
             "Select Building to Edit:", editMenu,
             "New Building Name:", buildingName,
-            "New Building Code:", buildingCode,
+            "Building Code:", buildingCode,
             "Number of Floors:", buildingFloors
         };
 
         int option = JOptionPane.showConfirmDialog(null, editBuilding, "Edit Building", JOptionPane.OK_CANCEL_OPTION);
         
-        String selected = editMenu.getItemAt(editMenu.getSelectedIndex()); 
+        editMenu.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                editMenu.getSelectedItem();
+                buildingName.setText((String)editMenu.getSelectedItem());
+                buildingCode.setText(buildingsFileInfo.get((String)editMenu.getSelectedItem()));
+                buildingFloors.setValue(buildingsInfo.get((String)editMenu.getSelectedItem()));
+            }
+        });
+
         
         if (option == JOptionPane.OK_OPTION) {
 
@@ -447,7 +456,10 @@ public class MapSelector extends javax.swing.JFrame {
         JSONArray updatedArray = new JSONArray();
         
         for(String a : buildingsInfo.keySet()){
-            System.out.println(a+"\n");
+            //Check if the correct building names are in the hashmaps
+            //System.out.println(a+"\n");
+            
+            
             int floorNumber = buildingsInfo.get(a);
             String fileCode = buildingsFileInfo.get(a);
             

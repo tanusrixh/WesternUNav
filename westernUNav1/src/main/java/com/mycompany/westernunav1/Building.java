@@ -48,7 +48,7 @@ public class Building {
             
         }catch(FileNotFoundException fileError){
             System.out.println("FileNotFound\n");
-            newJSON(fileCode); // add to developer class if needed later on
+            newJSON(fileName, numFloors); // add to developer class if needed later on
             
         }catch(IOException ioerror){
             System.out.println("ErrorClosingFile\n");
@@ -65,9 +65,23 @@ public class Building {
     buildings.json file but a new file for that building was not created
     -add to developer class if needed later on
     */
-    public void newJSON(String code){
+    public void newJSON(String code, int floors){
         JSONObject newBuilding = new JSONObject();
         JSONArray newFloorsArray = new JSONArray();
+        
+        for(int i = 0; i < floors; i++){
+            JSONObject floorInfo = new JSONObject();
+            //JSONObject floorName = new JSONObject();
+            //JSONObject rooms = new JSONObject();
+            
+            floorInfo.put("Floor Number", i + 1);
+            floorInfo.put("Floor Name:", "");
+            
+            JSONArray roomsArray = new JSONArray();
+            floorInfo.put("Rooms", roomsArray);
+            
+            newFloorsArray.put(floorInfo);
+        }
         
         newBuilding.put(code + "floors", newFloorsArray);
         try{
