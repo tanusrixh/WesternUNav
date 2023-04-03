@@ -28,6 +28,7 @@ import javax.swing.JLabel;
 
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -42,6 +43,13 @@ public class User extends javax.swing.JFrame{
     private ArrayList<PointofInterest> savedPOI; //Saved POI's associated with the user info
     private ArrayList<PointofInterest> favePOI; //Saved favourite POI's associated with the user info
     private boolean isDeveloper; //True if user is developer and false otherwise
+    
+    
+    public User(String name, String loginCredentials) {
+        this.name = name;
+        this.loginCredentials = loginCredentials;
+    }
+    
 
     public User(String name, String loginCredentials, ArrayList<PointofInterest> savedPOI, ArrayList<PointofInterest> favePOI, boolean isDeveloper) {
         this.name = name;
@@ -367,28 +375,31 @@ public class User extends javax.swing.JFrame{
             System.out.println("success\n"); // to test that the JSON file opened successfully
             JSONTokener tok = new JSONTokener(openLogin);
             JSONObject jsonobj = new JSONObject(tok); // get the username and password stored at index 0 in the login JSON file
-            JSONArray poiArr = jsonobj.getJSONArray("poi");
-            JSONArray favPoiArr = jsonobj.getJSONArray("favourites");
+
             
 
             if (userID.equals(jsonobj.get("name")) == true && pass.equals(jsonobj.get("loginCredentials")) == true) {
                 newUser.setName(userID);
                 newUser.setIsDeveloper((boolean)jsonobj.get("isDeveloper"));
                 
-                for(int i = 0; i < poiArr.length(); i++){
+                if(newUser.getIsDeveloper() == false){
+                    JSONArray poiArr = jsonobj.getJSONArray("poi");
+                    JSONArray favPoiArr = jsonobj.getJSONArray("favourites");
+                    for(int i = 0; i < poiArr.length(); i++){
                     PointofInterest poi = (PointofInterest)poiArr.get(i);
                     userPOI.add(i, poi);
+                    }
+                
+                    for(int i = 0; i < favPoiArr.length(); i++){
+                        PointofInterest favpoi = (PointofInterest)favPoiArr.get(i);
+                        favUserPOI.add(i, favpoi);
+                    }
+                
+                
+                    newUser.setSavedPOI(userPOI);
+                    newUser.setFavePOI(favUserPOI);
                 }
                 
-                for(int i = 0; i < favPoiArr.length(); i++){
-                    PointofInterest favpoi = (PointofInterest)favPoiArr.get(i);
-                    favUserPOI.add(i, favpoi);
-                }
-                
-                
-                newUser.setSavedPOI(userPOI);
-                newUser.setFavePOI(favUserPOI);
-               
                 MapSelector displayMaps = new MapSelector(newUser);
                 displayMaps.show();
                 this.dispose();
@@ -413,7 +424,9 @@ public class User extends javax.swing.JFrame{
 
             System.out.println("ErrorClosingFile\n");
 
-        } 
+        } catch(JSONException jsonerror){
+            System.out.println("ErrorParsingJSONFile\n");
+        }
     }//GEN-LAST:event_buttonLoginActionPerformed
 
     private void loginUserIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginUserIDActionPerformed
