@@ -9,15 +9,31 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import org.apache.commons.lang3.StringUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 
 /**
@@ -25,8 +41,12 @@ import javax.swing.JLabel;
  * @author tanusri
  */
 public class MapSelector extends javax.swing.JFrame {
+    
     private ArrayList<Building> buildings;
     private User currUser;
+    private int numBuildingFloors;
+    private HashMap<String, Integer> buildingsInfo;
+    private HashMap<String, String> buildingsFileInfo;
 
     public void setBuildings(ArrayList<Building> buildings) {
         this.buildings = buildings;
@@ -44,26 +64,60 @@ public class MapSelector extends javax.swing.JFrame {
         return buildings.get(index);
     }
 
-    public MapSelector(ArrayList<Building> buildings) {
-        
-        this.buildings = buildings;
-        /*for(int i = 0; i < this.buildings.size(); i++){
-            if(this.buildings.get(i).getName().equals("Alumni Hall")){
-            }
-            if(this.buildings.get(i).getName().equals("Advanced Facility for Avian Research")){
-            }
-            if(this.buildings.get(i).getName().equals("Middlesex College")){
-            }
-        }*/      
-
-        
-    }
     /**
      * Creates new form NewJFrame
+     * @param user
      */
     public MapSelector(User user) {
-        this.currUser = user;
+        
         initComponents();
+        
+        this.currUser = user;
+        
+        //if user is not a developer hide the add, edit, and delete building buttons
+        if(currUser.getIsDeveloper() == false){
+            addBuildingButton.setVisible(false); //hide add button
+            editBuildingButton.setVisible(false); //hide edit button
+            removeBuildingButton.setVisible(false); //hide delete button
+        }
+        
+        try{
+            
+            FileReader openBuildings = new FileReader("./buildings.json");
+            JSONTokener buildingToken = new JSONTokener(openBuildings);
+            JSONObject buildingObj = new JSONObject(buildingToken);
+            JSONArray fileBuildings = buildingObj.getJSONArray("buildings");
+            
+            buildingsInfo = new HashMap();
+            buildingsFileInfo = new HashMap();
+            
+            dropDownMenu.addItem("---Select a building---");
+            
+            for(int i = 0; i < fileBuildings.length(); i++){
+                JSONObject getBuildingStuff = fileBuildings.getJSONObject(i);
+                String buildingName = (String)getBuildingStuff.get("Name");
+                int number = (int)getBuildingStuff.get("Number of floors");
+                String fileCode = (String)getBuildingStuff.get("File Extension");
+                
+                
+                buildingsInfo.put(buildingName,number);
+                buildingsFileInfo.put(buildingName,fileCode);
+                
+                dropDownMenu.addItem(buildingName);
+            }
+            
+            
+            openBuildings.close();
+            
+        }catch(FileNotFoundException fileError){
+            System.out.println("FileNotFound\n");
+            
+        }catch(IOException ioerror){
+            System.out.println("ErrorClosingFile\n");
+            
+        }catch(JSONException jsonerror){
+            System.out.println("ErrorParsingJSONFile\n");
+        }
         
     }
 
@@ -107,9 +161,11 @@ public class MapSelector extends javax.swing.JFrame {
         }catch(IOException except5){
             System.out.println("error.5");
         }
+        addBuildingButton = new javax.swing.JButton();
+        editBuildingButton = new javax.swing.JButton();
+        removeBuildingButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         Buildings.setBackground(new java.awt.Color(255, 255, 255));
@@ -120,7 +176,6 @@ public class MapSelector extends javax.swing.JFrame {
 
         Buildings.setSize(screenSize.width, screenSize.height);
 
-        dropDownMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Select a building---","Middlesex College", "Almuni Hall", "Advanced Facility for Avian Research"}));
         dropDownMenu.setLocation(new java.awt.Point(screenSize.width/3, screenSize.height/2));
         dropDownMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,6 +190,27 @@ public class MapSelector extends javax.swing.JFrame {
         AHImage.setText(null);
 
         MCImage.setText(null);
+
+        addBuildingButton.setText("Add");
+        addBuildingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBuildingButtonActionPerformed(evt);
+            }
+        });
+
+        editBuildingButton.setText("Edit");
+        editBuildingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBuildingButtonActionPerformed(evt);
+            }
+        });
+
+        removeBuildingButton.setText("Remove");
+        removeBuildingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeBuildingButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout BuildingsLayout = new javax.swing.GroupLayout(Buildings);
         Buildings.setLayout(BuildingsLayout);
@@ -151,16 +227,26 @@ public class MapSelector extends javax.swing.JFrame {
                 .addComponent(logo2, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
-                .addGap(0, 239, Short.MAX_VALUE)
+                .addContainerGap(251, Short.MAX_VALUE)
                 .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(656, 656, 656))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addBuildingButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(editBuildingButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removeBuildingButton)
+                .addGap(404, 404, 404))
         );
         BuildingsLayout.setVerticalGroup(
             BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BuildingsLayout.createSequentialGroup()
                 .addComponent(logo2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(191, 191, 191)
-                .addComponent(dropDownMenu)
+                .addGroup(BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dropDownMenu)
+                    .addComponent(addBuildingButton)
+                    .addComponent(editBuildingButton)
+                    .addComponent(removeBuildingButton))
                 .addGap(27, 27, 27)
                 .addGroup(BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AHImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -176,24 +262,213 @@ public class MapSelector extends javax.swing.JFrame {
 
     private void dropDownMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownMenuActionPerformed
         // TODO add your handling code here:
-        if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Middlesex College")){
-            Map newFrame = new Map();
-            newFrame.show();
+        if(!dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("---Select a building---")){
+            String selected = dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex());
+            
+            //check if output is correct
+            //System.out.println(buildingsFileInfo.get(selected)); 
+            //System.out.println(buildingsInfo.get(selected));
+            
+            
+            Building newBuilding = new Building(selected, buildingsFileInfo.get(selected), buildingsInfo.get(selected));
+            Map newBuildingFrame = new Map(currUser, newBuilding);
+            newBuildingFrame.show();
             this.dispose();
         }
-        if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Alumni Hall")){
-           
-        }
-        if(dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("Advanced Facility for Avian Research")){
-            
-        }
+
     }//GEN-LAST:event_dropDownMenuActionPerformed
+
+    
+    /*
+    Function that adds a new building if the user is a developer and if the 
+    developer clicks the add building button
+    */
+    private void addBuildingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBuildingButtonActionPerformed
+        // TODO add your handling code here:
+        JTextField buildingName = new JTextField();
+        JTextField buildingCode = new JTextField();
+        JSpinner buildingFloors = new JSpinner();
+        
+        Object[] addBuilding = {
+            "Building Name:", buildingName,
+            "Building Code:", buildingCode,
+            "Number of Floors:", buildingFloors
+        };
+
+        int option = JOptionPane.showConfirmDialog(null, addBuilding, "Add Building", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            if (buildingName.getText().equals("") || buildingCode.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Fill in all the information.\nPlease do not leave any empty spaces.");
+            } 
+            
+            else if(!buildingName.getText().equals("") || buildingCode.getText().equals("")){
+                for(String a : buildingsFileInfo.keySet()){
+                    String temp = StringUtils.deleteWhitespace(a);
+                    if(buildingsFileInfo.get(a).equals((String)buildingCode.getText())){
+                        JOptionPane.showMessageDialog(null, "This building code already exists.\nPlease enter another building code.\nBuilding was not added.");
+                    }
+                    else if(temp.equals((String)buildingName.getText())){
+                        JOptionPane.showMessageDialog(null, "This building already exists.\nPlease enter another building name.\nBuilding was not added."); 
+                    }
+                    else if(a.equals((String)buildingName.getText())){
+                        JOptionPane.showMessageDialog(null, "This building already exists.\nPlease enter another building name.\nBuilding was not added."); 
+                    }
+                    else{
+                        System.out.println("No errors found.\n");
+                    }
+                }
+               
+            }
+            
+                buildingsInfo.put(buildingName.getText(), (Integer)buildingFloors.getValue());
+                buildingsFileInfo.put(buildingName.getText(), buildingCode.getText());
+                
+                //updates the dropdown menu in the building selection option to display the newly added building
+                dropDownMenu.addItem(buildingName.getText());
+                dropDownMenu.repaint();
+                dropDownMenu.revalidate();
+                
+                //creates a new building file for the building that was just added
+                new Building((String)buildingName.getText(), (String)buildingCode.getText(), (Integer)buildingFloors.getValue()); 
+                
+                updateJSON();
+            
+        } else {
+            System.out.println("Add building cancelled");
+        }
+    }//GEN-LAST:event_addBuildingButtonActionPerformed
+
+    private void editBuildingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBuildingButtonActionPerformed
+        // TODO add your handling code here:
+        JTextField buildingName = new JTextField();
+        JTextField buildingCode = new JTextField();
+        JSpinner buildingFloors = new JSpinner();
+        JComboBox<String> editMenu = new JComboBox<>();
+        
+        for(String a : buildingsInfo.keySet()){
+            editMenu.addItem(a);
+        }
+        
+        Object[] editBuilding = {
+            "Select Building to Edit:", editMenu,
+            "New Building Name:", buildingName,
+            "New Building Code:", buildingCode,
+            "Number of Floors:", buildingFloors
+        };
+
+        int option = JOptionPane.showConfirmDialog(null, editBuilding, "Edit Building", JOptionPane.OK_CANCEL_OPTION);
+        
+        String selected = editMenu.getItemAt(editMenu.getSelectedIndex()); 
+        
+        if (option == JOptionPane.OK_OPTION) {
+
+            if (buildingName.getText().equals("") || buildingCode.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Fill in all the information.\nPlease do not leave any empty spaces.");
+            } 
+            
+            else if(!buildingName.getText().equals("") || buildingCode.getText().equals("")){
+                for(String a : buildingsFileInfo.keySet()){
+                    
+                    if(a.equals((String)buildingName.getText())){
+                        
+                    }
+                    else if(buildingsFileInfo.get(a).equals((String)buildingCode.getText())){
+                        JOptionPane.showMessageDialog(null, "This is the current building name.\nPlease enter the edited building name.\nBuilding was not updated."); 
+                        JOptionPane.showMessageDialog(null, "This building code already exists.\nPlease enter another building code.\nBuilding was not added.");
+                    }
+                    else{
+                        System.out.println("No errors found.\n");
+                    }
+                }
+               
+            }
+            else {
+                            
+            
+            buildingsInfo.put((String)buildingName.getText(), (Integer)buildingFloors.getValue());
+            buildingsFileInfo.put((String)buildingName.getText(), (String)buildingCode.getText());
+
+            updateJSON();
+            }
+        } else {
+            System.out.println("Edit building cancelled");
+        }
+    }//GEN-LAST:event_editBuildingButtonActionPerformed
+    
+    
+    /*
+    Function to delete a building if the user is a developer and if the user presses
+    the delete button. Also deletes the json file containing the built-in POI's 
+    associated with the building being deleted
+    */
+    private void removeBuildingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBuildingButtonActionPerformed
+        // TODO add your handling code here:
+        JComboBox<String> deleteBox = new JComboBox<>();
+        
+        for(String a : buildingsInfo.keySet()){
+            deleteBox.addItem(a);
+        }
+        
+        int option = JOptionPane.showConfirmDialog(null, deleteBox, "Delete Building", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            String selected = deleteBox.getItemAt(deleteBox.getSelectedIndex());
+        
+        
+            File deleteFile = new File("./"+buildingsFileInfo.get(selected)+"floors.json");
+            deleteFile.delete();
+            
+            //updates the dropdown menu in the building selection option to display the dropdown without the removed building
+            dropDownMenu.removeItem(selected);
+            dropDownMenu.repaint();
+            dropDownMenu.revalidate();
+        
+            buildingsInfo.remove(selected);
+            buildingsFileInfo.remove(selected);
+            updateJSON();
+        }else {
+            System.out.println("Delete building cancelled");
+        }
+    }//GEN-LAST:event_removeBuildingButtonActionPerformed
     
     public void displayLogo(){
         Buildings.add(logo2);
         Buildings.add(ARImage);
         Buildings.add(AHImage);
         Buildings.add(MCImage);
+    }
+    
+    
+    /*
+    Updates the buildings.json file depending on if the developer has added,
+    edited, or removed a building.
+    */
+    private void updateJSON(){
+        JSONObject updatedObject = new JSONObject();
+        JSONArray updatedArray = new JSONArray();
+        
+        for(String a : buildingsInfo.keySet()){
+            System.out.println(a+"\n");
+            int floorNumber = buildingsInfo.get(a);
+            String fileCode = buildingsFileInfo.get(a);
+            
+            JSONObject building = new JSONObject();
+            building.put("Name", a);
+            building.put("Number of floors", floorNumber);
+            building.put("File Extension", fileCode);
+            
+            updatedArray.put(building);
+        }
+        
+        updatedObject.put("buildings", updatedArray);
+        
+        try{
+            FileOutputStream outputUpdate = new FileOutputStream("./buildings.json"); 
+            byte[] strToBytes = updatedObject.toString().getBytes(); 
+            outputUpdate.write(strToBytes); 
+            outputUpdate.close();
+        }catch(IOException e){
+            System.out.println("Unable to write JSON to file\n");
+        }
     }
     /**
      * @param args the command line arguments
@@ -239,7 +514,10 @@ public class MapSelector extends javax.swing.JFrame {
     private javax.swing.JLabel ARImage;
     private javax.swing.JPanel Buildings;
     private javax.swing.JLabel MCImage;
+    private javax.swing.JButton addBuildingButton;
     private javax.swing.JComboBox<String> dropDownMenu;
+    private javax.swing.JButton editBuildingButton;
     private javax.swing.JLabel logo2;
+    private javax.swing.JButton removeBuildingButton;
     // End of variables declaration//GEN-END:variables
 }

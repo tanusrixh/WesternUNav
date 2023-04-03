@@ -3,8 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.westernunav1;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONTokener;
+import org.json.JSONObject;
 
 /**
  *
@@ -14,38 +24,64 @@ public class Building {
     
     /** The building's name*/
     private String name;
-
-    
-    /** Building constructor, creates a new Building object
-     * @param name the building's name
-     */
-    public Building(String name) {
-        this.name = name;
-    }
+    private String fileName;
     
     /** The building's array of floors*/
     private ArrayList<Floor> floors;
     
-    /** The building's number of floors*/
+        /** The building's number of floors*/
     private int numFloors;
     
-    /** An array of the building's rooms*/
-    private ArrayList<Room> rooms;
-    
-    
-    /** Building constructor, creates a new Building object
-     * @param name the building's name
-     * @param floors an array of the building's floors
-     * @param numFloors the number of floors in a building
-     * @param rooms an array of the building's rooms
-     */
-    public Building(String name, ArrayList<Floor> floors, int numFloors, ArrayList<Room> rooms){
-        
+    public Building(String name, String fileCode, int numFloors) {
         this.name = name;
-        this.floors = floors;
         this.numFloors = numFloors;
-        this.rooms = rooms;
+        this.fileName = fileCode;
+        
+        try{
+            
+            FileReader getBuilding = new FileReader("./"+ fileName +"floors.json");
+            JSONTokener buildingToken = new JSONTokener(getBuilding);
+            JSONObject buildingObj = new JSONObject(buildingToken);
+            
+            
+            getBuilding.close();
+            
+        }catch(FileNotFoundException fileError){
+            System.out.println("FileNotFound\n");
+            newJSON(fileCode); // add to developer class if needed later on
+            
+        }catch(IOException ioerror){
+            System.out.println("ErrorClosingFile\n");
+            
+        }catch(JSONException jsonerror){
+            System.out.println("ErrorParsingJSONFile\n");
+        }
+        
     }
+    
+    /*
+    Creates a new JSON file if the file does not exist and a valis building code 
+    was given in the constructor. This means that a new building was added to the 
+    buildings.json file but a new file for that building was not created
+    -add to developer class if needed later on
+    */
+    public void newJSON(String code){
+        JSONObject newBuilding = new JSONObject();
+        JSONArray newFloorsArray = new JSONArray();
+        
+        newBuilding.put(code + "floors", newFloorsArray);
+        try{
+            FileOutputStream outputNewBuilding = new FileOutputStream("./"+ code +"floors.json"); 
+            byte[] strToBytes = newBuilding.toString().getBytes(); 
+            outputNewBuilding.write(strToBytes); 
+            outputNewBuilding.close();
+        }catch(IOException e){
+            System.out.println("Unable to write JSON to file\n");
+        }
+    }
+
+    
+
     
     
     /** A getter method to get the name of the building
@@ -91,18 +127,6 @@ public class Building {
         this.numFloors = numFloors;
     }
     
-    /** A getter method to get the rooms in the building
-     * @return the rooms in the building
-     */
-    public ArrayList<Room> getRooms(){
-        return rooms;
-    }
-    
-    /** A setter method to set the rooms in the building
-     * @param rooms the building's rooms
-     */
-    public void setRooms(ArrayList<Room> rooms){
-        this.rooms = rooms;
-    }
+
     
 }

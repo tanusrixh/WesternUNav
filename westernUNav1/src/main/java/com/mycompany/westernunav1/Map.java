@@ -23,7 +23,31 @@ public class Map extends javax.swing.JFrame {
     
     private User currUser;
     private String buildingName;
+    private Building buildingInfo;
     private String filePathName;
+    
+    
+    public Map(User currUser, Building buildingInfo) {
+        initComponents();
+        this.currUser = currUser;
+        this.buildingInfo = buildingInfo;
+        
+        int floors = buildingInfo.getNumFloors();
+        
+        boolean isDev = currUser.getIsDeveloper();
+    }
+       
+       
+    
+     public Building getBuildingInfo() {
+        return buildingInfo;
+    }
+
+     
+    public void setBuildingInfo(Building buildingInfo) {
+        this.buildingInfo = buildingInfo;
+    }
+    
 
     public void setCurrUser(User currUser) {
         this.currUser = currUser;
@@ -42,6 +66,7 @@ public class Map extends javax.swing.JFrame {
     }
 
     public Map(User currUser, String buildingName) {
+        initComponents();
         this.currUser = currUser;
         this.buildingName = buildingName;
     }
