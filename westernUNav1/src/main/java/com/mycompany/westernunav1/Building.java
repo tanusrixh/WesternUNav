@@ -24,18 +24,27 @@ public class Building {
     
     /** The building's name*/
     private String name;
+    
+    /**The building's file name*/
     private String fileName;
     
     /** The building's array of floors*/
     private ArrayList<Floor> floors;
     
-        /** The building's number of floors*/
+    /** The building's number of floors*/
     private int numFloors;
+    
+    private ArrayList<Room> rooms;
+
+    
     
     public Building(String name, String fileCode, int numFloors) {
         this.name = name;
         this.numFloors = numFloors;
         this.fileName = fileCode;
+        
+        floors = new ArrayList<>();
+        rooms = new ArrayList<>();
         
         try{
             
@@ -43,6 +52,29 @@ public class Building {
             JSONTokener buildingToken = new JSONTokener(getBuilding);
             JSONObject buildingObj = new JSONObject(buildingToken);
             
+            JSONArray buildingArray = buildingObj.getJSONArray(fileName +"floors");
+            
+            for(int i = 0; i < buildingArray.length(); i++){
+                JSONObject floorInfo = buildingArray.getJSONObject(i);
+                int floorNumber = (Integer)floorInfo.get("Floor Number");
+                String floorName = (String)floorInfo.get("Floor Name");
+                JSONArray roomsArray = floorInfo.getJSONArray("Rooms");
+                
+                for(int j = 0; j < roomsArray.length(); j++){
+                    JSONObject room = roomsArray.getJSONObject(i);
+                    String cat = (String)room.get("category");
+                    String roomNum = (String)room.get("roomNumber");
+                    String desc = (String)room.get("description");
+                    int roomX = (Integer)room.get("x");
+                    int roomY = (Integer)room.get("y");
+                    
+                    Room addRoom = new Room(roomNum, desc, roomX, roomY, cat);
+                    rooms.add(addRoom);
+                }
+                
+                Floor floorObj = new Floor(floorNumber, floorName, rooms);
+                floors.add(floorObj);
+            }
             
             getBuilding.close();
             
@@ -139,6 +171,22 @@ public class Building {
      */
     public void setNumFloors(int numFloors){
         this.numFloors = numFloors;
+    }
+    
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public ArrayList<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(ArrayList<Room> rooms) {
+        this.rooms = rooms;
     }
     
 

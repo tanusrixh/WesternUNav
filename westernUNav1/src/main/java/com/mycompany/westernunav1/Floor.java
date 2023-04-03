@@ -24,17 +24,34 @@ public class Floor {
     /**The floor number of the floor*/
     private int floorNumber;
     
+    private String floorName;
+    
     /**The list of rooms on the floor that are built in POIs*/
     private ArrayList<Room> rooms;
+    
+    /**The list of points of interest on the floor for the user*/
+    private LinkedList<PointofInterest> pointofInterest;
 
-    public Floor(int floorNumber, ArrayList<Room> rooms, ArrayList<PointofInterest> pointofInterest) {
+    public Floor(int floorNumber, String floorName, ArrayList<Room> rooms) {
         this.floorNumber = floorNumber;
+        this.floorName = floorName;
+        this.rooms = rooms;
+    }
+
+    
+    public Floor(int floorNumber, String floorName, ArrayList<Room> rooms, LinkedList<PointofInterest> pointofInterest) {
+        this.floorNumber = floorNumber;
+        this.floorName = floorName;
         this.rooms = rooms;
         this.pointofInterest = pointofInterest;
     }
+
+    public Floor(int floorNumber, String floorName, LinkedList<PointofInterest> pointofInterest) {
+        this.floorNumber = floorNumber;
+        this.floorName = floorName;
+        this.pointofInterest = pointofInterest;
+    }
     
-    /**The list of points of interest on the floor for the user*/
-    private ArrayList<PointofInterest> pointofInterest;
     
     /**
      * Constructs a new floor with the given floor number.
@@ -44,7 +61,7 @@ public class Floor {
     public Floor(int floorNumber) {
         this.floorNumber = floorNumber;
         this.rooms = new ArrayList<Room>();
-        this.pointofInterest = new ArrayList<PointofInterest>();
+        this.pointofInterest = new LinkedList<PointofInterest>();
     }
     
     /**
@@ -54,6 +71,15 @@ public class Floor {
      */
     public int getNumber(){
         return this.floorNumber;
+    }
+    
+    
+    public String getFloorName() {
+        return floorName;
+    }
+
+    public void setFloorName(String floorName) {
+        this.floorName = floorName;
     }
     
     /**
@@ -95,12 +121,10 @@ public class Floor {
      *
      * @return a list of points of interest on the floor
      */
-    public ArrayList<PointofInterest> getPointsOfInterest(){
+    public LinkedList<PointofInterest> getPointsOfInterest(){
         return this.pointofInterest;
     }
 
-    public Floor() {
-    }
     
     /**
      * Adds a point of interest to the floor.

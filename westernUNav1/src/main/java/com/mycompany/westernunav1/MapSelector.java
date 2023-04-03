@@ -85,9 +85,9 @@ public class MapSelector extends javax.swing.JFrame {
         try{
             
             FileReader openBuildings = new FileReader("./buildings.json");
-            JSONTokener buildingToken = new JSONTokener(openBuildings);
-            JSONObject buildingObj = new JSONObject(buildingToken);
-            JSONArray fileBuildings = buildingObj.getJSONArray("buildings");
+            JSONTokener buildingsToken = new JSONTokener(openBuildings);
+            JSONObject buildingsObj = new JSONObject(buildingsToken);
+            JSONArray fileBuildings = buildingsObj.getJSONArray("buildings");
             
             buildingsInfo = new HashMap();
             buildingsFileInfo = new HashMap();

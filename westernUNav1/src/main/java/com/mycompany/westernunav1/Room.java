@@ -16,21 +16,29 @@ public class Room {
     // room numbers
     private String roomNumber;
 
-    public Room(String roomNumber, String accesibiltyFeature, int x_coord, int y_coord) {
-        this.roomNumber = roomNumber;
-        this.accesibiltyFeature = accesibiltyFeature;
-        this.x_coord = x_coord;
-        this.y_coord = y_coord;
-    }
-
     //variable for accesibility features
-    private String accesibiltyFeature;
+    private String description;
     
     private int x_coord;
     private int y_coord;
     
-    // an array list of points of interest (don't need this for Room class)
-    private ArrayList<PointofInterest> POI;
+    private String roomCategory;
+
+    public Room(String roomNumber, String accesibiltyFeature, int x_coord, int y_coord, String roomCategory) {
+        this.roomNumber = roomNumber;
+        this.description = accesibiltyFeature;
+        this.x_coord = x_coord;
+        this.y_coord = y_coord;
+        this.roomCategory = roomCategory;
+    }
+
+    public String getRoomCategory() {
+        return roomCategory;
+    }
+
+    public void setRoomCategory(String roomCategory) {
+        this.roomCategory = roomCategory;
+    }
 
     public int getX_coord() {
         return x_coord;
@@ -53,13 +61,7 @@ public class Room {
     * @param accesibility features 
     * @param POI
     */
-    public Room(String roomNumber,String accesibiltyFeature, ArrayList<PointofInterest> POI){
- 
-        this.roomNumber = roomNumber;
-        this.accesibiltyFeature = accesibiltyFeature;
-        this.POI = POI;
-          
-    }
+
     
     //a getter method to get the number of rooms
      public String getRoomNumber() {
@@ -67,37 +69,23 @@ public class Room {
     }
      
     //a getter method that returns the accesibility feature
-    public String getAccesibiltyFeature() {
-        return accesibiltyFeature;
+    public String getDescription() {
+        return description;
     }
 
-    //a getter method that returns the array list of point of interest
-    public ArrayList<PointofInterest> getPOI() {
-        return POI;
-    }
     
     //a setter method to set the bumber of rooms
     /*public void setRoomNumber(String roomNumber){
         this.roomNumber = Integer.parseInt(roomNumber);
     }*/
-    
-    //a setter method to set the point of interest arrayList
-    public void setPOI(ArrayList<PointofInterest> POI) {
-        this.POI = POI;
-    }
-    
+
     /*the add method for adding a point of interest to the 
     * point of interest array list
     */
-    public void addPOI(PointofInterest poi, ArrayList<PointofInterest> POI){
-        POI.add(poi);
-        
-    }
+
     /* the remove method for removing a point of interest 
     * of a point of interest array list
     */
-    public void removePOI(PointofInterest poi,ArrayList<PointofInterest> POI){
-        POI.remove(poi);
-    }
+
     
 }
