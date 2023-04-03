@@ -376,13 +376,15 @@ public class User extends javax.swing.JFrame{
     private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
         // TODO add your handling code here:
         User newUser = new User();
-        buildingList = new ArrayList<Building>();
+
         ArrayList<PointofInterest> userPOI = new ArrayList<PointofInterest>();
         ArrayList<PointofInterest> favUserPOI = new ArrayList<PointofInterest>();
+        
+        String userID = loginUserID.getText();
+        String pass = loginPass.getText();
+
 
         try {
-            String userID = loginUserID.getText();
-            String pass = loginPass.getText();
 
             FileReader openLogin;
             openLogin = new FileReader(userID + ".json");
@@ -390,6 +392,9 @@ public class User extends javax.swing.JFrame{
             JSONTokener tok = new JSONTokener(openLogin);
             JSONObject jsonobj = new JSONObject(tok); // get the username and password stored at index 0 in the login JSON file
 
+            if(userID.equals("") || pass.equals("")){
+                JOptionPane.showMessageDialog(null, "Password field cannot be blank.\nPlease try again.");
+            }
             
 
             if (userID.equals(jsonobj.get("name")) == true && pass.equals(jsonobj.get("loginCredentials")) == true) {
@@ -421,16 +426,18 @@ public class User extends javax.swing.JFrame{
                 JOptionPane.showMessageDialog(null, "Access Granted. Welcome " + userID);
                 newUser.setName(userID);
                 newUser.setLoginCredentials(pass);
-
+                loginUserID.setText("");
+                loginPass.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "Incorrect Password!\nPlease try again.");
-
+                loginUserID.setText("");
+                loginPass.setText("");
             }
 
             openLogin.close();
 
         } catch (FileNotFoundException ae) {
-            JOptionPane.showMessageDialog(null, "Incorrect Username!\nPlease try again.");
+            JOptionPane.showMessageDialog(null, "Incorrect or Blank Username!\nPlease try again.");
 
             System.out.println("FileNotFound\n");
 
@@ -460,19 +467,24 @@ public class User extends javax.swing.JFrame{
 
     private void changePassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePassButtonActionPerformed
         // TODO add your handling code here:
+        String userID = currUserID.getText();
+        String firstName = currFirstName.getText();
+        String changePass = newPass.getText();
+            
         
 
         try {
-            String userID = currUserID.getText();
+            
             FileReader openLogin;
             openLogin = new FileReader(userID + ".json");
             System.out.println("success\n"); // to test that the JSON file opened successfully
             JSONTokener tok = new JSONTokener(openLogin);
             JSONObject currJsonObj = new JSONObject(tok); // get the username and password stored at index 0 in the login JSON file
 
+            if(userID.equals("") || firstName.equals("") || changePass.equals("")){
+                JOptionPane.showMessageDialog(null, "Username, First Name, and Password fields cannot be blank.\nPlease try again.");
+            }
             
-            String firstName = currFirstName.getText();
-            String changePass = newPass.getText();
 
             if (userID.equals(currJsonObj.get("name")) == true && firstName.equals(currJsonObj.get("firstName")) == true) {
                 switchPanels(loginPage);
@@ -494,7 +506,7 @@ public class User extends javax.swing.JFrame{
             openLogin.close();
 
         } catch (FileNotFoundException ae) {
-            JOptionPane.showMessageDialog(null, "Incorrect Username!\nPlease try again.");
+            JOptionPane.showMessageDialog(null, "Incorrect or Blank Username!\nPlease try again.");
             System.out.println("FileNotFound\n");
 
         } catch (IOException se) {
@@ -526,7 +538,7 @@ public class User extends javax.swing.JFrame{
     * @param evt Default Java Event
     */
     
-    private void HelpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void HelpButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         new Help().setVisible(true);
     }
 
@@ -605,5 +617,5 @@ public class User extends javax.swing.JFrame{
     private javax.swing.JLabel userNameLabel;
     private javax.swing.JLabel useridLabel;
     // End of variables declaration//GEN-END:variables
-    private ArrayList<Building> buildingList;
+
 }
