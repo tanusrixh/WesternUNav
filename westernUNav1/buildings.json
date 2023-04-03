@@ -1,3 +1,1 @@
-{"buildings": [{"Name": "Middlesex College", "Number of floors": 5},
-{"Name": "Advanced Facility for Avian Research", "Number of floors": 2},
-{"Name": "Almuni Hall", "Number of floors": 3}]}
+{"buildings":[{"Number of floors":2,"File Extension":"ar","Name":"Advanced Facility for Avian Research"},{"Number of floors":5,"File Extension":"mc","Name":"Middlesex College"},{"Number of floors":3,"File Extension":"ah","Name":"Alumni Hall"}]}

@@ -1,0 +1,61 @@
+{"mcfloors":[
+    {
+    "Floor Number": 1, "Floor Name":"Ground Floor",
+    "Rooms": [{"category":"electrical and mechanical spaces","roomNumber":"1", "description":"Electrical","x":1355,"y":824},
+              {"category":"electrical and mechanical spaces","roomNumber":"1A", "description":"Electrical","x":1350,"y":959}, 
+              {"category":"accessibility","roomNumber":"3B", "description":"Elevator","x":1483,"y":692}, 
+              {"category":"washroom","roomNumber":"4B", "description":"Women Washroom Non-Accessible","x":1186,"y":777}, 
+              {"category":"washroom","roomNumber":"4C", "description":"Washroom Barrier Free - Universal","x":1132,"y":712}, 
+              {"category":"washroom","roomNumber":"5B", "description":"Men Washroom Non-Accessible","x":1105,"y":796}, 
+              {"category":"educational spaces","roomNumber":"6", "description":"Classroom","x":996,"y":824}, 
+              {"category":"educational spaces","roomNumber":"17", "description":"Classroom","x":722,"y":742}, 
+              {"category":"dining spaces","roomNumber":"18A", "description":"Kitchen","x":900,"y":633}, 
+              {"category":"dining spaces","roomNumber":"18", "description":"Servery","x":996,"y":594}, 
+              {"category":"dining spaces","roomNumber":"19", "description":"Grad Club","x":1289,"y":491}, 
+              {"category":"washroom","roomNumber":"28E", "description":"Men Washroom Non-Accessible","x":2145,"y":1076}, 
+              {"category":"accessibility","roomNumber":"29A", "description":"Elevator","x":2039,"y":1001}
+             ]
+},
+{
+    "Floor Number": 2, "Floor Name":"First Floor",
+    "Rooms": [{"category":"washroom","roomNumber":"100", "description":"Men Washroom Non-Accessible","x":1111,"y":805}, 
+              {"category":"educational spaces","roomNumber":"105", "description":"Classroom","x":472,"y":1105}, 
+              {"category":"educational spaces","roomNumber":"105B", "description":"Classroom","x":332,"y":960}, 
+              {"category":"educational spaces","roomNumber":"110", "description":"Classroom","x":1359,"y":619}, 
+              {"category":"accessibility","roomNumber":"EL.A", "description":"Elevator","x":1483,"y":727}, 
+              {"category":"electrical and mechanical spaces","roomNumber":"110D.1", "description":"Mech. Rm.","x":1330,"y":699}, 
+              {"category":"washroom","roomNumber":"139", "description":"Women Washroom Non-Accessible","x":2145,"y":1073}, 
+              {"category":"accessibility","roomNumber":"EL.C", "description":"Elevator","x":2089,"y":1010},
+              {"category":"accessibility","roomNumber":"ST.1", "description":"Stairs","x":199,"y":1151},
+              {"category":"accessibility","roomNumber":"ST.2", "description":"Stairs","x":602,"y":1074},
+              {"category":"accessibility","roomNumber":"ST.3", "description":"Stairs","x":1573,"y":842},
+              {"category":"accessibility","roomNumber":"ST.5", "description":"Stairs","x":2371,"y":1175}
+             ]
+},
+{
+    "Floor Number": 3, "Floor Name":"Second Floor",
+    "Rooms": [
+              {"category":"educational spaces","roomNumber":"204", "description":"Classroom","x":1357,"y":657},
+              {"category":"washroom","roomNumber":"205", "description":"Women Washroom Non-Accessible","x":1093,"y":793},
+              {"category":"accessibility","roomNumber":"257", "description":"Elevator","x":1481,"y":721},
+              {"category":"washroom","roomNumber":"278", "description":"Washroom Barrier Free - Universal","x":2141,"y":1068},
+              {"category":"accessibility","roomNumber":"279", "description":"Elevator","x":2082,"y":1009}
+             ]
+},
+{
+    "Floor Number": 4,	"Floor Name":"Third Floor",
+    "Rooms": [
+              {"category":"washroom","roomNumber":"311", "description":"Men Washroom Non-Accessible","x":1105,"y":793},
+              {"category":"mechanical and electrical spaces","roomNumber":"351", "description":"Server Room","x":1346,"y":607},
+              {"category":"accessibility","roomNumber":"354", "description":"Elevator","x":1487,"y":728},
+              {"category":"accessibility","roomNumber":"371", "description":"Elevator","x":2084,"y":1011},
+              {"category":"washroom","roomNumber":"388", "description":"Women Washroom Non-Accessible","x":1668,"y":818}
+             ]
+},
+{
+    "Floor Number": 5, "Floor Name":"Fourth Floor",
+    "Rooms": [
+              {"category":"accessibility","roomNumber":"411", "description":"Elevator","x":2084,"y":1016}
+             ]
+}
+]}
