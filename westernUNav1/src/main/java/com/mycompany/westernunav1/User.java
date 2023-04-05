@@ -382,7 +382,7 @@ public class User extends javax.swing.JFrame{
         // TODO add your handling code here:
         User newUser = new User();
 
-        ArrayList<PointofInterest> userPOI = new ArrayList<PointofInterest>();
+        ArrayList<PointofInterest> userPOI = new ArrayList<PointofInterest>(); //empty arraylists that will be populated in map class
         ArrayList<PointofInterest> favUserPOI = new ArrayList<PointofInterest>();
         
         String userID = loginUserID.getText();
@@ -406,23 +406,6 @@ public class User extends javax.swing.JFrame{
                 newUser.setName(userID);
                 newUser.setIsDeveloper((boolean)jsonobj.get("isDeveloper"));
                 
-                if(newUser.getIsDeveloper() == false){
-                    JSONArray poiArr = jsonobj.getJSONArray("poi");
-                    JSONArray favPoiArr = jsonobj.getJSONArray("favourites");
-                    for(int i = 0; i < poiArr.length(); i++){
-                    PointofInterest poi = (PointofInterest)poiArr.get(i);
-                    userPOI.add(i, poi);
-                    }
-                
-                    for(int i = 0; i < favPoiArr.length(); i++){
-                        PointofInterest favpoi = (PointofInterest)favPoiArr.get(i);
-                        favUserPOI.add(i, favpoi);
-                    }
-                
-                
-                    newUser.setSavedPOI(userPOI);
-                    newUser.setFavePOI(favUserPOI);
-                }
                 
                 MapSelector displayMaps = new MapSelector(newUser);
                 displayMaps.setVisible(true);
