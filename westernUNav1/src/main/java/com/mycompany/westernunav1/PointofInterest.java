@@ -13,6 +13,11 @@ import javax.swing.*;
 
 public class PointofInterest {
     /*private variables*/
+    
+    private String buildingName;
+    private String floorName;
+    
+    
     private String poiroomname;
     private String poidescription;
     private Building poilocation;
@@ -20,7 +25,8 @@ public class PointofInterest {
     private int poiX;
     private int poiY;
 
-    public PointofInterest(String poiname, String poidescription, int poiX, int poiY) {
+    public PointofInterest(User user, String poiname, String poidescription, int poiX, int poiY) {
+        
         this.poiroomname = poiname;
         this.poidescription = poidescription;
         this.poiX = poiX;

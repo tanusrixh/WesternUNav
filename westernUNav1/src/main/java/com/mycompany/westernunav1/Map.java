@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 import javax.imageio.ImageIO;
 
 
@@ -26,12 +27,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 
 import org.json.JSONArray;
@@ -153,8 +159,10 @@ public class Map extends javax.swing.JFrame {
         listPOI = new javax.swing.JScrollPane();
         userPOI = new javax.swing.JPanel();
         listUserPOI = new javax.swing.JScrollPane();
+        userPOIList = new javax.swing.JLayeredPane();
         favPOI = new javax.swing.JPanel();
         listFavPOI = new javax.swing.JScrollPane();
+        favPOILayer = new javax.swing.JLayeredPane();
         floorSelector = new javax.swing.JComboBox<>();
         floorNumberLabel = new javax.swing.JLabel();
         washroomToggle = new javax.swing.JCheckBox();
@@ -199,22 +207,29 @@ public class Map extends javax.swing.JFrame {
             biPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 450, Short.MAX_VALUE)
             .addGroup(biPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(biPOILayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(listPOI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(listPOI))
         );
         biPOILayout.setVerticalGroup(
             biPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 319, Short.MAX_VALUE)
             .addGroup(biPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(biPOILayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(listPOI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(listPOI))
         );
 
         poiLists.addTab("Built-in POIs", biPOI);
+
+        javax.swing.GroupLayout userPOIListLayout = new javax.swing.GroupLayout(userPOIList);
+        userPOIList.setLayout(userPOIListLayout);
+        userPOIListLayout.setHorizontalGroup(
+            userPOIListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 448, Short.MAX_VALUE)
+        );
+        userPOIListLayout.setVerticalGroup(
+            userPOIListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 317, Short.MAX_VALUE)
+        );
+
+        listUserPOI.setViewportView(userPOIList);
 
         javax.swing.GroupLayout userPOILayout = new javax.swing.GroupLayout(userPOI);
         userPOI.setLayout(userPOILayout);
@@ -222,22 +237,29 @@ public class Map extends javax.swing.JFrame {
             userPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 450, Short.MAX_VALUE)
             .addGroup(userPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(userPOILayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(listUserPOI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(listUserPOI, javax.swing.GroupLayout.Alignment.TRAILING))
         );
         userPOILayout.setVerticalGroup(
             userPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 319, Short.MAX_VALUE)
             .addGroup(userPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(userPOILayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(listUserPOI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(listUserPOI))
         );
 
         poiLists.addTab("My POIs", userPOI);
+
+        javax.swing.GroupLayout favPOILayerLayout = new javax.swing.GroupLayout(favPOILayer);
+        favPOILayer.setLayout(favPOILayerLayout);
+        favPOILayerLayout.setHorizontalGroup(
+            favPOILayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 448, Short.MAX_VALUE)
+        );
+        favPOILayerLayout.setVerticalGroup(
+            favPOILayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 317, Short.MAX_VALUE)
+        );
+
+        listFavPOI.setViewportView(favPOILayer);
 
         javax.swing.GroupLayout favPOILayout = new javax.swing.GroupLayout(favPOI);
         favPOI.setLayout(favPOILayout);
@@ -245,19 +267,13 @@ public class Map extends javax.swing.JFrame {
             favPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 450, Short.MAX_VALUE)
             .addGroup(favPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(favPOILayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(listFavPOI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(listFavPOI))
         );
         favPOILayout.setVerticalGroup(
             favPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 319, Short.MAX_VALUE)
             .addGroup(favPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(favPOILayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(listFavPOI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(listFavPOI, javax.swing.GroupLayout.Alignment.TRAILING))
         );
 
         poiLists.addTab("My Favourites", favPOI);
@@ -293,11 +309,6 @@ public class Map extends javax.swing.JFrame {
         diningToggle.setText("Dining Spaces");
 
         mechToggle.setText("Mechanical and Electrical Spaces");
-        mechToggle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mechToggleActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Click on checkboxes to toggle categories");
 
@@ -307,7 +318,7 @@ public class Map extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(viewMaps, javax.swing.GroupLayout.DEFAULT_SIZE, 1440, Short.MAX_VALUE)
+                .addComponent(viewMaps)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(educationToggle)
@@ -344,7 +355,7 @@ public class Map extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(viewMaps, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
+                    .addComponent(viewMaps)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(setBuildingName)
                         .addGap(18, 18, 18)
@@ -525,19 +536,49 @@ public class Map extends javax.swing.JFrame {
         mapImage.setBounds(0, 0, 3400, 2200);// need to set image bounds otherwise images don't show up
         mapLayers.setPreferredSize(new Dimension(3400, 2200));// need to set layer panel bounds otherwise images don't show up
         
+        ArrayList<String> roomString = new ArrayList<>();
+        
         for(String cat : categories.keySet()){
             ArrayList<Room> addRoomPOIs = categories.get(cat);
             for(int i = 0; i < addRoomPOIs.size(); i++){
                 displayRoomPOI(addRoomPOIs.get(i), mapLayers);
+                
+                roomString.add(addRoomPOIs.get(i).getRoomNumber());
             }
+            
         }
+        
+        JList list = new JList(roomString.toArray());
+        
+        //list.setSelectedIndex(0);  
+        //list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listPOI.add(list);
+        list.setOpaque(true);
+        list.setSize(biPOI.getWidth(), biPOI.getHeight());
+        list.setVisible(true);
+        list.addMouseListener(new MouseAdapter()  
+            {  
+                public void mouseClicked(MouseEvent e)  
+                {  
+                     
+                    String s = (String)list.getSelectedValue();
+                    JLabel label = new JLabel();
+                    for(Room r : roomPOI){
+                        if(r.getRoomNumber().equals(s)){
+                            System.out.println(r.getDescription()+" sucessfully found the room\n");
+                            //mapLayers.getComponentAt(r.getX_coord(), r.getY_coord());
+                            mapImage.getComponentAt(r.getX_coord(), r.getY_coord());
+                            
+                            
+                        }
+                    }
+                    
+                }  
+            }); 
+        
         
         
     }//GEN-LAST:event_floorSelectorActionPerformed
-
-    private void mechToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mechToggleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mechToggleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -581,6 +622,7 @@ public class Map extends javax.swing.JFrame {
     private javax.swing.JCheckBox diningToggle;
     private javax.swing.JCheckBox educationToggle;
     private javax.swing.JPanel favPOI;
+    private javax.swing.JLayeredPane favPOILayer;
     private javax.swing.JLabel floorNumberLabel;
     private javax.swing.JComboBox<String> floorSelector;
     private javax.swing.JButton helpButton;
@@ -595,6 +637,7 @@ public class Map extends javax.swing.JFrame {
     private javax.swing.JLabel setBuildingName;
     private javax.swing.JLabel setFloorName;
     private javax.swing.JPanel userPOI;
+    private javax.swing.JLayeredPane userPOIList;
     private javax.swing.JScrollPane viewMaps;
     private javax.swing.JCheckBox washroomToggle;
     // End of variables declaration//GEN-END:variables
