@@ -118,7 +118,7 @@ public class Help extends javax.swing.JFrame{
         LogoutText.setColumns(20);
         LogoutText.setLineWrap(true);
         LogoutText.setRows(5);
-        LogoutText.setText("");
+        LogoutText.setText("Click on the logout button next to the help page in order to be able to logout of your account.");
         LogoutText.setWrapStyleWord(true);
         LogoutPanel.setViewportView(LogoutText);
 
