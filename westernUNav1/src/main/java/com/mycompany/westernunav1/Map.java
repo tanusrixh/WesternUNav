@@ -8,11 +8,30 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.imageio.ImageIO;
+
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONTokener;
+import org.json.JSONObject;
 
 
 /**
@@ -21,20 +40,52 @@ import javax.swing.JLabel;
  */
 public class Map extends javax.swing.JFrame {
     
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    
     private User currUser;
     private String buildingName;
     private Building buildingInfo;
     private String filePathName;
+    private ArrayList<Room> roomsList;
+    private ArrayList<Floor> floorList;
+    private String floorName;
+    private int floorNumber;
+    private int numFloors;
+    private HashMap<String, ArrayList> floorBiPois;
     
     
-    public Map(User currUser, Building buildingInfo) {
+    public Map(User currUser, Building building) {
         initComponents();
-        this.currUser = currUser;
-        this.buildingInfo = buildingInfo;
         
-        int floors = buildingInfo.getNumFloors();
+        floorBiPois = new HashMap<>();
+        
+        this.currUser = currUser;
+        this.buildingInfo = building;
         
         boolean isDev = currUser.getIsDeveloper();
+        
+        this.numFloors = buildingInfo.getNumFloors();
+        this.filePathName = buildingInfo.getFileName();
+        this.buildingName = buildingInfo.getName();
+        this.floorList = buildingInfo.getFloors();
+        
+        for(int i = 0; i < floorList.size(); i++){
+            this.floorNumber = floorList.get(i).getFloorNumber();
+            this.floorName = floorList.get(i).getFloorName();
+            this.roomsList = floorList.get(i).getRoomList();
+            floorBiPois.put(floorName, roomsList); //HashMap to store the built-in POIs for each floor
+        }
+        
+        setBuildingName.setText(buildingName);
+        
+        if(isDev == true){ // if the user is a developer the user POI and favourite POI tabs will not be displayed
+            poiLists.remove(userPOI);
+            poiLists.remove(favPOI);
+        }
+        
+        //setFloorName.setText(floorList.get(0).getFloorName());
+        
+        
     }
        
        
@@ -65,11 +116,7 @@ public class Map extends javax.swing.JFrame {
         return buildingName;
     }
 
-    public Map(User currUser, String buildingName) {
-        initComponents();
-        this.currUser = currUser;
-        this.buildingName = buildingName;
-    }
+
 
     /**
      * Creates new form Map
@@ -87,61 +134,178 @@ public class Map extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        try{
-            BufferedImage image = ImageIO.read(new File("./MC_lv1.jpg"));
-            Image thisimage = image;
-            buildingView = new JLabel(new ImageIcon(thisimage));
-        }catch(IOException exc){
-            System.out.println("error.");
-        }
+        backWithoutSaving = new javax.swing.JButton();
+        saveBack = new javax.swing.JButton();
+        setBuildingName = new javax.swing.JLabel();
+        setFloorName = new javax.swing.JLabel();
+        helpButton = new javax.swing.JButton();
+        poiLists = new javax.swing.JTabbedPane();
+        biPOI = new javax.swing.JPanel();
+        listPOI = new javax.swing.JScrollPane();
+        userPOI = new javax.swing.JPanel();
+        listUserPOI = new javax.swing.JScrollPane();
+        favPOI = new javax.swing.JPanel();
+        listFavPOI = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle(this.buildingName);
         setMaximumSize(new java.awt.Dimension(1920, 1080));
         setPreferredSize(new java.awt.Dimension(1920, 1080));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        backWithoutSaving.setText("Back without saving");
+        backWithoutSaving.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backWithoutSavingActionPerformed(evt);
+            }
+        });
+
+        saveBack.setText("Save and Back");
+
+        setBuildingName.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        setBuildingName.setText("Building Name");
+
+        setFloorName.setFont(new java.awt.Font("Helvetica Neue", 0, 20)); // NOI18N
+        setFloorName.setText("Floor Name");
+
+        helpButton.setText("Help");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout biPOILayout = new javax.swing.GroupLayout(biPOI);
+        biPOI.setLayout(biPOILayout);
+        biPOILayout.setHorizontalGroup(
+            biPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+            .addGroup(biPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(biPOILayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(listPOI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        biPOILayout.setVerticalGroup(
+            biPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 319, Short.MAX_VALUE)
+            .addGroup(biPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(biPOILayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(listPOI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(screenSize.width-500, screenSize.height-250));
+        poiLists.addTab("Built-in POIs", biPOI);
 
-        buildingView.setText("");
-        jScrollPane1.setViewportView(buildingView);
+        javax.swing.GroupLayout userPOILayout = new javax.swing.GroupLayout(userPOI);
+        userPOI.setLayout(userPOILayout);
+        userPOILayout.setHorizontalGroup(
+            userPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+            .addGroup(userPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(userPOILayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(listUserPOI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        userPOILayout.setVerticalGroup(
+            userPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 319, Short.MAX_VALUE)
+            .addGroup(userPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(userPOILayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(listUserPOI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        poiLists.addTab("My POIs", userPOI);
+
+        javax.swing.GroupLayout favPOILayout = new javax.swing.GroupLayout(favPOI);
+        favPOI.setLayout(favPOILayout);
+        favPOILayout.setHorizontalGroup(
+            favPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+            .addGroup(favPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(favPOILayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(listFavPOI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        favPOILayout.setVerticalGroup(
+            favPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 319, Short.MAX_VALUE)
+            .addGroup(favPOILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(favPOILayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(listFavPOI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        poiLists.addTab("My Favourites", favPOI);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(638, 638, 638)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(1470, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(backWithoutSaving)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(setBuildingName)
+                        .addGap(72, 72, 72))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(setFloorName)
+                        .addGap(98, 98, 98))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(saveBack)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(helpButton)
+                        .addContainerGap())
+                    .addComponent(poiLists, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(setBuildingName)
+                .addGap(18, 18, 18)
+                .addComponent(setFloorName)
+                .addGap(15, 15, 15)
+                .addComponent(poiLists, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 539, Short.MAX_VALUE)
+                .addComponent(saveBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(backWithoutSaving)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(helpButton)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 395, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backWithoutSavingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backWithoutSavingActionPerformed
+        // TODO add your handling code here:
+        int option = JOptionPane.showConfirmDialog(null, "Going back will not save your current changes.\nContinue?", "Add Building", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            MapSelector newSelection = new MapSelector(currUser);
+            newSelection.setVisible(true);
+            this.dispose();
+        }
+        else{
+            System.out.println("Choose Building Canelled\n");
+        }
+        
+    }//GEN-LAST:event_backWithoutSavingActionPerformed
+
+    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+        // TODO add your handling code here:
+        new Help().setVisible(true);
+    }//GEN-LAST:event_helpButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,8 +343,17 @@ public class Map extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel buildingView;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton backWithoutSaving;
+    private javax.swing.JPanel biPOI;
+    private javax.swing.JPanel favPOI;
+    private javax.swing.JButton helpButton;
+    private javax.swing.JScrollPane listFavPOI;
+    private javax.swing.JScrollPane listPOI;
+    private javax.swing.JScrollPane listUserPOI;
+    private javax.swing.JTabbedPane poiLists;
+    private javax.swing.JButton saveBack;
+    private javax.swing.JLabel setBuildingName;
+    private javax.swing.JLabel setFloorName;
+    private javax.swing.JPanel userPOI;
     // End of variables declaration//GEN-END:variables
 }
