@@ -30,26 +30,31 @@ public class Floor {
     private ArrayList<Room> rooms;
     
     /**The list of points of interest on the floor for the user*/
-    private LinkedList<PointofInterest> pointofInterest;
+    private LinkedList<PointofInterest> pointOfInterest;
 
     public Floor(int floorNumber, String floorName, ArrayList<Room> rooms) {
         this.floorNumber = floorNumber;
         this.floorName = floorName;
         this.rooms = rooms;
     }
-
+    
+    public Floor(int floorNumber, String floorName) {
+        this.floorNumber = floorNumber;
+        this.floorName = floorName;
+        //this.rooms = rooms;
+    }
     
     public Floor(int floorNumber, String floorName, ArrayList<Room> rooms, LinkedList<PointofInterest> pointofInterest) {
         this.floorNumber = floorNumber;
         this.floorName = floorName;
         this.rooms = rooms;
-        this.pointofInterest = pointofInterest;
+        this.pointOfInterest = pointofInterest;
     }
 
     public Floor(int floorNumber, String floorName, LinkedList<PointofInterest> pointofInterest) {
         this.floorNumber = floorNumber;
         this.floorName = floorName;
-        this.pointofInterest = pointofInterest;
+        this.pointOfInterest = pointofInterest;
     }
     
     
@@ -61,18 +66,26 @@ public class Floor {
     public Floor(int floorNumber) {
         this.floorNumber = floorNumber;
         this.rooms = new ArrayList<Room>();
-        this.pointofInterest = new LinkedList<PointofInterest>();
+        this.pointOfInterest = new LinkedList<PointofInterest>();
     }
+
+
     
     /**
      * Returns the floor number of the floor.
      * 
      * @return the floor number of the floor.
      */
-    public int getNumber(){
-        return this.floorNumber;
+  
+
+    public int getFloorNumber() {
+        return floorNumber;
     }
     
+    
+    public void setFloorNumber(int floorNumber) {
+        this.floorNumber = floorNumber;
+    }
     
     public String getFloorName() {
         return floorName;
@@ -80,6 +93,14 @@ public class Floor {
 
     public void setFloorName(String floorName) {
         this.floorName = floorName;
+    }
+    
+    public ArrayList<Room> getRoomList(){
+        return this.rooms;
+    }
+    
+    public void setRoomList(ArrayList<Room> rooms){
+        this.rooms = rooms;
     }
     
     /**
@@ -122,7 +143,11 @@ public class Floor {
      * @return a list of points of interest on the floor
      */
     public LinkedList<PointofInterest> getPointsOfInterest(){
-        return this.pointofInterest;
+        return this.pointOfInterest;
+    }
+    
+    public void setPOIs(LinkedList<PointofInterest> pois){
+        this.pointOfInterest = pois;
     }
 
     
@@ -132,7 +157,7 @@ public class Floor {
      * @param poi the point of interest to add
      */
     public void addPointOfInterest(PointofInterest poi){
-        this.pointofInterest.add(poi);
+        this.pointOfInterest.add(poi);
     }
     
     /**
@@ -141,6 +166,6 @@ public class Floor {
      * @param poi the point of interest to remove
      */
     public void removePointOfInterest(PointofInterest poi){
-        this.pointofInterest.remove(poi);
+        this.pointOfInterest.remove(poi);
     }
 }

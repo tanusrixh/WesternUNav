@@ -44,7 +44,7 @@ public class Building {
         this.fileName = fileCode;
         
         floors = new ArrayList<>();
-        rooms = new ArrayList<>();
+        
         
         try{
             
@@ -60,8 +60,13 @@ public class Building {
                 String floorName = (String)floorInfo.get("Floor Name");
                 JSONArray roomsArray = floorInfo.getJSONArray("Rooms");
                 
+                rooms = new ArrayList<>();
+                
+                // to check if no. of built in POIs on each floor is correct
+                //System.out.println(roomsArray.length()+"\n"); 
+                
                 for(int j = 0; j < roomsArray.length(); j++){
-                    JSONObject room = roomsArray.getJSONObject(i);
+                    JSONObject room = roomsArray.getJSONObject(j);
                     String cat = (String)room.get("category");
                     String roomNum = (String)room.get("roomNumber");
                     String desc = (String)room.get("description");
@@ -69,6 +74,7 @@ public class Building {
                     int roomY = (Integer)room.get("y");
                     
                     Room addRoom = new Room(roomNum, desc, roomX, roomY, cat);
+                    
                     rooms.add(addRoom);
                 }
                 
