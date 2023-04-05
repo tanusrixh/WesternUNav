@@ -17,9 +17,12 @@ import java.awt.event.MouseEvent;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
@@ -64,8 +67,8 @@ public class Map extends javax.swing.JFrame {
     private String filePathName;
     private ArrayList<Room> roomsList;
     private ArrayList<Floor> floorList;
-    private ArrayList<PointofInterest> userSavedPOI;
-    private ArrayList<PointofInterest> userFavPOI;
+    private LinkedList<PointofInterest> userSavedPOI;
+    private LinkedList<PointofInterest> userFavPOI;
     private String floorName;
     private int floorNumber;
     private int numFloors;
@@ -82,8 +85,7 @@ public class Map extends javax.swing.JFrame {
         
         this.currUser = currUser;
         
-        this.userSavedPOI = this.currUser.getSavedPOI();
-        this.userFavPOI = this.currUser.getFavePOI();
+        
         
         this.buildingInfo = building;
         
@@ -111,6 +113,63 @@ public class Map extends javax.swing.JFrame {
             poiLists.remove(favPOI);
         }
         
+        try {
+
+            FileReader openLogin;
+            openLogin = new FileReader(this.currUser.getName() + ".json");
+            System.out.println("success\n"); // to test that the JSON file opened successfully
+            JSONTokener tok = new JSONTokener(openLogin);
+            JSONObject jsonobj = new JSONObject(tok); // get the username and password stored at index 0 in the login JSON file
+            
+            this.currUser.setIsDeveloper((boolean)jsonobj.get("isDeveloper"));
+            
+            if(this.currUser.getIsDeveloper() == false){
+                JSONArray poi = jsonobj.getJSONArray("poi");
+                
+                for(int i = 0; i < poi.length(); i++){
+                    JSONObject getBuildingPoi = poi.getJSONObject(i);
+                    if(getBuildingPoi.has(buildingName)){
+                        JSONArray currPOIBuilding = getBuildingPoi.getJSONArray(buildingName);
+                        for(int b = 0; b < currPOIBuilding.length(); b++){
+                            JSONObject getFloorsPOI = currPOIBuilding.getJSONObject(b);
+                            String poiFloorName = (String) getFloorsPOI.get("Floor Name");
+                            int poiFloorNumber = (Integer) getFloorsPOI.get("Floor Number");
+                            JSONArray eachFloorPOI = getFloorsPOI.getJSONArray("POI");
+                        }
+                    }
+                }
+                
+                
+                JSONArray favs = jsonobj.getJSONArray("favourites");
+                
+                for(int j = 0; j < favs.length(); j++){
+                    JSONObject getFavPois = favs.getJSONObject(j);
+                    if(getFavPois.has(buildingName)){
+                        JSONArray currBuilding = getFavPois.getJSONArray(buildingName);
+                        for(int k = 0; k < currBuilding.length(); k++){
+                            JSONObject getFloorFavsPOI = currBuilding.getJSONObject(k);
+                            String poiFloorName = (String) getFloorFavsPOI.get("Floor Name");
+                            int poiFloorNumber = (Integer) getFloorFavsPOI.get("Floor Number");
+                            JSONArray eachFloorPOI = getFloorFavsPOI.getJSONArray("POI");
+                        }
+                    }
+                }
+            }
+            
+            
+            openLogin.close();
+        }catch (FileNotFoundException ae) {
+            
+
+            System.out.println("FileNotFound\n");
+
+        } catch (IOException se) {
+
+            System.out.println("ErrorClosingFile\n");
+
+        } catch(JSONException jsonerror){
+            System.out.println("ErrorParsingJSONFileUser2\n");
+        }
         
         
     }
@@ -683,33 +742,7 @@ public class Map extends javax.swing.JFrame {
 
     private void addPOIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPOIActionPerformed
         // TODO add your handling code here:
-        
-                JTextField roomNumber = new JTextField();
-                JComboBox<String> roomCategory = new JComboBox();
-                JTextField roomDesc = new JTextField();
-                JTextField roomNum = new JTextField();
-                
-                String[]categories = {"washroom", "accessibility", "electrical and mechanical spaces", "dining spaces", "educational spaces"};
-                
-                roomCategory.setModel(new DefaultComboBoxModel<>(categories));
-                
-                Object[] roomStuff = {
-                    "Room Number:", roomNumber,
-                    "Room Category:", roomCategory,
-                    "Room Description:", roomDesc
-                };
-                
-                 Object[] roomStuffUser = {
-                    "Room Number:", roomNumber,
-                    
-                    "Room Description:", roomDesc
-                };
-                 
-                int option = JOptionPane.showConfirmDialog(null, roomStuff, "Room Information", JOptionPane.OK_CANCEL_OPTION);
-                if(option == JOptionPane.OK_OPTION){
-                    
-                }
-        
+
         int floorIndex = floorSelector.getSelectedIndex();
         mapLayers.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
@@ -719,21 +752,60 @@ public class Map extends javax.swing.JFrame {
                 if(x < 0) x = 0;
                 if(y < 0) y = 0;
                 
+                JTextField roomNumber = new JTextField();
+                JComboBox<String> roomCategory = new JComboBox();
+                JTextField roomDesc = new JTextField();
+                
+                
+                String[]categories = {"washroom", "accessibility", "electrical and mechanical spaces", "dining spaces", "educational spaces"};
+                
+                roomCategory.setModel(new DefaultComboBoxModel<>(categories));
+                
+                Object[] roomStuffDeveloper = {
+                    "Room Number:", roomNumber,
+                    "Room Category:", roomCategory,
+                    "Room Description:", roomDesc
+                };
+                
+                 Object[] roomStuffUser = {
+                    "Room Number:", roomNumber,
+                    "Room Description:", roomDesc
+                };
+                 
+                
+                
                 if(currUser.getIsDeveloper() == true){
                     Room addRoom = new Room(null, null, x, y, null);
-                    floorList.get(floorIndex).getRoomList().add(addRoom);
+                    int option = JOptionPane.showConfirmDialog(null, roomStuffDeveloper, "Room Information", JOptionPane.OK_CANCEL_OPTION);
+                    if(option == JOptionPane.OK_OPTION){
+                        addRoom.setRoomCategory(roomCategory.getItemAt(roomCategory.getSelectedIndex()));
+                        addRoom.setDescription(roomDesc.getText());
+                        addRoom.setRoomNumber(roomNumber.getText());
+                        floorList.get(floorIndex).getRoomList().add(addRoom);
+                        validate();
+                    }  
+                    
                     
                 }
                 else{
-                    PointofInterest newPOI = new PointofInterest(null, null, "myPOI",x, y);
                     
+                    PointofInterest newPOI = new PointofInterest(null, null, "myPOI",x, y);
+                    int option = JOptionPane.showConfirmDialog(null, roomStuffUser, "Room Information", JOptionPane.OK_CANCEL_OPTION);
+                    if(option == JOptionPane.OK_OPTION){
+                    newPOI.setCategory("myPOI");
+                    newPOI.setPoiroomname(roomNumber.getText());
+                    newPOI.setPoidescription(roomDesc.getText());
+                    userSavedPOI.add(newPOI);
+                }
                 }
             }
         });
-        this.repaint();
+        
     }//GEN-LAST:event_addPOIActionPerformed
 
     public void updateBIJSON(ArrayList<Floor> floor){
+        
+        JSONObject updatedObject = new JSONObject ();        
         /*
         JSONObject updatedObject = new JSONObject();
         JSONArray updatedArray = new JSONArray();
