@@ -4,9 +4,12 @@
  */
 package com.mycompany.westernunav1;
 
+
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,6 +29,9 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 
 
 import org.json.JSONArray;
@@ -155,6 +161,7 @@ public class Map extends javax.swing.JFrame {
         accessibilityToggle = new javax.swing.JCheckBox();
         educationToggle = new javax.swing.JCheckBox();
         viewMaps = new javax.swing.JScrollPane();
+        mapLayers = new javax.swing.JLayeredPane();
         diningToggle = new javax.swing.JCheckBox();
         mechToggle = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
@@ -270,9 +277,27 @@ public class Map extends javax.swing.JFrame {
 
         educationToggle.setText("Educational Spaces");
 
+        javax.swing.GroupLayout mapLayersLayout = new javax.swing.GroupLayout(mapLayers);
+        mapLayers.setLayout(mapLayersLayout);
+        mapLayersLayout.setHorizontalGroup(
+            mapLayersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1438, Short.MAX_VALUE)
+        );
+        mapLayersLayout.setVerticalGroup(
+            mapLayersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 785, Short.MAX_VALUE)
+        );
+
+        viewMaps.setViewportView(mapLayers);
+
         diningToggle.setText("Dining Spaces");
 
         mechToggle.setText("Mechanical and Electrical Spaces");
+        mechToggle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mechToggleActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Click on checkboxes to toggle categories");
 
@@ -371,14 +396,148 @@ public class Map extends javax.swing.JFrame {
         // TODO add your handling code here:
         new Help().setVisible(true);
     }//GEN-LAST:event_helpButtonActionPerformed
+    
+    public void displayRoomPOI(Room roomInfo, JLayeredPane layer){
+        JLabel roomPOI = new JLabel(new ImageIcon("./catIcons/" + roomInfo.getRoomCategory() + ".png"));
+        roomPOI.setBounds(roomInfo.getX_coord(), roomInfo.getY_coord(), 25, 25);
+        layer.add(roomPOI);
+        layer.setComponentZOrder(roomPOI, 0);
+        
+        accessibilityToggle.addActionListener(new ActionListener (){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(roomInfo.getRoomCategory().equals("accessibility") && accessibilityToggle.isSelected()){
+                    roomPOI.setVisible(false);
+            //this.repaint();
+                }
+                else{
+                    roomPOI.setVisible(true);
+                }
+            }
+        });
+        
+        
+        washroomToggle.addActionListener(new ActionListener (){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(roomInfo.getRoomCategory().equals("washroom") && washroomToggle.isSelected()){
+                    roomPOI.setVisible(false);
+            //this.repaint();
+                }
+                else{
+                    roomPOI.setVisible(true);
+                }
+            }
+        });
+                
+        educationToggle.addActionListener(new ActionListener (){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(roomInfo.getRoomCategory().equals("educational spaces") && educationToggle.isSelected()){
+                    roomPOI.setVisible(false);
+            //this.repaint();
+                }
+                else{
+                    roomPOI.setVisible(true);
+                }
+            }
+        });
+        
+        
+        mechToggle.addActionListener(new ActionListener (){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(roomInfo.getRoomCategory().equals("electrical and mechanical spaces") && mechToggle.isSelected()){
+                    roomPOI.setVisible(false);
+            //this.repaint();
+                }
+                else{
+                    roomPOI.setVisible(true);
+                }
+            }
+        });
+        
+        diningToggle.addActionListener(new ActionListener (){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(roomInfo.getRoomCategory().equals("dining spaces") && diningToggle.isSelected()){
+                    roomPOI.setVisible(false);
+            //this.repaint();
+                }
+                else{
+                    roomPOI.setVisible(true);
+                }
+            }
+        });
+        
+        roomPOI.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e){
+                JLabel roomNumber = new JLabel();
+                JLabel roomCategory = new JLabel();
+                JLabel roomDesc = new JLabel();
+                
+                roomNumber.setText(roomInfo.getRoomNumber());
+                roomCategory.setText(roomInfo.getRoomCategory());
+                roomDesc.setText(roomInfo.getDescription());
+                
+                Object[] roomStuff = {
+                    "Room Number:", roomNumber,
+                    "Room Category:", roomCategory,
+                    "Room Description:", roomDesc
+                };
 
+                int option = JOptionPane.showConfirmDialog(null, roomStuff, "Room Information", JOptionPane.OK_CANCEL_OPTION);
+            }
+        });
+    }
+    
+    
+    /*
+    Displays the floor name and image file associated with the floor depending on
+    the option the user selects
+    */
     private void floorSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_floorSelectorActionPerformed
         // TODO add your handling code here:
         int selectedInt = Integer.parseInt(floorSelector.getItemAt(floorSelector.getSelectedIndex()));
         setFloorName.setText(floorList.get(floorSelector.getSelectedIndex()).getFloorName());
         setFloorName.repaint();
         setFloorName.revalidate();
+        
+        int floorNumber = floorList.get(floorSelector.getSelectedIndex()).getFloorNumber();
+        
+        ArrayList <Room> roomPOI = floorList.get(floorSelector.getSelectedIndex()).getRoomList();
+        
+        categories = new HashMap<>();
+        
+        mapLayers.setLayout(null);
+        
+        for(Room room : roomPOI){
+            categories.put(room.getRoomCategory(), roomPOI);
+        }
+        
+        JLabel mapImage = new JLabel();
+        
+        mapImage.setIcon(new ImageIcon("./maps/"+filePathName+"_lv"+floorNumber+".jpg"));
+        mapLayers.add(mapImage);
+        
+        mapLayers.setComponentZOrder(mapImage, 0); // sets the current map being displayed as the lowest layer of the scroll panel
+        
+        mapImage.setBounds(0, 0, 3400, 2200);// need to set image bounds otherwise images don't show up
+        mapLayers.setPreferredSize(new Dimension(3400, 2200));// need to set layer panel bounds otherwise images don't show up
+        
+        for(String cat : categories.keySet()){
+            ArrayList<Room> addRoomPOIs = categories.get(cat);
+            for(int i = 0; i < addRoomPOIs.size(); i++){
+                displayRoomPOI(addRoomPOIs.get(i), mapLayers);
+            }
+        }
+        
+        
     }//GEN-LAST:event_floorSelectorActionPerformed
+
+    private void mechToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mechToggleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mechToggleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -429,6 +588,7 @@ public class Map extends javax.swing.JFrame {
     private javax.swing.JScrollPane listFavPOI;
     private javax.swing.JScrollPane listPOI;
     private javax.swing.JScrollPane listUserPOI;
+    private javax.swing.JLayeredPane mapLayers;
     private javax.swing.JCheckBox mechToggle;
     private javax.swing.JTabbedPane poiLists;
     private javax.swing.JButton saveBack;
