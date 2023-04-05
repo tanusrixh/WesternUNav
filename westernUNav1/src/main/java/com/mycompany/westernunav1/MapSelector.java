@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import org.apache.commons.lang3.StringUtils;
 
 import org.json.JSONArray;
@@ -299,7 +300,13 @@ public class MapSelector extends javax.swing.JFrame {
         // TODO add your handling code here:
         JTextField buildingName = new JTextField();
         JTextField buildingCode = new JTextField();
-        JSpinner buildingFloors = new JSpinner();
+        
+        //Spinner model that allows developer to add anywhere from 1 to 100 floors
+        SpinnerNumberModel numbers = new SpinnerNumberModel(1,1,100,1);
+        
+        JSpinner buildingFloors = new JSpinner(numbers);
+        
+       
         
         Object[] addBuilding = {
             "Building Name:", buildingName,

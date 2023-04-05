@@ -52,6 +52,7 @@ public class Map extends javax.swing.JFrame {
     private int floorNumber;
     private int numFloors;
     private HashMap<String, ArrayList> floorBiPois;
+    private HashMap<String, ArrayList> categories;
     
     
     public Map(User currUser, Building building) {
@@ -65,6 +66,8 @@ public class Map extends javax.swing.JFrame {
         boolean isDev = currUser.getIsDeveloper();
         
         this.numFloors = buildingInfo.getNumFloors();
+
+        
         this.filePathName = buildingInfo.getFileName();
         this.buildingName = buildingInfo.getName();
         this.floorList = buildingInfo.getFloors();
@@ -74,6 +77,7 @@ public class Map extends javax.swing.JFrame {
             this.floorName = floorList.get(i).getFloorName();
             this.roomsList = floorList.get(i).getRoomList();
             floorBiPois.put(floorName, roomsList); //HashMap to store the built-in POIs for each floor
+            floorSelector.addItem(Integer.toString(floorNumber));
         }
         
         setBuildingName.setText(buildingName);
@@ -83,7 +87,6 @@ public class Map extends javax.swing.JFrame {
             poiLists.remove(favPOI);
         }
         
-        //setFloorName.setText(floorList.get(0).getFloorName());
         
         
     }
@@ -146,6 +149,15 @@ public class Map extends javax.swing.JFrame {
         listUserPOI = new javax.swing.JScrollPane();
         favPOI = new javax.swing.JPanel();
         listFavPOI = new javax.swing.JScrollPane();
+        floorSelector = new javax.swing.JComboBox<>();
+        floorNumberLabel = new javax.swing.JLabel();
+        washroomToggle = new javax.swing.JCheckBox();
+        accessibilityToggle = new javax.swing.JCheckBox();
+        educationToggle = new javax.swing.JCheckBox();
+        viewMaps = new javax.swing.JScrollPane();
+        diningToggle = new javax.swing.JCheckBox();
+        mechToggle = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(this.buildingName);
@@ -243,46 +255,99 @@ public class Map extends javax.swing.JFrame {
 
         poiLists.addTab("My Favourites", favPOI);
 
+        floorSelector.setModel(new javax.swing.DefaultComboBoxModel<>());
+        floorSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                floorSelectorActionPerformed(evt);
+            }
+        });
+
+        floorNumberLabel.setText("Floor Number:");
+
+        washroomToggle.setText("Washroom");
+
+        accessibilityToggle.setText("Accessibility");
+
+        educationToggle.setText("Educational Spaces");
+
+        diningToggle.setText("Dining Spaces");
+
+        mechToggle.setText("Mechanical and Electrical Spaces");
+
+        jLabel1.setText("Click on checkboxes to toggle categories");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(1470, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(viewMaps, javax.swing.GroupLayout.DEFAULT_SIZE, 1440, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(educationToggle)
+                    .addComponent(accessibilityToggle)
+                    .addComponent(washroomToggle)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(setBuildingName)
+                            .addGap(72, 72, 72))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(poiLists, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(floorNumberLabel)
+                                    .addGap(38, 38, 38)
+                                    .addComponent(floorSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(setFloorName))
+                            .addGap(98, 98, 98)))
+                    .addComponent(diningToggle)
+                    .addComponent(jLabel1)
+                    .addComponent(mechToggle)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(backWithoutSaving)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(setBuildingName)
-                        .addGap(72, 72, 72))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(setFloorName)
-                        .addGap(98, 98, 98))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(saveBack)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(helpButton)
-                        .addContainerGap())
-                    .addComponent(poiLists, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(setBuildingName)
-                .addGap(18, 18, 18)
-                .addComponent(setFloorName)
-                .addGap(15, 15, 15)
-                .addComponent(poiLists, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 539, Short.MAX_VALUE)
-                .addComponent(saveBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(backWithoutSaving)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(helpButton)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viewMaps, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(setBuildingName)
+                        .addGap(18, 18, 18)
+                        .addComponent(setFloorName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(floorSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(floorNumberLabel))
+                        .addGap(15, 15, 15)
+                        .addComponent(poiLists, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(educationToggle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(diningToggle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mechToggle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(washroomToggle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(accessibilityToggle)
+                        .addGap(66, 66, 66)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(backWithoutSaving)
+                            .addComponent(saveBack)
+                            .addComponent(helpButton))))
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
         pack();
@@ -306,6 +371,14 @@ public class Map extends javax.swing.JFrame {
         // TODO add your handling code here:
         new Help().setVisible(true);
     }//GEN-LAST:event_helpButtonActionPerformed
+
+    private void floorSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_floorSelectorActionPerformed
+        // TODO add your handling code here:
+        int selectedInt = Integer.parseInt(floorSelector.getItemAt(floorSelector.getSelectedIndex()));
+        setFloorName.setText(floorList.get(floorSelector.getSelectedIndex()).getFloorName());
+        setFloorName.repaint();
+        setFloorName.revalidate();
+    }//GEN-LAST:event_floorSelectorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,17 +416,26 @@ public class Map extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox accessibilityToggle;
     private javax.swing.JButton backWithoutSaving;
     private javax.swing.JPanel biPOI;
+    private javax.swing.JCheckBox diningToggle;
+    private javax.swing.JCheckBox educationToggle;
     private javax.swing.JPanel favPOI;
+    private javax.swing.JLabel floorNumberLabel;
+    private javax.swing.JComboBox<String> floorSelector;
     private javax.swing.JButton helpButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane listFavPOI;
     private javax.swing.JScrollPane listPOI;
     private javax.swing.JScrollPane listUserPOI;
+    private javax.swing.JCheckBox mechToggle;
     private javax.swing.JTabbedPane poiLists;
     private javax.swing.JButton saveBack;
     private javax.swing.JLabel setBuildingName;
     private javax.swing.JLabel setFloorName;
     private javax.swing.JPanel userPOI;
+    private javax.swing.JScrollPane viewMaps;
+    private javax.swing.JCheckBox washroomToggle;
     // End of variables declaration//GEN-END:variables
 }
