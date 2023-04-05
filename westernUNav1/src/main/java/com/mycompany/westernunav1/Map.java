@@ -22,9 +22,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -61,6 +64,8 @@ public class Map extends javax.swing.JFrame {
     private String filePathName;
     private ArrayList<Room> roomsList;
     private ArrayList<Floor> floorList;
+    private ArrayList<PointofInterest> userSavedPOI;
+    private ArrayList<PointofInterest> userFavPOI;
     private String floorName;
     private int floorNumber;
     private int numFloors;
@@ -71,9 +76,15 @@ public class Map extends javax.swing.JFrame {
     public Map(User currUser, Building building) {
         initComponents();
         
+        
+        
         floorBiPois = new HashMap<>();
         
         this.currUser = currUser;
+        
+        this.userSavedPOI = this.currUser.getSavedPOI();
+        this.userFavPOI = this.currUser.getFavePOI();
+        
         this.buildingInfo = building;
         
         boolean isDev = currUser.getIsDeveloper();
@@ -177,6 +188,7 @@ public class Map extends javax.swing.JFrame {
         addPOI = new javax.swing.JButton();
         editPOI = new javax.swing.JButton();
         deletePOI = new javax.swing.JButton();
+        myPOIbox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(this.buildingName);
@@ -323,10 +335,22 @@ public class Map extends javax.swing.JFrame {
         jLabel1.setText("Click on checkboxes to toggle categories");
 
         addPOI.setText("Add");
+        addPOI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPOIActionPerformed(evt);
+            }
+        });
 
         editPOI.setText("Edit");
 
         deletePOI.setText("Delete");
+        deletePOI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletePOIActionPerformed(evt);
+            }
+        });
+
+        myPOIbox.setText("My POIs");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -360,15 +384,17 @@ public class Map extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(editPOI)
-                                .addGap(18, 18, 18)
-                                .addComponent(addPOI))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(backWithoutSaving)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(saveBack)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(helpButton)))
+                                .addComponent(helpButton))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(myPOIbox)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(editPOI)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(addPOI))))
                         .addGap(31, 31, 31))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
@@ -395,7 +421,9 @@ public class Map extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(educationToggle)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(educationToggle)
+                            .addComponent(myPOIbox))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(diningToggle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -445,7 +473,7 @@ public class Map extends javax.swing.JFrame {
         layer.add(roomPOI);
         layer.setComponentZOrder(roomPOI, 0);
         
-        accessibilityToggle.addActionListener(new ActionListener (){
+        /*accessibilityToggle.addActionListener(new ActionListener (){
             @Override
             public void actionPerformed(ActionEvent e){
                 if(roomInfo.getRoomCategory().equals("accessibility") && accessibilityToggle.isSelected()){
@@ -470,7 +498,7 @@ public class Map extends javax.swing.JFrame {
                     roomPOI.setVisible(true);
                 }
             }
-        });
+        });*/
                 
         educationToggle.addActionListener(new ActionListener (){
             @Override
@@ -518,17 +546,29 @@ public class Map extends javax.swing.JFrame {
                 JLabel roomCategory = new JLabel();
                 JLabel roomDesc = new JLabel();
                 
+                JButton deletePOI = new JButton();
+                JButton editPOI = new JButton();
+                
+                deletePOI.setText("Delete this POI");
+                editPOI.setText("Edit this POI");
+                
+                
+                
                 roomNumber.setText(roomInfo.getRoomNumber());
                 roomCategory.setText(roomInfo.getRoomCategory());
                 roomDesc.setText(roomInfo.getDescription());
                 
-                Object[] roomStuff = {
+
+            Object[] roomStuff = {
                     "Room Number:", roomNumber,
                     "Room Category:", roomCategory,
-                    "Room Description:", roomDesc
+                    "Room Description:", roomDesc,
+                    
                 };
-
+            Object[] buttons = {deletePOI, editPOI};
+            
                 int option = JOptionPane.showConfirmDialog(null, roomStuff, "Room Information", JOptionPane.OK_CANCEL_OPTION);
+        
             }
         });
     }
@@ -586,9 +626,6 @@ public class Map extends javax.swing.JFrame {
         list.setVisibleRowCount(roomString.size());
         list.repaint();
         list.revalidate();
-        
-        //list.setSelectedIndex(0);  
-        //list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listPOI.add(list);
         list.setOpaque(true);
         list.setSize(biPOI.getWidth(), biPOI.getHeight());
@@ -636,6 +673,99 @@ public class Map extends javax.swing.JFrame {
         
     }//GEN-LAST:event_floorSelectorActionPerformed
 
+    private void deletePOIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePOIActionPerformed
+        // TODO add your handling code here:
+        if(this.currUser.getIsDeveloper() == true){
+            JOptionPane.showMessageDialog(null, "Click on the Built-in POI that you would like to delete in the map.");
+            
+        }
+    }//GEN-LAST:event_deletePOIActionPerformed
+
+    private void addPOIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPOIActionPerformed
+        // TODO add your handling code here:
+        
+                JTextField roomNumber = new JTextField();
+                JComboBox<String> roomCategory = new JComboBox();
+                JTextField roomDesc = new JTextField();
+                JTextField roomNum = new JTextField();
+                
+                String[]categories = {"washroom", "accessibility", "electrical and mechanical spaces", "dining spaces", "educational spaces"};
+                
+                roomCategory.setModel(new DefaultComboBoxModel<>(categories));
+                
+                Object[] roomStuff = {
+                    "Room Number:", roomNumber,
+                    "Room Category:", roomCategory,
+                    "Room Description:", roomDesc
+                };
+                
+                 Object[] roomStuffUser = {
+                    "Room Number:", roomNumber,
+                    
+                    "Room Description:", roomDesc
+                };
+                 
+                int option = JOptionPane.showConfirmDialog(null, roomStuff, "Room Information", JOptionPane.OK_CANCEL_OPTION);
+                if(option == JOptionPane.OK_OPTION){
+                    
+                }
+        
+        int floorIndex = floorSelector.getSelectedIndex();
+        mapLayers.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e){
+                int x = e.getX();
+                int y = e.getY();
+                
+                if(x < 0) x = 0;
+                if(y < 0) y = 0;
+                
+                if(currUser.getIsDeveloper() == true){
+                    Room addRoom = new Room(null, null, x, y, null);
+                    floorList.get(floorIndex).getRoomList().add(addRoom);
+                    
+                }
+                else{
+                    PointofInterest newPOI = new PointofInterest(null, null, "myPOI",x, y);
+                    
+                }
+            }
+        });
+        this.repaint();
+    }//GEN-LAST:event_addPOIActionPerformed
+
+    public void updateBIJSON(ArrayList<Floor> floor){
+        /*
+        JSONObject updatedObject = new JSONObject();
+        JSONArray updatedArray = new JSONArray();
+        
+        for(String a : buildingsInfo.keySet()){
+            //Check if the correct building names are in the hashmaps
+            //System.out.println(a+"\n");
+            
+            
+            int floorNumber = buildingsInfo.get(a);
+            String fileCode = buildingsFileInfo.get(a);
+            
+            JSONObject building = new JSONObject();
+            building.put("Name", a);
+            building.put("Number of floors", floorNumber);
+            building.put("File Extension", fileCode);
+            
+            updatedArray.put(building);
+        }
+        
+        updatedObject.put("buildings", updatedArray);
+        
+        try{
+            FileOutputStream outputUpdate = new FileOutputStream("./buildings.json"); 
+            byte[] strToBytes = updatedObject.toString().getBytes(); 
+            outputUpdate.write(strToBytes); 
+            outputUpdate.close();
+        }catch(IOException e){
+            System.out.println("Unable to write JSON to file\n");
+        }
+        */
+    }
     /**
      * @param args the command line arguments
      */
@@ -691,6 +821,7 @@ public class Map extends javax.swing.JFrame {
     private javax.swing.JScrollPane listUserPOI;
     private javax.swing.JLayeredPane mapLayers;
     private javax.swing.JCheckBox mechToggle;
+    private javax.swing.JCheckBox myPOIbox;
     private javax.swing.JTabbedPane poiLists;
     private javax.swing.JButton saveBack;
     private javax.swing.JLabel setBuildingName;
