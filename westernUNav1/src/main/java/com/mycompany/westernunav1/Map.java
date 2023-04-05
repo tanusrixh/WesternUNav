@@ -763,6 +763,8 @@ public class Map extends javax.swing.JFrame {
         mapLayers.setPreferredSize(new Dimension(3400, 2200));// need to set layer panel bounds otherwise images don't show up
         
         ArrayList<String> roomString = new ArrayList<>();
+        ArrayList<String> userPOIString = new ArrayList<>();
+        ArrayList<String> userFavString = new ArrayList<>();
         
         for(String cat : categories.keySet()){
             ArrayList<Room> addRoomPOIs = categories.get(cat);
@@ -791,6 +793,13 @@ public class Map extends javax.swing.JFrame {
         for(int i = 0; i < roomPOI.size(); i++){
             roomString.add(roomPOI.get(i).getRoomNumber());
         }
+        
+        for(int i = 0; i < getUserPOIs.size(); i++){
+            userPOIString.add(getUserPOIs.get(i).getPoiRoomNumber());
+        }
+        
+        
+        
         
         JList biPoiList = new JList(roomString.toArray());
         biPoiList.setVisibleRowCount(roomString.size());

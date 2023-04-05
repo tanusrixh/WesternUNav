@@ -406,6 +406,10 @@ public class User extends javax.swing.JFrame{
                 newUser.setName(userID);
                 newUser.setIsDeveloper((boolean)jsonobj.get("isDeveloper"));
                 
+                if(!newUser.getIsDeveloper()){
+                    newUser.setFavePOI(null);
+                    newUser.setSavedPOI(null);
+                }
                 
                 MapSelector displayMaps = new MapSelector(newUser);
                 displayMaps.setVisible(true);
