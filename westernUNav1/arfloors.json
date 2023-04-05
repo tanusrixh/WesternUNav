@@ -1,6 +1,6 @@
-[
+{"arfloors":[
     {
-    "Floor Number": 1, 
+    "Floor Number": 1,"Floor Name":"First Floor",
     "Rooms": [{"category":"Mechanical and Electrical Spaces", "roomNumber":"150B","description":"Mechanical","x":496,"y":1259}, 
               {"category":"Accessibility","roomNumber":"EL.1", "description":"elevator","x":1186,"y":1503}, 
               {"category": "Washroom","roomNumber":"102A", "description":"Washroom Barrier Free - Universal","x":1474,"y":1525}, 
@@ -16,7 +16,7 @@
              ]
 },
 {
-    "Floor Number": 2,
+    "Floor Number": 2, "Floor Name":"Second Floor",
     "Rooms": [ 
               {"category":"Educational SPACES","roomNumber":"225", "description":"Lab","x":1572,"y":876},  
               {"category": "Accessibility","roomNumber":"EL.1", "description":"Elevator","x":1284,"y":1334},  
@@ -26,4 +26,4 @@
               {"category": "Accessibility","roomNumber":"ST.2", "description":"stair2","x":1078,"y":1372}
              ]
 }
-]
+]}
