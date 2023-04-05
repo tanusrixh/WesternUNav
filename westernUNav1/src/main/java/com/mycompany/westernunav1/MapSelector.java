@@ -78,7 +78,7 @@ public class MapSelector extends javax.swing.JFrame {
         //if user is not a developer hide the add, edit, and delete building buttons
         if(currUser.getIsDeveloper() == false){
             addBuildingButton.setVisible(false); //hide add button
-            editBuildingButton.setVisible(false); //hide edit button
+            //editBuildingButton.setVisible(false); //hide edit button
             removeBuildingButton.setVisible(false); //hide delete button
         }
         
@@ -163,8 +163,9 @@ public class MapSelector extends javax.swing.JFrame {
             System.out.println("error.5");
         }
         addBuildingButton = new javax.swing.JButton();
-        editBuildingButton = new javax.swing.JButton();
         removeBuildingButton = new javax.swing.JButton();
+        helpButton = new javax.swing.JButton();
+        logoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -199,17 +200,24 @@ public class MapSelector extends javax.swing.JFrame {
             }
         });
 
-        editBuildingButton.setText("Edit");
-        editBuildingButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editBuildingButtonActionPerformed(evt);
-            }
-        });
-
         removeBuildingButton.setText("Remove");
         removeBuildingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeBuildingButtonActionPerformed(evt);
+            }
+        });
+
+        helpButton.setText("Help");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+        });
+
+        logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
             }
         });
 
@@ -228,15 +236,17 @@ public class MapSelector extends javax.swing.JFrame {
                 .addComponent(logo2, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
-                .addContainerGap(251, Short.MAX_VALUE)
+                .addContainerGap(263, Short.MAX_VALUE)
                 .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addBuildingButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editBuildingButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(removeBuildingButton)
-                .addGap(404, 404, 404))
+                .addGap(18, 18, 18)
+                .addComponent(helpButton)
+                .addGap(18, 18, 18)
+                .addComponent(logoutButton)
+                .addGap(278, 278, 278))
         );
         BuildingsLayout.setVerticalGroup(
             BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,8 +256,9 @@ public class MapSelector extends javax.swing.JFrame {
                 .addGroup(BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dropDownMenu)
                     .addComponent(addBuildingButton)
-                    .addComponent(editBuildingButton)
-                    .addComponent(removeBuildingButton))
+                    .addComponent(removeBuildingButton)
+                    .addComponent(helpButton)
+                    .addComponent(logoutButton))
                 .addGap(27, 27, 27)
                 .addGroup(BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AHImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -338,71 +349,6 @@ public class MapSelector extends javax.swing.JFrame {
             System.out.println("Add building cancelled");
         }
     }//GEN-LAST:event_addBuildingButtonActionPerformed
-
-    private void editBuildingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBuildingButtonActionPerformed
-        // TODO add your handling code here:
-        JTextField buildingName = new JTextField();
-        JLabel buildingCode = new JLabel();
-        JSpinner buildingFloors = new JSpinner();
-        JComboBox<String> editMenu = new JComboBox<>();
-        
-        for(String a : buildingsInfo.keySet()){
-            editMenu.addItem(a);
-        }
-        
-        Object[] editBuilding = {
-            "Select Building to Edit:", editMenu,
-            "New Building Name:", buildingName,
-            "Building Code:", buildingCode,
-            "Number of Floors:", buildingFloors
-        };
-
-        int option = JOptionPane.showConfirmDialog(null, editBuilding, "Edit Building", JOptionPane.OK_CANCEL_OPTION);
-        
-        editMenu.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
-                editMenu.getSelectedItem();
-                buildingName.setText((String)editMenu.getSelectedItem());
-                buildingCode.setText(buildingsFileInfo.get((String)editMenu.getSelectedItem()));
-                buildingFloors.setValue(buildingsInfo.get((String)editMenu.getSelectedItem()));
-            }
-        });
-
-        
-        if (option == JOptionPane.OK_OPTION) {
-
-            if (buildingName.getText().equals("") || buildingCode.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Fill in all the information.\nPlease do not leave any empty spaces.");
-            } 
-            
-            else if(!buildingName.getText().equals("") || buildingCode.getText().equals("")){
-                for(String a : buildingsFileInfo.keySet()){
-                    
-                    if(a.equals((String)buildingName.getText())){
-                        
-                    }
-                    else if(buildingsFileInfo.get(a).equals((String)buildingCode.getText())){
-                        JOptionPane.showMessageDialog(null, "This is the current building name.\nPlease enter the edited building name.\nBuilding was not updated."); 
-                        JOptionPane.showMessageDialog(null, "This building code already exists.\nPlease enter another building code.\nBuilding was not added.");
-                    }
-                    else{
-                        System.out.println("No errors found.\n");
-                    }
-                }
-               
-            }
-            else {
-                            
-            
-            buildingsInfo.put((String)buildingName.getText(), (Integer)buildingFloors.getValue());
-            buildingsFileInfo.put((String)buildingName.getText(), (String)buildingCode.getText());
-
-            updateJSON();
-            }
-        } else {
-            System.out.println("Edit building cancelled");
-        }
-    }//GEN-LAST:event_editBuildingButtonActionPerformed
     
     
     /*
@@ -438,6 +384,18 @@ public class MapSelector extends javax.swing.JFrame {
             System.out.println("Delete building cancelled");
         }
     }//GEN-LAST:event_removeBuildingButtonActionPerformed
+
+    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+        // TODO add your handling code here:
+        new Help().setVisible(true);
+    }//GEN-LAST:event_helpButtonActionPerformed
+
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        // TODO add your handling code here:
+        User newUser = new User();
+        newUser.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logoutButtonActionPerformed
     
     public void displayLogo(){
         Buildings.add(logo2);
@@ -528,8 +486,9 @@ public class MapSelector extends javax.swing.JFrame {
     private javax.swing.JLabel MCImage;
     private javax.swing.JButton addBuildingButton;
     private javax.swing.JComboBox<String> dropDownMenu;
-    private javax.swing.JButton editBuildingButton;
+    private javax.swing.JButton helpButton;
     private javax.swing.JLabel logo2;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JButton removeBuildingButton;
     // End of variables declaration//GEN-END:variables
 }

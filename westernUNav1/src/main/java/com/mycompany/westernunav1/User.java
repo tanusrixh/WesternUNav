@@ -208,6 +208,11 @@ public class User extends javax.swing.JFrame{
                 HelpButtonActionPerformed(evt);
             }
         });
+        HelpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HelpButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout loginPageLayout = new javax.swing.GroupLayout(loginPage);
         loginPage.setLayout(loginPageLayout);
@@ -420,7 +425,7 @@ public class User extends javax.swing.JFrame{
                 }
                 
                 MapSelector displayMaps = new MapSelector(newUser);
-                displayMaps.show();
+                displayMaps.setVisible(true);
                 this.dispose();
                
                 JOptionPane.showMessageDialog(null, "Access Granted. Welcome " + userID);
@@ -446,7 +451,7 @@ public class User extends javax.swing.JFrame{
             System.out.println("ErrorClosingFile\n");
 
         } catch(JSONException jsonerror){
-            System.out.println("ErrorParsingJSONFile\n");
+            System.out.println("ErrorParsingJSONFileUser\n");
         }
     }//GEN-LAST:event_buttonLoginActionPerformed
 
@@ -526,6 +531,11 @@ public class User extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_noChangeButtonActionPerformed
 
+    private void HelpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HelpButtonActionPerformed
+        // TODO add your handling code here:
+        new Help().setVisible(true);
+    }//GEN-LAST:event_HelpButtonActionPerformed
+
     /*
     Method to display the UWO Logo on login page
     */
@@ -534,13 +544,6 @@ public class User extends javax.swing.JFrame{
 
     }
     
-    /** Method to connect the help button to the help class, in order to display the help page. 
-    * @param evt Default Java Event
-    */
-    
-    private void HelpButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        new Help().setVisible(true);
-    }
 
 
     /**

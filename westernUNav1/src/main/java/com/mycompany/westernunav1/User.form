@@ -217,6 +217,9 @@
                   <Connection code="&quot;Help&quot;" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HelpButtonActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton()"/>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="HelpButton.addActionListener(new java.awt.event.ActionListener() {&#xa;            public void actionPerformed(java.awt.event.ActionEvent evt) {&#xa;                HelpButtonActionPerformed(evt);&#xa;            }&#xa;        });"/>
