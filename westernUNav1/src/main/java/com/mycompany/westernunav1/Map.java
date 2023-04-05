@@ -69,6 +69,10 @@ public class Map extends javax.swing.JFrame {
     private ArrayList<Floor> floorList;
     private LinkedList<PointofInterest> userSavedPOI;
     private LinkedList<PointofInterest> userFavPOI;
+    private ArrayList<Floor> userPOIFloorList;
+    private ArrayList<Floor> userFavFloorList;
+    //private HashMap<Integer, ArrayList> userPOIHash;
+    //private HashMap<Integer, ArrayList> userFavPOIHash;
     private String floorName;
     private int floorNumber;
     private int numFloors;
@@ -111,6 +115,8 @@ public class Map extends javax.swing.JFrame {
         if(isDev == true){ // if the user is a developer the user POI and favourite POI tabs will not be displayed
             poiLists.remove(userPOI);
             poiLists.remove(favPOI);
+            myPOIBox.setVisible(false);
+            myFavPOIs.setVisible(false);
         }
         
         try {
@@ -126,15 +132,34 @@ public class Map extends javax.swing.JFrame {
             if(this.currUser.getIsDeveloper() == false){
                 JSONArray poi = jsonobj.getJSONArray("poi");
                 
-                for(int i = 0; i < poi.length(); i++){
-                    JSONObject getBuildingPoi = poi.getJSONObject(i);
+                for(int a = 0; a < poi.length(); a++){
+                    JSONObject getBuildingPoi = poi.getJSONObject(a);
                     if(getBuildingPoi.has(buildingName)){
                         JSONArray currPOIBuilding = getBuildingPoi.getJSONArray(buildingName);
+                        userPOIFloorList = new ArrayList<>();
                         for(int b = 0; b < currPOIBuilding.length(); b++){
                             JSONObject getFloorsPOI = currPOIBuilding.getJSONObject(b);
                             String poiFloorName = (String) getFloorsPOI.get("Floor Name");
                             int poiFloorNumber = (Integer) getFloorsPOI.get("Floor Number");
                             JSONArray eachFloorPOI = getFloorsPOI.getJSONArray("POI");
+                            if(!eachFloorPOI.isEmpty()){
+                                userSavedPOI = new LinkedList<>();
+                                for(int c = 0; c < eachFloorPOI.length(); c++){
+                                    JSONObject getThisPOI = eachFloorPOI.getJSONObject(c);
+                                    String poiCategory = (String)getThisPOI.get("category");
+                                    String poiDesc = (String)getThisPOI.get("description");
+                                    String poiRoomNumber = (String)getThisPOI.get("roomNumber");
+                                    int poiX = (Integer)getThisPOI.get("x");
+                                    int poiY = (Integer)getThisPOI.getInt("y");
+                                    PointofInterest addThisPOI = new PointofInterest(poiRoomNumber, poiDesc, poiCategory, poiX, poiY);
+                                    userSavedPOI.add(addThisPOI);
+                                }
+                            }
+                            else{
+                                userSavedPOI = new LinkedList<>();
+                            }
+                            Floor newPOIFloor = new Floor(poiFloorNumber, poiFloorName, userSavedPOI);
+                            userPOIFloorList.add(newPOIFloor);
                         }
                     }
                 }
@@ -146,11 +171,29 @@ public class Map extends javax.swing.JFrame {
                     JSONObject getFavPois = favs.getJSONObject(j);
                     if(getFavPois.has(buildingName)){
                         JSONArray currBuilding = getFavPois.getJSONArray(buildingName);
+                        userFavFloorList = new ArrayList<>();
                         for(int k = 0; k < currBuilding.length(); k++){
                             JSONObject getFloorFavsPOI = currBuilding.getJSONObject(k);
                             String poiFloorName = (String) getFloorFavsPOI.get("Floor Name");
                             int poiFloorNumber = (Integer) getFloorFavsPOI.get("Floor Number");
-                            JSONArray eachFloorPOI = getFloorFavsPOI.getJSONArray("POI");
+                            JSONArray eachFloorFavPOI = getFloorFavsPOI.getJSONArray("POI");
+                            if(!eachFloorFavPOI.isEmpty()){
+                                userFavPOI = new LinkedList<>();
+                                for(int l = 0; l < eachFloorFavPOI.length(); l++){
+                                    JSONObject getThisFavPOI = eachFloorFavPOI.getJSONObject(l);
+                                    String poiCategory = (String)getThisFavPOI.get("category");
+                                    String poiDesc = (String)getThisFavPOI.get("description");
+                                    String poiRoomNumber = (String)getThisFavPOI.get("roomNumber");
+                                    int poiX = (Integer)getThisFavPOI.get("x");
+                                    int poiY = (Integer)getThisFavPOI.getInt("y");
+                                    PointofInterest addFavPOI = new PointofInterest(poiRoomNumber, poiDesc, poiCategory, poiX, poiY);
+                                    userFavPOI.add(addFavPOI);
+                                }
+                            }else{
+                                userFavPOI = new LinkedList<>();
+                            }
+                            Floor addFloor = new Floor(poiFloorNumber, poiFloorName, userFavPOI);
+                            userFavFloorList.add(addFloor);
                         }
                     }
                 }
@@ -247,7 +290,8 @@ public class Map extends javax.swing.JFrame {
         addPOI = new javax.swing.JButton();
         editPOI = new javax.swing.JButton();
         deletePOI = new javax.swing.JButton();
-        myPOIbox = new javax.swing.JCheckBox();
+        myPOIBox = new javax.swing.JCheckBox();
+        myFavPOIs = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(this.buildingName);
@@ -409,7 +453,9 @@ public class Map extends javax.swing.JFrame {
             }
         });
 
-        myPOIbox.setText("My POIs");
+        myPOIBox.setText("My POIs");
+
+        myFavPOIs.setText("My Favourites");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -449,11 +495,12 @@ public class Map extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(helpButton))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(myPOIbox)
+                                .addComponent(myPOIBox)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(editPOI)
                                     .addGap(18, 18, 18)
-                                    .addComponent(addPOI))))
+                                    .addComponent(addPOI))
+                                .addComponent(myFavPOIs)))
                         .addGap(31, 31, 31))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
@@ -482,9 +529,11 @@ public class Map extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(educationToggle)
-                            .addComponent(myPOIbox))
+                            .addComponent(myPOIBox))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(diningToggle)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(diningToggle)
+                            .addComponent(myFavPOIs))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mechToggle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -793,8 +842,8 @@ public class Map extends javax.swing.JFrame {
                     int option = JOptionPane.showConfirmDialog(null, roomStuffUser, "Room Information", JOptionPane.OK_CANCEL_OPTION);
                     if(option == JOptionPane.OK_OPTION){
                     newPOI.setCategory("myPOI");
-                    newPOI.setPoiroomname(roomNumber.getText());
-                    newPOI.setPoidescription(roomDesc.getText());
+                    newPOI.setPoiRoomNumber(roomNumber.getText());
+                    newPOI.setPoiDescription(roomDesc.getText());
                     userSavedPOI.add(newPOI);
                 }
                 }
@@ -893,7 +942,8 @@ public class Map extends javax.swing.JFrame {
     private javax.swing.JScrollPane listUserPOI;
     private javax.swing.JLayeredPane mapLayers;
     private javax.swing.JCheckBox mechToggle;
-    private javax.swing.JCheckBox myPOIbox;
+    private javax.swing.JCheckBox myFavPOIs;
+    private javax.swing.JCheckBox myPOIBox;
     private javax.swing.JTabbedPane poiLists;
     private javax.swing.JButton saveBack;
     private javax.swing.JLabel setBuildingName;

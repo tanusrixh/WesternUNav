@@ -73,12 +73,13 @@
                               <Component id="helpButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="myPOIbox" min="-2" max="-2" attributes="0"/>
+                              <Component id="myPOIBox" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="editPOI" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="addPOI" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="myFavPOIs" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
@@ -116,10 +117,13 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="educationToggle" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="myPOIbox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="myPOIBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="diningToggle" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="diningToggle" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="myFavPOIs" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="mechToggle" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -423,9 +427,14 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deletePOIActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="myPOIbox">
+    <Component class="javax.swing.JCheckBox" name="myPOIBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="My POIs"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="myFavPOIs">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="My Favourites"/>
       </Properties>
     </Component>
   </SubComponents>

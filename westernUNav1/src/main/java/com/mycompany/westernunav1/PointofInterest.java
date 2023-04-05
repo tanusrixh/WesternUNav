@@ -18,8 +18,8 @@ public class PointofInterest {
     private String floorName;
     
     
-    private String poiroomname;
-    private String poidescription;
+    private String poiRoomNumber;
+    private String poiDescription;
     private Building poilocation;
     
     private String category;
@@ -28,8 +28,8 @@ public class PointofInterest {
     private int poiY;
 
     public PointofInterest(String poiroomname, String poidescription, String category, int poiX, int poiY) {
-        this.poiroomname = poiroomname;
-        this.poidescription = poidescription;
+        this.poiRoomNumber = poiroomname;
+        this.poiDescription = poidescription;
         this.category = category;
         this.poiX = poiX;
         this.poiY = poiY;
@@ -78,23 +78,23 @@ public class PointofInterest {
         this.poiY = poiY;
     }
     /*get point of interest name*/
-    public String getPoiroomname() {
-        return poiroomname;
+    public String getPoiRoomNumber() {
+        return poiRoomNumber;
     }
 
     /*set point of interest name*/
-    public void setPoiroomname(String poiroomname) {
-        this.poiroomname = poiroomname;
+    public void setPoiRoomNumber(String poiRoomNumber) {
+        this.poiRoomNumber = poiRoomNumber;
     }
     
     /*get point of interest description*/
-    public String getPoidescription() {
-        return poidescription;
+    public String getPoiDescription() {
+        return poiDescription;
     }
 
     /*set point of interest description*/
-    public void setPoidescription(String poidescription) {
-        this.poidescription = poidescription;
+    public void setPoiDescription(String poiDescription) {
+        this.poiDescription = poiDescription;
     }
     
     /*get point of interest location*/
