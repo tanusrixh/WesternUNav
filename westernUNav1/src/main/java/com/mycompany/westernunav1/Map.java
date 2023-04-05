@@ -71,8 +71,8 @@ public class Map extends javax.swing.JFrame {
     private LinkedList<PointofInterest> userFavPOI;
     private ArrayList<Floor> userPOIFloorList;
     private ArrayList<Floor> userFavFloorList;
-    //private HashMap<Integer, ArrayList> userPOIHash;
-    //private HashMap<Integer, ArrayList> userFavPOIHash;
+    private HashMap<String, LinkedList> userPOICategory;
+    private HashMap<String, LinkedList> userFavPOICategory;
     private String floorName;
     private int floorNumber;
     private int numFloors;
@@ -575,6 +575,41 @@ public class Map extends javax.swing.JFrame {
         new Help().setVisible(true);
     }//GEN-LAST:event_helpButtonActionPerformed
     
+    
+    public void displayUserPOIs(PointofInterest poiInfo, JLayeredPane layer){
+        JLabel poiLabel = new JLabel(new ImageIcon("./catIcons/" + poiInfo.getCategory() + ".png"));
+        poiLabel.setBounds(poiInfo.getPoiX(), poiInfo.getPoiY(), 25, 25);
+        layer.add(poiLabel);
+        layer.setComponentZOrder(poiLabel, 0);
+        
+        myPOIBox.addActionListener(new ActionListener (){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(poiInfo.getCategory().equals("myPOI") && myPOIBox.isSelected()){
+                    poiLabel.setVisible(false);
+            //this.repaint();
+                }
+                else{
+                    poiLabel.setVisible(true);
+                }
+            }
+        });
+        
+        myFavPOIs.addActionListener(new ActionListener (){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(poiInfo.getCategory().equals("favPOI") && myFavPOIs.isSelected()){
+                    poiLabel.setVisible(false);
+            //this.repaint();
+                }
+                else{
+                    poiLabel.setVisible(true);
+                }
+            }
+        });
+    }
+    
+    
     public void displayRoomPOI(Room roomInfo, JLayeredPane layer){
         JLabel roomPOI = new JLabel(new ImageIcon("./catIcons/" + roomInfo.getRoomCategory() + ".png"));
         roomPOI.setBounds(roomInfo.getX_coord(), roomInfo.getY_coord(), 25, 25);
@@ -696,13 +731,25 @@ public class Map extends javax.swing.JFrame {
         int floorNumber = floorList.get(floorSelector.getSelectedIndex()).getFloorNumber();
         
         ArrayList <Room> roomPOI = floorList.get(floorSelector.getSelectedIndex()).getRoomList();
+        LinkedList <PointofInterest> getUserPOIs = userPOIFloorList.get(floorSelector.getSelectedIndex()).getPointsOfInterest();
+        LinkedList <PointofInterest> getFavPOIs = userFavFloorList.get(floorSelector.getSelectedIndex()).getPointsOfInterest();
         
         categories = new HashMap<>();
+        userPOICategory = new HashMap<>();
+        userFavPOICategory = new HashMap<>();
         
         mapLayers.setLayout(null);
         
         for(Room room : roomPOI){
             categories.put(room.getRoomCategory(), roomPOI);
+        }
+        
+        for(PointofInterest thisPOI : getUserPOIs){
+            userPOICategory.put(thisPOI.getCategory(), getUserPOIs);
+        }
+        
+        for(PointofInterest thisFavPOI : getFavPOIs){
+            userFavPOICategory.put(thisFavPOI.getCategory(), getFavPOIs);
         }
         
         JLabel mapImage = new JLabel();
@@ -721,30 +768,45 @@ public class Map extends javax.swing.JFrame {
             ArrayList<Room> addRoomPOIs = categories.get(cat);
             for(int i = 0; i < addRoomPOIs.size(); i++){
                 displayRoomPOI(addRoomPOIs.get(i), mapLayers);
-                
-                
+
             }
-            
         }
+        
+        
+        for(String poiCat : userPOICategory.keySet()){
+            LinkedList<PointofInterest> addUserPOIs = userPOICategory.get(poiCat);
+            for(int i = 0; i < addUserPOIs.size(); i++){
+                displayUserPOIs(addUserPOIs.get(i), mapLayers);
+            }
+        }
+        
+        for(String favCat : userFavPOICategory.keySet()){
+            LinkedList<PointofInterest> addFavPOIs = userFavPOICategory.get(favCat);
+            for(int i = 0; i < addFavPOIs.size(); i++){
+                displayUserPOIs(addFavPOIs.get(i), mapLayers);
+            }
+        }
+        
+        
         for(int i = 0; i < roomPOI.size(); i++){
             roomString.add(roomPOI.get(i).getRoomNumber());
         }
         
-        JList list = new JList(roomString.toArray());
-        list.setVisibleRowCount(roomString.size());
-        list.repaint();
-        list.revalidate();
-        listPOI.add(list);
-        list.setOpaque(true);
-        list.setSize(biPOI.getWidth(), biPOI.getHeight());
-        list.setVisible(true);
-        list.requestFocus();
-        list.addMouseListener(new MouseAdapter()  
+        JList biPoiList = new JList(roomString.toArray());
+        biPoiList.setVisibleRowCount(roomString.size());
+        biPoiList.repaint();
+        biPoiList.revalidate();
+        listPOI.add(biPoiList);
+        biPoiList.setOpaque(true);
+        biPoiList.setSize(biPOI.getWidth(), biPOI.getHeight());
+        biPoiList.setVisible(true);
+        biPoiList.requestFocus();
+        biPoiList.addMouseListener(new MouseAdapter()  
             {  
                 public void mouseClicked(MouseEvent e)  
                 {  
                      
-                    String s = (String)list.getSelectedValue();
+                    String s = (String)biPoiList.getSelectedValue();
                     JLabel label = new JLabel();
                     for(Room r : roomPOI){
                         if(r.getRoomNumber().equals(s)){
@@ -757,20 +819,20 @@ public class Map extends javax.swing.JFrame {
                             viewMaps.getViewport().setViewPosition(new Point(r.getX_coord() - (scrollPaneSize.width/2), r.getY_coord() - (scrollPaneSize.height/2)));
                             
                             JLabel roomNumber = new JLabel();
-                JLabel roomCategory = new JLabel();
-                JLabel roomDesc = new JLabel();
+                            JLabel roomCategory = new JLabel();
+                            JLabel roomDesc = new JLabel();
                 
-                roomNumber.setText(r.getRoomNumber());
-                roomCategory.setText(r.getRoomCategory());
-                roomDesc.setText(r.getDescription());
+                            roomNumber.setText(r.getRoomNumber());
+                            roomCategory.setText(r.getRoomCategory());
+                            roomDesc.setText(r.getDescription());
                 
-                Object[] roomStuff = {
-                    "Room Number:", roomNumber,
-                    "Room Category:", roomCategory,
-                    "Room Description:", roomDesc
-                };
+                            Object[] roomStuff = {
+                                "Room Number:", roomNumber,
+                                "Room Category:", roomCategory,
+                                "Room Description:", roomDesc
+                            };
 
-                int option = JOptionPane.showConfirmDialog(null, roomStuff, "Room Information", JOptionPane.OK_CANCEL_OPTION);
+                            int option = JOptionPane.showConfirmDialog(null, roomStuff, "Room Information", JOptionPane.OK_CANCEL_OPTION);
                         }
                     }
                     

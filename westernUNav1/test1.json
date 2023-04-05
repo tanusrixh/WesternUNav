@@ -3,7 +3,7 @@
 	[
 		{"Middlesex College":
 			[
-				{"Floor Number" : 1, "Floor Name":"Ground Floor", "POI":[]}, 
+				{"Floor Number" : 1, "Floor Name":"Ground Floor", "POI":[{"category":"favPOI","roomNumber":"1", "description":"Electrical","x":1900,"y":1090}]}, 
 				{"Floor Number": 2, "Floor Name":"First Floor", "POI":[]}, 
 				{"Floor Number": 3, "Floor Name":"Second Floor", "POI":[]}, 
 				{"Floor Number": 4,	"Floor Name":"Third Floor", "POI":[]},
@@ -30,7 +30,7 @@
 	[
 		{"Middlesex College":
 			[
-				{"Floor Number":1, "Floor Name":"Ground Floor", "POI":[]}, 
+				{"Floor Number":1, "Floor Name":"Ground Floor", "POI":[{{"category":"myPOI","roomNumber":"8", "description":"Washroom","x":1157,"y":1204}}]}, 
 				{"Floor Number": 2, "Floor Name":"First Floor", "POI":[]}, 
 				{"Floor Number": 3, "Floor Name":"Second Floor", "POI":[]}, 
 				{"Floor Number": 4, "Floor Name":"Third Floor", "POI":[]}, 
