@@ -87,5 +87,13 @@ public class Room {
     * of a point of interest array list
     */
 
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     
 }
