@@ -90,8 +90,8 @@ public class MapSelector extends javax.swing.JFrame {
             JSONObject buildingsObj = new JSONObject(buildingsToken);
             JSONArray fileBuildings = buildingsObj.getJSONArray("buildings");
             
-            buildingsInfo = new HashMap();
-            buildingsFileInfo = new HashMap();
+            buildingsInfo = new HashMap<>();
+            buildingsFileInfo = new HashMap<>();
             
             dropDownMenu.addItem("---Select a building---");
             

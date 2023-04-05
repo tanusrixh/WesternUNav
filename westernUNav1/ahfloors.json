@@ -1,49 +1,49 @@
 {"ahfloors":[
     {
     "Floor Number":1, "Floor Name":"Ground Floor", 
-    "Rooms": [{"category": "Washroom", "roomNumber":"12", "description": "Men Washroom Non-Accessible", "x":1809 , "y":1547},
-              {"category": "Washroom", "roomNumber":"13", "description": "Women Washroom Non-Accessible", "x":1838, "y":1452},
-              {"category": "Accessibility", "roomNumber":"ELEV.A", "description": "Elevator", "x":1303, "y":520},
-              {"category": "Accessibility", "roomNumber":"ST.1", "description": "Stairs", "x":1795, "y":1864},
-              {"category": "Accessibility", "roomNumber":"ST.2", "description": "Stairs", "x":1783, "y":328},
-              {"category": "Accessibility", "roomNumber":"ST.3", "description": "Stairs", "x":842, "y":568},
-              {"category": "Accessibility", "roomNumber":"ST.4", "description": "Stairs", "x":848, "y":1598}
+    "Rooms": [{"category": "washroom", "roomNumber":"12", "description": "Men Washroom Non-Accessible", "x":1809 , "y":1547},
+              {"category": "washroom", "roomNumber":"13", "description": "Women Washroom Non-Accessible", "x":1838, "y":1452},
+              {"category": "accessibility", "roomNumber":"ELEV.A", "description": "Elevator", "x":1303, "y":520},
+              {"category": "accessibility", "roomNumber":"ST.1", "description": "Stairs", "x":1795, "y":1864},
+              {"category": "accessibility", "roomNumber":"ST.2", "description": "Stairs", "x":1783, "y":328},
+              {"category": "accessibility", "roomNumber":"ST.3", "description": "Stairs", "x":842, "y":568},
+              {"category": "accessibility", "roomNumber":"ST.4", "description": "Stairs", "x":848, "y":1598}
 
              ]
 },
 {
     "Floor Number":2, "Floor Name":"First Floor", 
-    "Rooms": [{"category": "Washroom", "roomNumber":"102", "description": "Women Washroom Non-Accessible", "x":1574, "y":1475},
-              {"category": "Washroom", "roomNumber":"103", "description": "Washroom Barrier Free - Universal", "x":1623, "y":1498},
-              {"category": "Accessibility", "roomNumber":"103", "description": "Door Barrier Free - Automatic Button", "x":1599, "y":1516},
-              {"category": "Accessibility", "roomNumber":"TA.105", "description": "Door Barrier Free - Automatic Button", "x":1623, "y":1553},
-              {"category": "Accessibility", "roomNumber":"106", "description": "Door Barrier Free - Automatic Button", "x":1642, "y":713},
-              {"category": "Accessibility", "roomNumber":"109", "description": "Door Barrier Free - Automatic Button", "x":1599, "y":680},
-              {"category": "Washroom", "roomNumber":"109", "description": "Washroom Barrier Free - Universal", "x":1611, "y":649},
-              {"category": "Washroom", "roomNumber":"108", "description": "Men Washroom Non-Accessible", "x":1556, "y":702},
-              {"category": "Mechanical and Electrical Spaces", "roomNumber":"113", "description": "Mech. Room", "x":1211, "y":1602},
-              {"category": "Washroom", "roomNumber":"116", "description": "Men Washroom", "x":1045, "y":1006},
-              {"category": "Accessibility", "roomNumber":"ELEV.A", "description": "Elevator", "x":1303, "y":533},
-              {"category": "Accessibility", "roomNumber":"EX.2", "description": "Exit", "x":1734, "y":1899},
-              {"category": "Accessibility", "roomNumber":"ST.1", "description": "Stairs", "x":1666, "y":1815},
-              {"category": "Accessibility", "roomNumber":"ST.2", "description": "Stairs", "x":1678, "y":389},
-              {"category": "Accessibility", "roomNumber":"ST.3", "description": "Stairs", "x":867, "y":592},
-              {"category": "Accessibility", "roomNumber":"ST.4", "description": "Stairs", "x":892, "y":1616}
+    "Rooms": [{"category": "washroom", "roomNumber":"102", "description": "Women Washroom Non-Accessible", "x":1574, "y":1475},
+              {"category": "washroom", "roomNumber":"103", "description": "Washroom Barrier Free - Universal", "x":1623, "y":1498},
+              {"category": "accessibility", "roomNumber":"103", "description": "Door Barrier Free - Automatic Button", "x":1599, "y":1516},
+              {"category": "accessibility", "roomNumber":"TA.105", "description": "Door Barrier Free - Automatic Button", "x":1623, "y":1553},
+              {"category": "accessibility", "roomNumber":"106", "description": "Door Barrier Free - Automatic Button", "x":1642, "y":713},
+              {"category": "accessibility", "roomNumber":"109", "description": "Door Barrier Free - Automatic Button", "x":1599, "y":680},
+              {"category": "washroom", "roomNumber":"109", "description": "Washroom Barrier Free - Universal", "x":1611, "y":649},
+              {"category": "washroom", "roomNumber":"108", "description": "Men Washroom Non-Accessible", "x":1556, "y":702},
+              {"category": "mechanical and Electrical Spaces", "roomNumber":"113", "description": "Mech. Room", "x":1211, "y":1602},
+              {"category": "washroom", "roomNumber":"116", "description": "Men Washroom", "x":1045, "y":1006},
+              {"category": "accessibility", "roomNumber":"ELEV.A", "description": "Elevator", "x":1303, "y":533},
+              {"category": "accessibility", "roomNumber":"EX.2", "description": "Exit", "x":1734, "y":1899},
+              {"category": "accessibility", "roomNumber":"ST.1", "description": "Stairs", "x":1666, "y":1815},
+              {"category": "accessibility", "roomNumber":"ST.2", "description": "Stairs", "x":1678, "y":389},
+              {"category": "accessibility", "roomNumber":"ST.3", "description": "Stairs", "x":867, "y":592},
+              {"category": "accessibility", "roomNumber":"ST.4", "description": "Stairs", "x":892, "y":1616}
              ]
 
 
 },
 {
     "Floor Number":3, "Floor Name":"Auditorium, Gymnasium, Mezzanine, Stage Floor", 
-    "Rooms": [{"category": "Accessibility", "roomNumber":"ELEV.A", "description": "Elevator", "x":1346 , "y":512},
-              {"category": "Accessibility", "roomNumber":"ST.1", "description": "Stairs", "x":1820, "y":1852},
-              {"category": "Accessibility", "roomNumber":"ST.2", "description": "Stairs", "x":1814, "y":299},
-              {"category": "Accessibility", "roomNumber":"ST.3", "description": "Stairs", "x":898, "y":563},
-              {"category": "Accessibility", "roomNumber":"ST.4", "description": "Stairs", "x":904, "y":1600},
-              {"category": "Accessibility", "roomNumber":"ST.5", "description": "Stairs", "x":1715, "y":373},
-              {"category": "Accessibility", "roomNumber":"EX.6", "description": "Exit", "x":1033, "y":520},
-              {"category": "Accessibility", "roomNumber":"EX.7", "description": "Exit", "x":1199, "y":477},
-              {"category": "Accessibility", "roomNumber":"EX.8", "description": "Exit", "x":1248, "y":453}
+    "Rooms": [{"category": "accessibility", "roomNumber":"ELEV.A", "description": "Elevator", "x":1346 , "y":512},
+              {"category": "accessibility", "roomNumber":"ST.1", "description": "Stairs", "x":1820, "y":1852},
+              {"category": "accessibility", "roomNumber":"ST.2", "description": "Stairs", "x":1814, "y":299},
+              {"category": "accessibility", "roomNumber":"ST.3", "description": "Stairs", "x":898, "y":563},
+              {"category": "accessibility", "roomNumber":"ST.4", "description": "Stairs", "x":904, "y":1600},
+              {"category": "accessibility", "roomNumber":"ST.5", "description": "Stairs", "x":1715, "y":373},
+              {"category": "accessibility", "roomNumber":"EX.6", "description": "Exit", "x":1033, "y":520},
+              {"category": "accessibility", "roomNumber":"EX.7", "description": "Exit", "x":1199, "y":477},
+              {"category": "accessibility", "roomNumber":"EX.8", "description": "Exit", "x":1248, "y":453}
              ]
 }
 ]}
