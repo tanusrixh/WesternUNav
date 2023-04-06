@@ -31,7 +31,7 @@ When a user clicks on a POI in this list, the POI should be displayed on the cur
 It is important to consider how this discovery feature will interact with the Displaying Layers requirement. For instance, selecting a POI from the list may hide other layers or force the layer the POI is on to be shown. Additionally, when a POI is highlighted, it is necessary to determine what happens when a layer is hidden or displayed.
 
 ### Built-In Points of Interest (POI)
-Each floor map within a building contains built-in points of interests that users can layer onto the map while browsing or searching throughout the floor. Facilities including but not limited to classrooms, washrooms, computer labs, eateries, and even common stairways or elevators may be layered or hidden from the map.
+Building floor maps have predefined points of interest that users can overlay onto the map while browsing or searching within the floor. These points of interest may include classrooms, washrooms, computer labs, eateries, and even common stairways or elevators that can be either displayed or hidden from the map.
 
 ### Clicking on POIs
 When a user clicks on a POI shown on a map, the application should highlight the selected POI to show that it has been chosen and present information about it. This information should include the POI's name/title, room number, and a brief description, which can either be displayed somewhere in the interface or as a popup. Additionally, the option to favorite the selected POI should be provided. If the user deselects or unhighlights the POI, the information about it should disappear.
