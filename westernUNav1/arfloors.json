@@ -1,29 +1,29 @@
 {"arfloors":[
     {
     "Floor Number": 1,"Floor Name":"First Floor",
-    "Rooms": [{"category":"electrical and mechanical spaces", "roomNumber":"150B","description":"Mechanical","x":496,"y":1259}, 
-              {"category":"accessibility","roomNumber":"EL.1", "description":"elevator","x":1186,"y":1503}, 
-              {"category": "washroom","roomNumber":"102A", "description":"Washroom Barrier Free - Universal","x":1474,"y":1525}, 
-              {"category": "accessibility","roomNumber":"100", "description":"Door Barrier Free - Automatic Button","x":2348,"y":1536},
-              {"category": "accessibility","roomNumber":"EX.1", "description":"exit1","x":2338,"y":1575},
-              {"category": "accessibility","roomNumber":"EX.2", "description":"exit2","x":893,"y":1581},
-              {"category": "accessibility","roomNumber":"EX.3", "description":"exit3","x":676,"y":1401},
-              {"category": "accessibility","roomNumber":"EX.4", "description":"exit4","x":600,"y":858},
-              {"category": "accessibility","roomNumber":"EX.5", "description":"exit5","x":909,"y":861},
-              {"category": "accessibility","roomNumber":"EX.6", "description":"exit6","x":2289,"y":850},
-              {"category": "accessibility","roomNumber":"ST.1", "description":"stair1","x":2419,"y":1330},
-              {"category": "accessibility","roomNumber":"ST.2", "description":"stair2","x":980,"y":1482}
+    "Rooms": [{"category":"electrical and mechanical spaces", "roomNumber":"150B","description":"Mechanical","x":496,"y":1259, "favourite": false}, 
+              {"category":"accessibility","roomNumber":"EL.1", "description":"elevator","x":1186,"y":1503, "favourite": false}, 
+              {"category": "washroom","roomNumber":"102A", "description":"Washroom Barrier Free - Universal","x":1474,"y":1525, "favourite": false}, 
+              {"category": "accessibility","roomNumber":"100", "description":"Door Barrier Free - Automatic Button","x":2348,"y":1536, "favourite": false},
+              {"category": "accessibility","roomNumber":"EX.1", "description":"exit1","x":2338,"y":1575, "favourite": false},
+              {"category": "accessibility","roomNumber":"EX.2", "description":"exit2","x":893,"y":1581, "favourite": false},
+              {"category": "accessibility","roomNumber":"EX.3", "description":"exit3","x":676,"y":1401, "favourite": false},
+              {"category": "accessibility","roomNumber":"EX.4", "description":"exit4","x":600,"y":858, "favourite": false},
+              {"category": "accessibility","roomNumber":"EX.5", "description":"exit5","x":909,"y":861, "favourite": false},
+              {"category": "accessibility","roomNumber":"EX.6", "description":"exit6","x":2289,"y":850, "favourite": false},
+              {"category": "accessibility","roomNumber":"ST.1", "description":"stair1","x":2419,"y":1330, "favourite": false},
+              {"category": "accessibility","roomNumber":"ST.2", "description":"stair2","x":980,"y":1482, "favourite": false}
              ]
 },
 {
     "Floor Number": 2, "Floor Name":"Second Floor",
     "Rooms": [ 
-              {"category":"educational spaces","roomNumber":"225", "description":"Lab","x":1572,"y":876},  
-              {"category": "accessibility","roomNumber":"EL.1", "description":"Elevator","x":1284,"y":1334},  
-              {"category": "washroom","roomNumber":"214", "description":"Washroom Barrier Free - Women","x":1512,"y":1316}, 
-              {"category": "washroom","roomNumber":"212", "description":"Washroom Barrier Free - Men","x":1594,"y":1340},
-              {"category": "accessibility","roomNumber":"ST.1", "description":"stair1","x":2435,"y":1155},
-              {"category": "accessibility","roomNumber":"ST.2", "description":"stair2","x":1078,"y":1372}
+              {"category":"educational spaces","roomNumber":"225", "description":"Lab","x":1572,"y":876, "favourite": false},  
+              {"category": "accessibility","roomNumber":"EL.1", "description":"Elevator","x":1284,"y":1334, "favourite": false},  
+              {"category": "washroom","roomNumber":"214", "description":"Washroom Barrier Free - Women","x":1512,"y":1316, "favourite": false}, 
+              {"category": "washroom","roomNumber":"212", "description":"Washroom Barrier Free - Men","x":1594,"y":1340, "favourite": false},
+              {"category": "accessibility","roomNumber":"ST.1", "description":"stair1","x":2435,"y":1155, "favourite": false},
+              {"category": "accessibility","roomNumber":"ST.2", "description":"stair2","x":1078,"y":1372, "favourite": false}
              ]
 }
 ]}
