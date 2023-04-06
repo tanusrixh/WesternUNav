@@ -23,7 +23,8 @@ You may also add additional layers that provide more information than POIs, such
 A search menu is available for use with both user-made and built-in POIs at hand.
 
 ### POI Discovery
-Your application must allow users to discover available POIs on a map in addition to the text-based search feature. This discovery feature should include a list of POIs available on the currently displayed map, organized by category or in any other way that facilitates finding every POI on the map, including user-defined POIs.
+
+Your application should provide users with the ability to locate available POIs on a map along with the text-based search functionality. The POI discovery feature should display a list of all the POIs available on the currently displayed map, arranged by category or any other method that makes it easy to locate each POI on the map, including user-defined POIs.
 
 When a user clicks on a POI in this list, the POI should be displayed on the current map, highlighted, and the map should be scrolled to its location if necessary. Furthermore, a brief description of the POI, including its name, room number, and a short description, should be displayed.
 
@@ -83,6 +84,7 @@ Clone the repository to your local system.
 Make sure you have all the proper dependencies and libraries installed and/or resolved, such as:
 
 * JDK 19
+
 * Maven, including:
     - org.json
     - org.simple.json
