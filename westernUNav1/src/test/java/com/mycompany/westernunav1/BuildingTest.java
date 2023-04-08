@@ -4,7 +4,14 @@
  */
 package com.mycompany.westernunav1;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -83,10 +90,59 @@ public class BuildingTest {
      * Test of getFloors method, of class Building.
      */
     @Test
-    public void testGetFloors() {
+    public void testGetFloors() throws FileNotFoundException {
         System.out.println("getFloors");
-        Building instance = new Building("Middlesex College", "mc", 5);;
-        ArrayList<Floor> expResult = null;
+        Building instance = new Building("Middlesex College", "mc", 5);
+        ArrayList<Floor> expResult = new ArrayList<>();
+        ArrayList<Room> rooms = null;
+        
+        try{
+            
+            FileReader getBuilding = new FileReader("./mcfloors.json");
+            JSONTokener buildingToken = new JSONTokener(getBuilding);
+            JSONObject buildingObj = new JSONObject(buildingToken);
+            
+            JSONArray buildingArray = buildingObj.getJSONArray("mcfloors");
+            
+            for(int i = 0; i < buildingArray.length(); i++){
+                JSONObject floorInfo = buildingArray.getJSONObject(i);
+                int floorNumber = (Integer)floorInfo.get("Floor Number");
+                String floorName = (String)floorInfo.get("Floor Name");
+                JSONArray roomsArray = floorInfo.getJSONArray("Rooms");
+                
+                rooms = new ArrayList<>();
+                
+                // to check if no. of built in POIs on each floor is correct
+                //System.out.println(roomsArray.length()+"\n"); 
+                
+                for(int j = 0; j < roomsArray.length(); j++){
+                    JSONObject room = roomsArray.getJSONObject(j);
+                    String cat = (String)room.get("category");
+                    String roomNum = (String)room.get("roomNumber");
+                    String desc = (String)room.get("description");
+                    int roomX = (Integer)room.get("x");
+                    int roomY = (Integer)room.get("y");
+                    
+                    Room addRoom = new Room(roomNum, desc, roomX, roomY, cat);
+                    
+                    rooms.add(addRoom);
+                }
+                
+                Floor floorObj = new Floor(floorNumber, floorName, rooms);
+                expResult.add(floorObj);
+            }
+            
+            getBuilding.close();
+            
+             }catch(FileNotFoundException fileError){
+            System.out.println("FileNotFound\n");
+            
+            }catch(IOException ioerror){
+                System.out.println("ErrorClosingFile\n");
+
+            }catch(JSONException jsonerror){
+                System.out.println("ErrorParsingJSONFile\n");
+            }
         ArrayList<Floor> result = instance.getFloors();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
