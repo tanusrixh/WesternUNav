@@ -23,18 +23,22 @@ public class BuildingTest {
     
     @BeforeAll
     public static void setUpClass() {
+        System.out.println("setUpClass()");
     }
     
     @AfterAll
     public static void tearDownClass() {
+        System.out.println("tearDownClass()");
     }
     
     @BeforeEach
     public void setUp() {
+        System.out.println("setUp()");
     }
     
     @AfterEach
     public void tearDown() {
+        System.out.println("tearDown()");
     }
 
     /**
@@ -43,12 +47,11 @@ public class BuildingTest {
     @Test
     public void testNewJSON() {
         System.out.println("newJSON");
-        String code = "";
-        int floors = 0;
-        Building instance = null;
+        String code = "mc";
+        int floors = 5;
+        Building instance = new Building("Middlesex College", "mc", 5);;
         instance.newJSON(code, floors);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,12 +60,11 @@ public class BuildingTest {
     @Test
     public void testGetName() {
         System.out.println("getName");
-        Building instance = null;
-        String expResult = "";
+        Building instance = new Building("Middlesex College", "mc", 5);
+        String expResult = "Middlesex College";
         String result = instance.getName();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -71,11 +73,10 @@ public class BuildingTest {
     @Test
     public void testSetName() {
         System.out.println("setName");
-        String name = "";
-        Building instance = null;
+        String name = "Middlesex College";
+        Building instance = new Building("Middlesex College", "mc", 5);;
         instance.setName(name);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -84,12 +85,11 @@ public class BuildingTest {
     @Test
     public void testGetFloors() {
         System.out.println("getFloors");
-        Building instance = null;
+        Building instance = new Building("Middlesex College", "mc", 5);;
         ArrayList<Floor> expResult = null;
         ArrayList<Floor> result = instance.getFloors();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -99,10 +99,9 @@ public class BuildingTest {
     public void testSetFloors() {
         System.out.println("setFloors");
         ArrayList<Floor> floors = null;
-        Building instance = null;
+        Building instance = new Building("Middlesex College", "mc", 5);;
         instance.setFloors(floors);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -111,12 +110,11 @@ public class BuildingTest {
     @Test
     public void testGetNumFloors() {
         System.out.println("getNumFloors");
-        Building instance = null;
-        int expResult = 0;
+        Building instance = new Building("Middlesex College", "mc", 5);;
+        int expResult = 5;
         int result = instance.getNumFloors();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -125,11 +123,10 @@ public class BuildingTest {
     @Test
     public void testSetNumFloors() {
         System.out.println("setNumFloors");
-        int numFloors = 0;
-        Building instance = null;
+        int numFloors = 5;
+        Building instance = new Building("Middlesex College", "mc", 5);;
         instance.setNumFloors(numFloors);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -138,12 +135,11 @@ public class BuildingTest {
     @Test
     public void testGetFileName() {
         System.out.println("getFileName");
-        Building instance = null;
-        String expResult = "";
+        Building instance = new Building("Middlesex College", "mc", 5);;
+        String expResult = "mc";
         String result = instance.getFileName();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -152,11 +148,10 @@ public class BuildingTest {
     @Test
     public void testSetFileName() {
         System.out.println("setFileName");
-        String fileName = "";
-        Building instance = null;
+        String fileName = "mc";
+        Building instance = new Building("Middlesex College", "mc", 5);;
         instance.setFileName(fileName);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -165,12 +160,11 @@ public class BuildingTest {
     @Test
     public void testGetRooms() {
         System.out.println("getRooms");
-        Building instance = null;
+        Building instance = new Building("Middlesex College", "mc", 5);;
         ArrayList<Room> expResult = null;
         ArrayList<Room> result = instance.getRooms();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -180,10 +174,9 @@ public class BuildingTest {
     public void testSetRooms() {
         System.out.println("setRooms");
         ArrayList<Room> rooms = null;
-        Building instance = null;
+        Building instance = new Building("Middlesex College", "mc", 5);;
         instance.setRooms(rooms);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
