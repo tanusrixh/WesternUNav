@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author HP
+ * @author Hala Abudaqqa
  */
 public class FloorTest {
     private Floor instance;
