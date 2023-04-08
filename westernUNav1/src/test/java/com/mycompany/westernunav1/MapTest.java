@@ -18,10 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Hala Abudaqqa
  */
 public class MapTest {
-    private User currUser;
-    private Building buildingInfo;
-    private Map instance;
-    
+ 
     public MapTest() {
     }
     
