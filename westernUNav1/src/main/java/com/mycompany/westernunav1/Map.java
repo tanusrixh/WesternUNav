@@ -56,7 +56,9 @@ import org.json.JSONObject;
 
 
 /**
- *
+ * Map is a class for creating a graphical user interface that allows the user to add edit and delete POIs.
+ * 
+ * 
  * @author tanusri
  */
 public class Map extends javax.swing.JFrame {
@@ -69,8 +71,6 @@ public class Map extends javax.swing.JFrame {
     private String filePathName;
     private ArrayList<Room> roomsList;
     private ArrayList<Floor> floorList;
-    private LinkedList<PointofInterest> userSavedPOI;
-    private LinkedList<PointofInterest> userFavPOI;
     private ArrayList<Floor> userPOIFloorList;
     private ArrayList<Floor> userFavFloorList;
     private HashMap<String, LinkedList> userPOICategory;
@@ -88,6 +88,7 @@ public class Map extends javax.swing.JFrame {
     private JButton userDeletePOI;
     private JButton userEditPOI;
     private boolean isDev;
+    private ArrayList <JLayeredPane> layers; // stores an arrayList of layers for each map
     
     
     public Map(User currUser, Building building) {
@@ -118,6 +119,7 @@ public class Map extends javax.swing.JFrame {
         
         
         floorRoomNames = new HashMap<Integer, ArrayList<String>>();
+        layers = new ArrayList<JLayeredPane>();
         
         for(int i = 0; i < floorList.size(); i++){
             ArrayList<String> roomNames = new ArrayList<String>();
@@ -131,6 +133,7 @@ public class Map extends javax.swing.JFrame {
             floorRoomNames.put(i, roomNames);
             floorBiPois.put(floorName, roomsList); //HashMap to store the built-in POIs for each floor
             floorSelector.addItem(Integer.toString(floorNumber));
+            layers.add(new JLayeredPane());
         }
         
         setBuildingName.setText(buildingName);
@@ -146,7 +149,6 @@ public class Map extends javax.swing.JFrame {
         
         
     }
-       
        
     
      public Building getBuildingInfo() {
@@ -530,8 +532,8 @@ public class Map extends javax.swing.JFrame {
                 JLabel roomCategory = new JLabel();
                 JLabel roomDesc = new JLabel();
                 
-                userDeletePOI = new JButton();
-                userEditPOI = new JButton();
+                JButton userDeletePOI = new JButton();
+                JButton userEditPOI = new JButton();
                 
                 
                 userDeletePOI.setText("Delete this POI");
@@ -676,9 +678,9 @@ public class Map extends javax.swing.JFrame {
                 JLabel roomCategory = new JLabel();
                 JLabel roomDesc = new JLabel();
                 
-                devDeletePOI = new JButton();
-                devEditPOI = new JButton();
-                addToFav = new JButton();
+                JButton devDeletePOI = new JButton();
+                JButton devEditPOI = new JButton();
+                JButton addToFav = new JButton();
                 
                 devDeletePOI.setText("Delete this POI");
                 devEditPOI.setText("Edit this POI");
@@ -775,21 +777,11 @@ public class Map extends javax.swing.JFrame {
         
         ArrayList <Room> roomPOI = floorList.get(floorSelector.getSelectedIndex()).getRoomList();
         
-        LinkedList <PointofInterest> getUserPOIs = userPOIFloorList.get(floorSelector.getSelectedIndex()).getPointsOfInterest();
-        LinkedList <PointofInterest> getFavPOIs = userFavFloorList.get(floorSelector.getSelectedIndex()).getPointsOfInterest();
-        
-        
-        categories = new HashMap<>();
-        userPOICategory = new HashMap<>();
-        userFavPOICategory = new HashMap<>();
-        
-        mapLayers.setLayout(null);
-        
-        for(Room room : roomPOI){
-            categories.put(room.getRoomCategory(), roomPOI);
-        }
-        
-        for(PointofInterest thisPOI : getUserPOIs){
+        if(!isDev){
+            LinkedList <PointofInterest> getUserPOIs = userPOIFloorList.get(floorSelector.getSelectedIndex()).getPointsOfInterest();
+            LinkedList <PointofInterest> getFavPOIs = userFavFloorList.get(floorSelector.getSelectedIndex()).getPointsOfInterest();
+            
+                    for(PointofInterest thisPOI : getUserPOIs){
             if(!thisPOI.getCategory().equals("test")){
                 userPOICategory.put(thisPOI.getCategory(), getUserPOIs);
             }
@@ -802,6 +794,22 @@ public class Map extends javax.swing.JFrame {
                 userFavPOICategory.put(thisFavPOI.getCategory(), getFavPOIs);
             }
         }
+        
+        }
+
+        
+        
+        categories = new HashMap<>();
+        userPOICategory = new HashMap<>();
+        userFavPOICategory = new HashMap<>();
+        
+        mapLayers.setLayout(null);
+        
+        for(Room room : roomPOI){
+            categories.put(room.getRoomCategory(), roomPOI);
+        }
+        
+
         
         
         JLabel mapImage = new JLabel();
@@ -1027,37 +1035,20 @@ public class Map extends javax.swing.JFrame {
     public void updateBIJSON(ArrayList<Floor> floor){
         
         JSONObject updatedObject = new JSONObject ();        
-        /*
-        JSONObject updatedObject = new JSONObject();
         JSONArray updatedArray = new JSONArray();
         
-        for(String a : buildingsInfo.keySet()){
-            //Check if the correct building names are in the hashmaps
-            //System.out.println(a+"\n");
-            
-            
-            int floorNumber = buildingsInfo.get(a);
-            String fileCode = buildingsFileInfo.get(a);
+        for(int i = 0; i < floor.size(); i++){
+            JSONObject UpdatedFloor = new JSONObject();
+            int floorNumber = floor.get(i).getFloorNumber();
+            String floorName = floor.get(i).getFloorName();
+            ArrayList<Room> getRooms = floor.get(i).getRoomList();
             
             JSONObject building = new JSONObject();
-            building.put("Name", a);
+            /*building.put("Name", a);
             building.put("Number of floors", floorNumber);
-            building.put("File Extension", fileCode);
-            
-            updatedArray.put(building);
+            building.put("File Extension", fileCode);*/
         }
         
-        updatedObject.put("buildings", updatedArray);
-        
-        try{
-            FileOutputStream outputUpdate = new FileOutputStream("./buildings.json"); 
-            byte[] strToBytes = updatedObject.toString().getBytes(); 
-            outputUpdate.write(strToBytes); 
-            outputUpdate.close();
-        }catch(IOException e){
-            System.out.println("Unable to write JSON to file\n");
-        }
-        */
     }
     /**
      * @param args the command line arguments
