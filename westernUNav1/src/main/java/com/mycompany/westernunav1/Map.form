@@ -70,7 +70,9 @@
                               <Component id="myPOIBox" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="editPOI" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="deletePOI" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="addPOI" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="myFavPOIs" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -78,10 +80,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Component id="deletePOI" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -103,9 +102,9 @@
                       </Group>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="poiLists" min="-2" pref="350" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="educationToggle" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="myPOIBox" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -355,9 +354,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Accessibility"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="accessibilityToggleActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="educationToggle">
       <Properties>
@@ -397,7 +393,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Click on checkboxes to toggle categories"/>
+        <Property name="text" type="java.lang.String" value="Select a box to disable a layer (select only one box at a time)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="addPOI">
