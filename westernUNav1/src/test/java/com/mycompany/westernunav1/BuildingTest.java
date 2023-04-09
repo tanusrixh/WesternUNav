@@ -58,7 +58,7 @@ public class BuildingTest {
         int floors = 5;
         Building instance = new Building("Middlesex College", "mc", 5);;
         instance.newJSON(code, floors);
-        // TODO review the generated test code and remove the default call to fail.
+      
     }
 
     /**
@@ -71,7 +71,7 @@ public class BuildingTest {
         String expResult = "Middlesex College";
         String result = instance.getName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
+        
     }
 
     /**
@@ -83,7 +83,7 @@ public class BuildingTest {
         String name = "Middlesex College";
         Building instance = new Building("Middlesex College", "mc", 5);;
         instance.setName(name);
-        // TODO review the generated test code and remove the default call to fail.
+        
     }
 
     /**
@@ -145,7 +145,7 @@ public class BuildingTest {
             }
         ArrayList<Floor> result = instance.getFloors();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
+        
     }
 
     /**
@@ -157,7 +157,7 @@ public class BuildingTest {
         ArrayList<Floor> floors = null;
         Building instance = new Building("Middlesex College", "mc", 5);;
         instance.setFloors(floors);
-        // TODO review the generated test code and remove the default call to fail.
+        
     }
 
     /**
@@ -170,7 +170,7 @@ public class BuildingTest {
         int expResult = 5;
         int result = instance.getNumFloors();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
+        
     }
 
     /**
@@ -182,7 +182,7 @@ public class BuildingTest {
         int numFloors = 5;
         Building instance = new Building("Middlesex College", "mc", 5);;
         instance.setNumFloors(numFloors);
-        // TODO review the generated test code and remove the default call to fail.
+      
     }
 
     /**
@@ -195,7 +195,7 @@ public class BuildingTest {
         String expResult = "mc";
         String result = instance.getFileName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
+        
     }
 
     /**
@@ -207,7 +207,7 @@ public class BuildingTest {
         String fileName = "mc";
         Building instance = new Building("Middlesex College", "mc", 5);;
         instance.setFileName(fileName);
-        // TODO review the generated test code and remove the default call to fail.
+        
     }
 
     /**
@@ -220,7 +220,7 @@ public class BuildingTest {
         ArrayList<Room> expResult = null;
         ArrayList<Room> result = instance.getRooms();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
+       
     }
 
     /**
@@ -232,7 +232,7 @@ public class BuildingTest {
         ArrayList<Room> rooms = null;
         Building instance = new Building("Middlesex College", "mc", 5);;
         instance.setRooms(rooms);
-        // TODO review the generated test code and remove the default call to fail.
+        
     }
     
 }
