@@ -87,6 +87,7 @@ public class Map extends javax.swing.JFrame {
     private HashMap<Integer, ArrayList<String>> floorRoomNames; // Used to store the names of each room on each floor
     private JButton userDeletePOI;
     private JButton userEditPOI;
+    private boolean isDev;
     
     
     public Map(User currUser, Building building) {
@@ -94,7 +95,7 @@ public class Map extends javax.swing.JFrame {
         
         
         this.currUser = currUser;
-        boolean isDev = currUser.getIsDeveloper();
+        isDev = currUser.getIsDeveloper();
         
         floorBiPois = new HashMap<>();
         this.buildingInfo = building;
@@ -231,6 +232,11 @@ public class Map extends javax.swing.JFrame {
         });
 
         saveBack.setText("Save and Back");
+        saveBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveBackActionPerformed(evt);
+            }
+        });
 
         setBuildingName.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
         setBuildingName.setText("Building Name");
@@ -466,7 +472,7 @@ public class Map extends javax.swing.JFrame {
 
     private void backWithoutSavingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backWithoutSavingActionPerformed
         // TODO add your handling code here:
-        int option = JOptionPane.showConfirmDialog(null, "Going back will not save your current changes.\nContinue?", "Add Building", JOptionPane.OK_CANCEL_OPTION);
+        int option = JOptionPane.showConfirmDialog(null, "Going back will not save your current changes.\nContinue?", "Exit", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             MapSelector newSelection = new MapSelector(currUser);
             newSelection.setVisible(true);
@@ -485,6 +491,7 @@ public class Map extends javax.swing.JFrame {
     
     
     public void displayUserPOIs(PointofInterest poiInfo, JLayeredPane layer){
+        int currSelectedFloor = floorSelector.getSelectedIndex();
         if(!poiInfo.getCategory().equals("test")){
             JLabel poiLabel = new JLabel(new ImageIcon("./catIcons/" + poiInfo.getCategory() + ".png"));
             poiLabel.setBounds(poiInfo.getPoiX(), poiInfo.getPoiY(), 25, 25);
@@ -527,8 +534,8 @@ public class Map extends javax.swing.JFrame {
                 userEditPOI = new JButton();
                 
                 
-                devDeletePOI.setText("Delete this POI");
-                devEditPOI.setText("Edit this POI");
+                userDeletePOI.setText("Delete this POI");
+                userEditPOI.setText("Edit this POI");
                 
                 
                 JLabel selected = new JLabel(new ImageIcon("./catIcons/selected.png"));
@@ -543,16 +550,36 @@ public class Map extends javax.swing.JFrame {
                 roomDesc.setText(poiInfo.getPoiDescription());
                 
 
-            Object[] roomStuffDev = {
+            Object[] roomStuffUser = {
                     "Room Number:", roomNumber,
                     "Room Category:", roomCategory,
                     "Room Description:", roomDesc,
-                    devDeletePOI, devEditPOI
+                    userDeletePOI, userEditPOI
                 };
                 
+            userDeletePOI.addActionListener(new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        
+                        if(poiInfo.getCategory().equals("myPOI")){
+                            userPOIFloorList.get(currSelectedFloor).getPointsOfInterest().remove(poiInfo);
+                            mapLayers.remove(poiLabel);
+                            mapLayers.repaint();
+                            mapLayers.revalidate();
+                        }
+                        if(poiInfo.getCategory().equals("favPOI")){
+                            userFavFloorList.get(currSelectedFloor).getPointsOfInterest().remove(poiInfo);
+                            mapLayers.remove(poiLabel);
+                            mapLayers.repaint();
+                            mapLayers.revalidate();
+                        }
+                        
+                    }
+            });
+
             
             
-                int userOption = JOptionPane.showConfirmDialog(null, roomStuffDev, "Room Information", JOptionPane.OK_CANCEL_OPTION);
+                int userOption = JOptionPane.showConfirmDialog(null, roomStuffUser, "Room Information", JOptionPane.OK_CANCEL_OPTION);
                 if(userOption == JOptionPane.CANCEL_OPTION || userOption == JOptionPane.OK_OPTION){
                     mapLayers.remove(selected); //removes the highlighting
                     mapLayers.repaint(); //to refresh the map and display the map without the highlighting (otherwise mapLayers won't show changes)
@@ -567,6 +594,7 @@ public class Map extends javax.swing.JFrame {
     
     
     public void displayRoomPOI(Room roomInfo, JLayeredPane layer){
+        int selectedFloor = floorSelector.getSelectedIndex();
         JLabel roomPOI = new JLabel(new ImageIcon("./catIcons/" + roomInfo.getRoomCategory() + ".png"));
         roomPOI.setBounds(roomInfo.getX_coord(), roomInfo.getY_coord(), 25, 25);
         layer.add(roomPOI);
@@ -681,6 +709,29 @@ public class Map extends javax.swing.JFrame {
                     "Room Description:", roomDesc,
                     addToFav
                 };
+            
+            devDeletePOI.addActionListener(new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        floorList.get(selectedFloor).getRoomList().remove(roomInfo);
+                        mapLayers.remove(roomPOI);
+                        mapLayers.repaint();
+                        mapLayers.revalidate();
+
+                    }
+                
+            });
+
+            
+            addToFav.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    //new point of interest object is created when the user favourites a built in poi
+                    PointofInterest newFavPOI = new PointofInterest(roomNumber.getText(), roomDesc.getText(), "favPOI", roomInfo.getX_coord(), roomInfo.getY_coord());
+                    
+                    displayUserPOIs(newFavPOI, mapLayers);
+                    userFavFloorList.get(selectedFloor).getPointsOfInterest().add(newFavPOI);
+                }
+            });
             
             if(currUser.getIsDeveloper()){
                 int devOption = JOptionPane.showConfirmDialog(null, roomStuffDev, "Room Information", JOptionPane.OK_CANCEL_OPTION);
@@ -935,6 +986,39 @@ public class Map extends javax.swing.JFrame {
         
     }//GEN-LAST:event_addPOIActionPerformed
 
+    private void saveBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBackActionPerformed
+        // TODO add your handling code here:
+        int option = JOptionPane.showConfirmDialog(null, "Save your progress?", "Save and Exit", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            if(isDev){
+                updateBIJSON(floorList);
+            }else{
+                updateUser(userPOIFloorList);
+                updateFavs(userFavFloorList);
+            }   
+            MapSelector newSelection = new MapSelector(currUser);
+            newSelection.setVisible(true);
+            this.dispose();
+        }
+        else{
+            System.out.println("Choose Building Canelled\n");
+        }
+
+        
+    }//GEN-LAST:event_saveBackActionPerformed
+
+    
+    
+    public void updateUser(ArrayList<Floor> userFloors){
+        
+    }
+    
+    
+    public void updateFavs(ArrayList<Floor> favFloors){
+        
+    }
+    
+    
     
     /*
     Not updated yet - write to json method for each building json
