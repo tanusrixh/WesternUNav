@@ -100,12 +100,6 @@ public class MapSelector extends javax.swing.JFrame {
         
         this.currUser = user;
         
-        //if user is not a developer hide the add, edit, and delete building buttons
-        if(currUser.getIsDeveloper() == false){
-            addBuildingButton.setVisible(false); //hide add button
-            //editBuildingButton.setVisible(false); //hide edit button
-            removeBuildingButton.setVisible(false); //hide delete button
-        }
         
         try{
             
@@ -187,8 +181,6 @@ public class MapSelector extends javax.swing.JFrame {
         }catch(IOException except5){
             System.out.println("error.5");
         }
-        addBuildingButton = new javax.swing.JButton();
-        removeBuildingButton = new javax.swing.JButton();
         helpButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
 
@@ -217,20 +209,6 @@ public class MapSelector extends javax.swing.JFrame {
         AHImage.setText(null);
 
         MCImage.setText(null);
-
-        addBuildingButton.setText("Add");
-        addBuildingButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBuildingButtonActionPerformed(evt);
-            }
-        });
-
-        removeBuildingButton.setText("Remove");
-        removeBuildingButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeBuildingButtonActionPerformed(evt);
-            }
-        });
 
         helpButton.setText("Help");
         helpButton.addActionListener(new java.awt.event.ActionListener() {
@@ -263,11 +241,7 @@ public class MapSelector extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuildingsLayout.createSequentialGroup()
                 .addContainerGap(263, Short.MAX_VALUE)
                 .addComponent(dropDownMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addBuildingButton)
-                .addGap(18, 18, 18)
-                .addComponent(removeBuildingButton)
-                .addGap(18, 18, 18)
+                .addGap(192, 192, 192)
                 .addComponent(helpButton)
                 .addGap(18, 18, 18)
                 .addComponent(logoutButton)
@@ -280,8 +254,6 @@ public class MapSelector extends javax.swing.JFrame {
                 .addGap(191, 191, 191)
                 .addGroup(BuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dropDownMenu)
-                    .addComponent(addBuildingButton)
-                    .addComponent(removeBuildingButton)
                     .addComponent(helpButton)
                     .addComponent(logoutButton))
                 .addGap(27, 27, 27)
@@ -322,110 +294,8 @@ public class MapSelector extends javax.swing.JFrame {
     }//GEN-LAST:event_dropDownMenuActionPerformed
 
     
-    /**
-     * Function that adds a new building if the user is a developer and if the 
-     * developer clicks the add building button
-     * 
-     * @param evt
-    */
-    private void addBuildingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBuildingButtonActionPerformed
-        // TODO add your handling code here:
-        JTextField buildingName = new JTextField();
-        JTextField buildingCode = new JTextField();
-        
-        //Spinner model that allows developer to add anywhere from 1 to 100 floors
-        SpinnerNumberModel numbers = new SpinnerNumberModel(1,1,100,1);
-        
-        JSpinner buildingFloors = new JSpinner(numbers);
-        
-       
-        
-        Object[] addBuilding = {
-            "Building Name:", buildingName,
-            "Building Code:", buildingCode,
-            "Number of Floors:", buildingFloors
-        };
-
-        int option = JOptionPane.showConfirmDialog(null, addBuilding, "Add Building", JOptionPane.OK_CANCEL_OPTION);
-        if (option == JOptionPane.OK_OPTION) {
-            if (buildingName.getText().equals("") || buildingCode.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Fill in all the information.\nPlease do not leave any empty spaces.");
-            } 
-            
-            else if(!buildingName.getText().equals("") || buildingCode.getText().equals("")){
-                for(String a : buildingsFileInfo.keySet()){
-                    String temp = StringUtils.deleteWhitespace(a);
-                    if(buildingsFileInfo.get(a).equals((String)buildingCode.getText())){
-                        JOptionPane.showMessageDialog(null, "This building code already exists.\nPlease enter another building code.\nBuilding was not added.");
-                    }
-                    else if(temp.equals((String)buildingName.getText())){
-                        JOptionPane.showMessageDialog(null, "This building already exists.\nPlease enter another building name.\nBuilding was not added."); 
-                    }
-                    else if(a.equals((String)buildingName.getText())){
-                        JOptionPane.showMessageDialog(null, "This building already exists.\nPlease enter another building name.\nBuilding was not added."); 
-                    }
-                    else{
-                        System.out.println("No errors found.\n");
-                    }
-                }
-               
-            }
-            
-                buildingsInfo.put(buildingName.getText(), (Integer)buildingFloors.getValue());
-                buildingsFileInfo.put(buildingName.getText(), buildingCode.getText());
-                
-                //updates the dropdown menu in the building selection option to display the newly added building
-                dropDownMenu.addItem(buildingName.getText());
-                dropDownMenu.repaint();
-                dropDownMenu.revalidate();
-                
-                //creates a new building file for the building that was just added
-                new Building((String)buildingName.getText(), (String)buildingCode.getText(), (Integer)buildingFloors.getValue()); 
-                
-                updateJSON();
-            
-        } else {
-            System.out.println("Add building cancelled");
-        }
-    }//GEN-LAST:event_addBuildingButtonActionPerformed
+   
     
-    
-    /**
-     * Function to delete a building if the user is a developer and if the user presses
-     * the delete button. Also deletes the json file containing the built-in POI's 
-     * associated with the building being deleted
-     * 
-     * @param evt
-    */
-    private void removeBuildingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBuildingButtonActionPerformed
-        // TODO add your handling code here:
-        JComboBox<String> deleteBox = new JComboBox<>();
-        
-        for(String a : buildingsInfo.keySet()){
-            deleteBox.addItem(a);
-        }
-        
-        int option = JOptionPane.showConfirmDialog(null, deleteBox, "Delete Building", JOptionPane.OK_CANCEL_OPTION);
-        if (option == JOptionPane.OK_OPTION) {
-            String selected = deleteBox.getItemAt(deleteBox.getSelectedIndex());
-        
-        
-            File deleteFile = new File("./"+buildingsFileInfo.get(selected)+"floors.json");
-            deleteFile.delete();
-            
-            //updates the dropdown menu in the building selection option to display the dropdown without the removed building
-            dropDownMenu.removeItem(selected);
-            dropDownMenu.repaint();
-            dropDownMenu.revalidate();
-        
-            buildingsInfo.remove(selected);
-            buildingsFileInfo.remove(selected);
-            updateJSON();
-        }else {
-            System.out.println("Delete building cancelled");
-        }
-    }//GEN-LAST:event_removeBuildingButtonActionPerformed
-
     /**
      * Display the help window
      * 
@@ -538,11 +408,9 @@ public class MapSelector extends javax.swing.JFrame {
     private javax.swing.JLabel ARImage;
     private javax.swing.JPanel Buildings;
     private javax.swing.JLabel MCImage;
-    private javax.swing.JButton addBuildingButton;
     private javax.swing.JComboBox<String> dropDownMenu;
     private javax.swing.JButton helpButton;
     private javax.swing.JLabel logo2;
     private javax.swing.JButton logoutButton;
-    private javax.swing.JButton removeBuildingButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -64,11 +64,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="263" max="32767" attributes="0"/>
                   <Component id="dropDownMenu" min="-2" pref="537" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="addBuildingButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="removeBuildingButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
                   <Component id="helpButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="logoutButton" min="-2" max="-2" attributes="0"/>
@@ -83,8 +79,6 @@
                   <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="dropDownMenu" alignment="3" max="32767" attributes="0"/>
-                      <Component id="addBuildingButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="removeBuildingButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="helpButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="logoutButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -160,22 +154,6 @@
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="}catch(IOException except5){&#xa;System.out.println(&quot;error.5&quot;);&#xa;}"/>
             <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{&#xa;BufferedImage image5 = ImageIO.read(new File(&quot;./MC_image.jpg&quot;));&#xa;Image mcimage = image5.getScaledInstance(screenSize.width/3, screenSize.height/3, Image.SCALE_DEFAULT);"/>
           </AuxValues>
-        </Component>
-        <Component class="javax.swing.JButton" name="addBuildingButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Add"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addBuildingButtonActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="removeBuildingButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Remove"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeBuildingButtonActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="helpButton">
           <Properties>
