@@ -89,8 +89,7 @@ public class Map extends javax.swing.JFrame {
     private JButton userDeletePOI;
     private JButton userEditPOI;
     private boolean isDev;
-    private ArrayList <JLayeredPane> layers; // stores an arrayList of layers for each map
-    
+
     
     public Map(User currUser, Building building) {
         initComponents();
@@ -120,7 +119,6 @@ public class Map extends javax.swing.JFrame {
         
         
         floorRoomNames = new HashMap<Integer, ArrayList<String>>();
-        layers = new ArrayList<JLayeredPane>();
         
         for(int i = 0; i < floorList.size(); i++){
             ArrayList<String> roomNames = new ArrayList<String>();
@@ -134,7 +132,6 @@ public class Map extends javax.swing.JFrame {
             floorRoomNames.put(i, roomNames);
             floorBiPois.put(floorName, roomsList); //HashMap to store the built-in POIs for each floor
             floorSelector.addItem(Integer.toString(floorNumber));
-            layers.add(new JLayeredPane());
         }
         
         setBuildingName.setText(buildingName);
@@ -1012,7 +1009,7 @@ public class Map extends javax.swing.JFrame {
         int option = JOptionPane.showConfirmDialog(null, "Save your progress?", "Save and Exit", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             if(isDev){
-                updateBIJSON(floorList);
+                updateBIJSON();
             }else{
                 updateUser(userPOIFloorList);
                 updateFavs(userFavFloorList);
@@ -1162,17 +1159,17 @@ public class Map extends javax.swing.JFrame {
     *Only available to the developer
     *
     */
-    public void updateBIJSON(ArrayList<Floor> floor){
+    public void updateBIJSON(){
         
         JSONObject updatedObject = new JSONObject ();        
         JSONArray updatedArray = new JSONArray();
         
-        for(int i = 0; i < floor.size(); i++){
+        for(int i = 0; i < floorList.size(); i++){
             JSONObject updatedFloor = new JSONObject();
             JSONArray updatedRooms = new JSONArray();
-            int floorNumber = floor.get(i).getFloorNumber();
-            String floorName = floor.get(i).getFloorName();
-            ArrayList<Room> getRooms = floor.get(i).getRoomList();
+            int floorNumber = floorList.get(i).getFloorNumber();
+            String floorName = floorList.get(i).getFloorName();
+            ArrayList<Room> getRooms = floorList.get(i).getRoomList();
             updatedFloor.put("Floor Number", floorNumber);
             updatedFloor.put("Floor Name", floorName);
             for(Room room : getRooms){
