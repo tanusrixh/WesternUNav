@@ -19,6 +19,7 @@ import java.awt.event.MouseEvent;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -222,6 +223,7 @@ public class Map extends javax.swing.JFrame {
         addPOI = new javax.swing.JButton();
         myPOIBox = new javax.swing.JCheckBox();
         myFavPOIs = new javax.swing.JCheckBox();
+        searchButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(this.buildingName);
@@ -381,6 +383,13 @@ public class Map extends javax.swing.JFrame {
 
         myFavPOIs.setText("My Favourites");
 
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -421,7 +430,9 @@ public class Map extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(myPOIBox)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(156, 156, 156)
+                                    .addGap(72, 72, 72)
+                                    .addComponent(searchButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(addPOI))
                                 .addComponent(myFavPOIs)))
                         .addGap(31, 31, 31))
@@ -460,7 +471,9 @@ public class Map extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(accessibilityToggle)
                         .addGap(25, 25, 25)
-                        .addComponent(addPOI)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addPOI)
+                            .addComponent(searchButton))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(backWithoutSaving)
@@ -497,8 +510,8 @@ public class Map extends javax.swing.JFrame {
         if(!poiInfo.getCategory().equals("test")){
             JLabel poiLabel = new JLabel(new ImageIcon("./catIcons/" + poiInfo.getCategory() + ".png"));
             poiLabel.setBounds(poiInfo.getPoiX(), poiInfo.getPoiY(), 25, 25);
-            layer.add(poiLabel);
-            layer.setComponentZOrder(poiLabel, 0);
+            mapLayers.add(poiLabel);
+            mapLayers.setComponentZOrder(poiLabel, 0);
         
             myPOIBox.addActionListener(new ActionListener (){
                 @Override
@@ -599,8 +612,8 @@ public class Map extends javax.swing.JFrame {
         int selectedFloor = floorSelector.getSelectedIndex();
         JLabel roomPOI = new JLabel(new ImageIcon("./catIcons/" + roomInfo.getRoomCategory() + ".png"));
         roomPOI.setBounds(roomInfo.getX_coord(), roomInfo.getY_coord(), 25, 25);
-        layer.add(roomPOI);
-        layer.setComponentZOrder(roomPOI, 0);
+        mapLayers.add(roomPOI);
+        mapLayers.setComponentZOrder(roomPOI, 0);
 
         
         accessibilityToggle.addActionListener(new ActionListener (){
@@ -1015,22 +1028,139 @@ public class Map extends javax.swing.JFrame {
         
     }//GEN-LAST:event_saveBackActionPerformed
 
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        // TODO add your handling code here:
+                JTextField roomNumber = new JTextField();
+        JComboBox <String> floors = new JComboBox();
+        JTextField roomFloor = new JTextField();
+        
+        String [] floorSelection = new String[this.floorList.size()];
+        
+        
+        
+        for(int i = 0; i < this.floorList.size(); i++){
+            floorSelection[i] = Integer.toString(floorList.get(i).getFloorNumber());
+        }
+        
+        floors.setModel(new DefaultComboBoxModel<>(floorSelection));
+        
+        Object[] searchBox = {
+            "Select the Floor Number: ", floors,
+            "Enter the Room Number and (if needed) Letter: ", roomNumber
+        };
+        
+        int option = JOptionPane.showConfirmDialog(null, searchBox, "Search", JOptionPane.OK_CANCEL_OPTION);
+        if(option == JOptionPane.OK_OPTION){
+            floorSelector.setSelectedIndex(floors.getSelectedIndex());
+            
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
+
     
     
+    /**
+     * Write to JSON method for adding user added POIs
+     * Only available to the user
+     */    
     public void updateUser(ArrayList<Floor> userFloors){
+        
+        JSONObject updatedObject = new JSONObject ();        
+        JSONArray updatedArray = new JSONArray();
+        
+        for(int i = 0; i < userFloors.size(); i++){
+            JSONObject updatedFloor = new JSONObject();
+            JSONArray updatedRooms = new JSONArray();
+            int floorNumber = userFloors.get(i).getFloorNumber();
+            String floorName = userFloors.get(i).getFloorName();
+            LinkedList<PointofInterest> getPois = userFloors.get(i).getPointsOfInterest();
+            updatedFloor.put("Floor Number", floorNumber);
+            updatedFloor.put("Floor Name", floorName);
+            for(PointofInterest poi : getPois){
+                JSONObject updatedPoi = new JSONObject();
+                String cat = poi.getCategory();
+                String roomNum = poi.getPoiRoomNumber();
+                String roomdesc = poi.getPoiDescription();
+                int x = poi.getPoiX();
+                int y = poi.getPoiY();
+                updatedPoi.put("category", cat);
+                updatedPoi.put("roomNumber", roomNum);
+                updatedPoi.put("description", roomdesc);
+                updatedPoi.put("x",x);
+                updatedPoi.put("y", y);
+                updatedRooms.put(updatedPoi);
+            }
+            updatedFloor.put("POI", updatedRooms);
+            updatedArray.put(updatedFloor);
+        }
+        
+        updatedObject.put(this.buildingInfo.getName()+" poi", updatedArray);
+        
+        
+        try{
+            FileOutputStream outputUpdate = new FileOutputStream("./"+this.currUser.getName()+".json"); 
+            byte[] strToBytes = updatedObject.toString().getBytes(); 
+            outputUpdate.write(strToBytes); 
+            outputUpdate.close();
+        }catch(IOException e){
+            System.out.println("Unable to write JSON to file\n");
+        }
         
     }
     
-    
+    /**
+     * Write to JSON method for adding user favourite POIs
+     * only available to the user
+     */
     public void updateFavs(ArrayList<Floor> favFloors){
+          
+        JSONObject updatedObject = new JSONObject ();        
+        JSONArray updatedArray = new JSONArray();
         
+        for(int i = 0; i < favFloors.size(); i++){
+            JSONObject updatedFloor = new JSONObject();
+            JSONArray updatedRooms = new JSONArray();
+            int floorNumber = favFloors.get(i).getFloorNumber();
+            String floorName = favFloors.get(i).getFloorName();
+            LinkedList<PointofInterest> getPois = favFloors.get(i).getPointsOfInterest();
+            updatedFloor.put("Floor Number", floorNumber);
+            updatedFloor.put("Floor Name", floorName);
+            for(PointofInterest poi : getPois){
+                JSONObject updatedPoi = new JSONObject();
+                String cat = poi.getCategory();
+                String roomNum = poi.getPoiRoomNumber();
+                String roomdesc = poi.getPoiDescription();
+                int x = poi.getPoiX();
+                int y = poi.getPoiY();
+                updatedPoi.put("category", cat);
+                updatedPoi.put("roomNumber", roomNum);
+                updatedPoi.put("description", roomdesc);
+                updatedPoi.put("x",x);
+                updatedPoi.put("y", y);
+                updatedRooms.put(updatedPoi);
+            }
+            updatedFloor.put("POI", updatedRooms);
+            updatedArray.put(updatedFloor);
+        }
+        
+        updatedObject.put(this.buildingInfo.getName()+" favourites", updatedArray);
+        
+        
+        try{
+            FileOutputStream outputUpdate = new FileOutputStream("./"+this.currUser.getName()+".json"); 
+            byte[] strToBytes = updatedObject.toString().getBytes(); 
+            outputUpdate.write(strToBytes); 
+            outputUpdate.close();
+        }catch(IOException e){
+            System.out.println("Unable to write JSON to file\n");
+        }      
     }
     
     
     
     /*
-    Not updated yet - write to json method for each building json
-    Only available to the developer
+    *Write to json method for each building json
+    *Only available to the developer
+    *
     */
     public void updateBIJSON(ArrayList<Floor> floor){
         
@@ -1038,17 +1168,42 @@ public class Map extends javax.swing.JFrame {
         JSONArray updatedArray = new JSONArray();
         
         for(int i = 0; i < floor.size(); i++){
-            JSONObject UpdatedFloor = new JSONObject();
+            JSONObject updatedFloor = new JSONObject();
+            JSONArray updatedRooms = new JSONArray();
             int floorNumber = floor.get(i).getFloorNumber();
             String floorName = floor.get(i).getFloorName();
             ArrayList<Room> getRooms = floor.get(i).getRoomList();
-            
-            JSONObject building = new JSONObject();
-            /*building.put("Name", a);
-            building.put("Number of floors", floorNumber);
-            building.put("File Extension", fileCode);*/
+            updatedFloor.put("Floor Number", floorNumber);
+            updatedFloor.put("Floor Name", floorName);
+            for(Room room : getRooms){
+                JSONObject updatedRoom = new JSONObject();
+                String cat = room.getRoomCategory();
+                String roomNum = room.getRoomNumber();
+                String roomdesc = room.getDescription();
+                int x = room.getX_coord();
+                int y = room.getY_coord();
+                updatedRoom.put("category", cat);
+                updatedRoom.put("roomNumber", roomNum);
+                updatedRoom.put("description", roomdesc);
+                updatedRoom.put("x",x);
+                updatedRoom.put("y", y);
+                updatedRooms.put(updatedRoom);
+            }
+            updatedFloor.put("Rooms", updatedRooms);
+            updatedArray.put(updatedFloor);
         }
         
+        updatedObject.put(this.buildingInfo.getFileName()+"floors", updatedArray);
+        
+        
+        try{
+            FileOutputStream outputUpdate = new FileOutputStream("./"+this.buildingInfo.getFileName()+"floors.json"); 
+            byte[] strToBytes = updatedObject.toString().getBytes(); 
+            outputUpdate.write(strToBytes); 
+            outputUpdate.close();
+        }catch(IOException e){
+            System.out.println("Unable to write JSON to file\n");
+        }
     }
     /**
      * @param args the command line arguments
@@ -1107,6 +1262,7 @@ public class Map extends javax.swing.JFrame {
     private javax.swing.JCheckBox myPOIBox;
     private javax.swing.JTabbedPane poiLists;
     private javax.swing.JButton saveBack;
+    private javax.swing.JButton searchButton;
     private javax.swing.JLabel setBuildingName;
     private javax.swing.JLabel setFloorName;
     private javax.swing.JPanel userPOI;
