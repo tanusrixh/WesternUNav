@@ -21,29 +21,51 @@ import org.json.JSONTokener;
  */
 public class Floor {
     
-    /**The floor number of the floor*/
+    /** The number of the floor */
     private int floorNumber;
     
+    /** The name of the floor */
     private String floorName;
     
-    /**The list of rooms on the floor that are built in POIs*/
+    /** The list of rooms on the floor that are built in POIs */
     private ArrayList<Room> rooms;
     
-    /**The list of points of interest on the floor for the user*/
+    /** The list of points of interest on the floor for the user */
     private LinkedList<PointofInterest> pointOfInterest;
 
+    /**
+    * Constructs a new Floor object with the given floor number, floor name, and list of rooms.
+    * 
+    * @param floorNumber the floor number of the new floor.
+    * @param floorName the name of the new floor.
+    * @param rooms the list of rooms on the new floor.
+    */
     public Floor(int floorNumber, String floorName, ArrayList<Room> rooms) {
         this.floorNumber = floorNumber;
         this.floorName = floorName;
         this.rooms = rooms;
     }
     
+    /**
+    * Constructs a new Floor object with the given floor number and floor name.
+    * 
+    * @param floorNumber the floor number of the new floor.
+    * @param floorName the name of the new floor.
+    */
     public Floor(int floorNumber, String floorName) {
         this.floorNumber = floorNumber;
         this.floorName = floorName;
         //this.rooms = rooms;
     }
     
+    /**
+    * Constructs a new Floor object with the given floor number, floor name, list of rooms, and list of points of interest.
+    * 
+    * @param floorNumber the floor number of the new floor.
+    * @param floorName the name of the new floor.
+    * @param rooms the list of rooms on the new floor.
+    * @param pointofInterest the list of points of interest on the new floor.
+    */
     public Floor(int floorNumber, String floorName, ArrayList<Room> rooms, LinkedList<PointofInterest> pointofInterest) {
         this.floorNumber = floorNumber;
         this.floorName = floorName;
@@ -51,54 +73,80 @@ public class Floor {
         this.pointOfInterest = pointofInterest;
     }
 
+    /**
+    * Constructs a new Floor object with the given floor number and list of points of interest.
+    * 
+    * @param floorNumber the floor number of the new floor.
+    * @param floorName the name of the new floor.
+    * @param pointofInterest the list of points of interest on the new floor.
+    */
     public Floor(int floorNumber, String floorName, LinkedList<PointofInterest> pointofInterest) {
         this.floorNumber = floorNumber;
         this.floorName = floorName;
         this.pointOfInterest = pointofInterest;
     }
     
-    
     /**
      * Constructs a new floor with the given floor number.
      * 
-     * @param floorNumber the floor number of the new floor.
+     * @param floorNumber the number of the new floor.
      */
     public Floor(int floorNumber) {
         this.floorNumber = floorNumber;
         this.rooms = new ArrayList<Room>();
         this.pointOfInterest = new LinkedList<PointofInterest>();
     }
-
-
     
     /**
      * Returns the floor number of the floor.
      * 
-     * @return the floor number of the floor.
+     * @return the number of the floor.
      */
-  
-
     public int getFloorNumber() {
         return floorNumber;
     }
     
-    
+    /**
+    * Sets the floor number of the floor.
+    * 
+    * @param floorNumber the new number of the floor.
+    */
     public void setFloorNumber(int floorNumber) {
         this.floorNumber = floorNumber;
     }
     
+    /**
+    * Returns the name of the floor.
+    * 
+    * @return the name of the floor.
+    */
     public String getFloorName() {
         return floorName;
     }
 
+    /**
+     * Sets the name of the floor
+     * 
+     * @param floorName the new name of the floor
+     */
     public void setFloorName(String floorName) {
         this.floorName = floorName;
     }
     
+    /**
+     * Returns a list of rooms on the floor
+     * 
+     * @return a list of rooms on the floor
+     */
     public ArrayList<Room> getRoomList(){
         return this.rooms;
     }
     
+    /**
+     * Sets the list of rooms on the floor
+     * 
+     * @param rooms the new list of rooms on the floor
+     */
     public void setRoomList(ArrayList<Room> rooms){
         this.rooms = rooms;
     }
@@ -138,7 +186,7 @@ public class Floor {
     }
     
     /**
-     * Gets a list of points of interest on the floor.
+     * Returns a list of points of interest on the floor.
      *
      * @return a list of points of interest on the floor
      */
@@ -146,6 +194,11 @@ public class Floor {
         return this.pointOfInterest;
     }
     
+    /**
+     * Sets the list of points of interest on the floor
+     * 
+     * @param pois the new list of points of interest on the floor
+     */
     public void setPOIs(LinkedList<PointofInterest> pois){
         this.pointOfInterest = pois;
     }
