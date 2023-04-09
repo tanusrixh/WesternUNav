@@ -188,7 +188,6 @@ public class Building {
     
     /**
     * Returns the name of the file associated with this object.
-    * 
     * @return the file name
     */
     public String getFileName() {
