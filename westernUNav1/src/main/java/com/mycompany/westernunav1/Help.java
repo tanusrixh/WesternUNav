@@ -7,6 +7,9 @@ package com.mycompany.westernunav1;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 
 /**
  * The Help class contains the GUI components for the help menu in the application.
@@ -140,6 +143,23 @@ public class Help extends javax.swing.JFrame{
         MainPageTabMenu.addTab("Building Selection", BuildingPanel);
 
         FirstTabMenu.addTab("Main Page", MainPageTabMenu);
+        
+        JTextArea searchTextArea = new javax.swing.JTextArea();
+        searchTextArea.setEditable(false);
+        searchTextArea.setBackground(new java.awt.Color(255, 255, 255));
+        searchTextArea.setColumns(20);
+        searchTextArea.setLineWrap(true);
+        searchTextArea.setRows(5);
+        searchTextArea.setWrapStyleWord(true);
+        searchTextArea.setText("To search for floors, the user can select the floor from a dropdown and enter a room number");
+
+        JScrollPane searchPanel = new javax.swing.JScrollPane();
+        searchPanel.setViewportView(searchTextArea);
+        
+        JTabbedPane searchTabMenu = new javax.swing.JTabbedPane();
+        searchTabMenu.addTab("Search", searchPanel);
+        
+        FirstTabMenu.addTab("Search", searchTabMenu);
 
         ViewPOIText.setEditable(false);
         ViewPOIText.setBackground(new java.awt.Color(255, 255, 255));
@@ -157,22 +177,38 @@ public class Help extends javax.swing.JFrame{
         AddPOIText.setColumns(20);
         AddPOIText.setLineWrap(true);
         AddPOIText.setRows(5);
-        AddPOIText.setText("To add a user POI, click on the add button on the right panel, and then enter the POI's information in the pop-up window to add it.");
+        AddPOIText.setText("To add a user POI, user can click on the add button to add their own points of interest.");
         AddPOIText.setWrapStyleWord(true);
         AddPOIPanel.setViewportView(AddPOIText);
 
         POITabMenu.addTab("Adding POIs", AddPOIPanel);
+        
+        JTextArea favouritePOIText = new JTextArea();
+        favouritePOIText.setEditable(false);
+        favouritePOIText.setBackground(new java.awt.Color(255, 255, 255));
+        favouritePOIText.setColumns(20);
+        favouritePOIText.setLineWrap(true);
+        favouritePOIText.setRows(5);
+        favouritePOIText.setText("To add favourites, users can click on existing pois and add them to their favourites");
+        favouritePOIText.setWrapStyleWord(true);
+        JScrollPane favouritePOIPanel = new JScrollPane();
+        favouritePOIPanel.setViewportView(favouritePOIText);
+        
+        POITabMenu.addTab("Favourite POIs", favouritePOIPanel);
 
-        EditPOIText.setEditable(false);
+        POITabMenu.setSelectedIndex(0); // Display the first tab by default
+        POITabMenu.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+        
+                EditPOIText.setEditable(false);
         EditPOIText.setBackground(new java.awt.Color(255, 255, 255));
         EditPOIText.setColumns(20);
         EditPOIText.setLineWrap(true);
         EditPOIText.setRows(5);
-        EditPOIText.setText("To edit the user POI, click on the edit button, pick the POI in the pop-up window, and a pop-up window would show where you can edit it.");
+        EditPOIText.setText("To edit the user's favourite POI, users can edit and delete favourite pois by clicking the poi they would like to edit/delete.");
         EditPOIText.setWrapStyleWord(true);
         EditPOIPanel.setViewportView(EditPOIText);
 
-        POITabMenu.addTab("Editing User's POI", EditPOIPanel);
+        POITabMenu.addTab("Editing/Deleting Favourite POIs", EditPOIPanel);
 
         FirstTabMenu.addTab("POI", POITabMenu);
 
@@ -200,36 +236,12 @@ public class Help extends javax.swing.JFrame{
 
         FirstTabMenu.addTab("Maps", MapsTabMenu);
 
-        AddBuildingText.setEditable(false);
-        AddBuildingText.setBackground(new java.awt.Color(255, 255, 255));
-        AddBuildingText.setColumns(20);
-        AddBuildingText.setLineWrap(true);
-        AddBuildingText.setRows(5);
-        AddBuildingText.setText("Once entered in the developer mode, click on the add button beside the drop down menu of the building to add it, a pop-up window will show where you will add the buildings information.");
-        AddBuildingText.setWrapStyleWord(true);
-        AddBuildingPanel.setViewportView(AddBuildingText);
-
-        BuildingTabMenu.addTab("Add", AddBuildingPanel);
-
-        RemoveBuildingText.setEditable(false);
-        RemoveBuildingText.setBackground(new java.awt.Color(255, 255, 255));
-        RemoveBuildingText.setColumns(20);
-        RemoveBuildingText.setLineWrap(true);
-        RemoveBuildingText.setRows(5);
-        RemoveBuildingText.setText("Click on the remove button beside the drop down menu and pick a building to remove.");
-        RemoveBuildingText.setWrapStyleWord(true);
-        RemoveBuildingPanel.setViewportView(RemoveBuildingText);
-
-        BuildingTabMenu.addTab("Remove", RemoveBuildingPanel);
-
-        DeveloperTabMenu.addTab("Buildings", BuildingTabMenu);
-
         AddFloorText.setEditable(false);
         AddFloorText.setBackground(new java.awt.Color(255, 255, 255));
         AddFloorText.setColumns(20);
         AddFloorText.setLineWrap(true);
         AddFloorText.setRows(5);
-        AddFloorText.setText("");
+        AddFloorText.setText("Once entered in the developer mode, click on the add button beside the drop down menu of the floor to add it, a pop-up window will show where you will add the floors information.");
         AddFloorText.setWrapStyleWord(true);
         AddFloorPanel.setViewportView(AddFloorText);
 
@@ -240,7 +252,7 @@ public class Help extends javax.swing.JFrame{
         EditFloorText.setColumns(20);
         EditFloorText.setLineWrap(true);
         EditFloorText.setRows(5);
-        EditFloorText.setText("");
+        EditFloorText.setText("Click on the edit button beside the drop down menu and pick a floor to edit.");
         EditFloorText.setWrapStyleWord(true);
         EditFloorPanel.setViewportView(EditFloorText);
 
@@ -251,7 +263,7 @@ public class Help extends javax.swing.JFrame{
         RemoveFloorText.setColumns(20);
         RemoveFloorText.setLineWrap(true);
         RemoveFloorText.setRows(5);
-        RemoveFloorText.setText("");
+        RemoveFloorText.setText("Click on the remove button beside the drop down menu and pick a floor to remove.");
         RemoveFloorText.setWrapStyleWord(true);
         RemoveFloorPanel.setViewportView(RemoveFloorText);
 
@@ -264,22 +276,22 @@ public class Help extends javax.swing.JFrame{
         EditPOIText_2.setColumns(20);
         EditPOIText_2.setLineWrap(true);
         EditPOIText_2.setRows(5);
-        EditPOIText_2.setText("To edit the user POI, click on the edit button, pick the POI in the pop-up window, and a pop-up window would show where you can edit it.");
+        EditPOIText_2.setText("To add the user POI, developers can click on the add button to add a built in poi.");
         EditPOIText_2.setWrapStyleWord(true);
         EditPOIPanel_2.setViewportView(EditPOIText_2);
 
-        POITabMenu_2.addTab("Edit", EditPOIPanel_2);
+        POITabMenu_2.addTab("Add", EditPOIPanel_2);
 
         RemovePOIText.setEditable(false);
         RemovePOIText.setBackground(new java.awt.Color(255, 255, 255));
         RemovePOIText.setColumns(20);
         RemovePOIText.setLineWrap(true);
         RemovePOIText.setRows(5);
-        RemovePOIText.setText("To remove a POI, click on the remove button, and then choose the POI you want to remove.");
+        RemovePOIText.setText("To edit/remove a POI, developers can clidd on existing POIs to remove or edit them.");
         RemovePOIText.setWrapStyleWord(true);
         RemovePOIPanel.setViewportView(RemovePOIText);
 
-        POITabMenu_2.addTab("Remove", RemovePOIPanel);
+        POITabMenu_2.addTab("Edit/Remove", RemovePOIPanel);
 
         DeveloperTabMenu.addTab("Built-in POI", POITabMenu_2);
 
