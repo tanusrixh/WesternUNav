@@ -1009,7 +1009,7 @@ public class Map extends javax.swing.JFrame {
         int option = JOptionPane.showConfirmDialog(null, "Save your progress?", "Save and Exit", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             if(isDev){
-                updateBIJSON();
+                updateBIJSON(floorList);
             }else{
                 updateUser(userPOIFloorList);
                 updateFavs(userFavFloorList);
@@ -1159,17 +1159,17 @@ public class Map extends javax.swing.JFrame {
     *Only available to the developer
     *
     */
-    public void updateBIJSON(){
+    public void updateBIJSON(ArrayList<Floor> floors){
         
         JSONObject updatedObject = new JSONObject ();        
         JSONArray updatedArray = new JSONArray();
         
-        for(int i = 0; i < floorList.size(); i++){
+        for(int i = 0; i < floors.size(); i++){
             JSONObject updatedFloor = new JSONObject();
             JSONArray updatedRooms = new JSONArray();
-            int floorNumber = floorList.get(i).getFloorNumber();
-            String floorName = floorList.get(i).getFloorName();
-            ArrayList<Room> getRooms = floorList.get(i).getRoomList();
+            int floorNumber = floors.get(i).getFloorNumber();
+            String floorName = floors.get(i).getFloorName();
+            ArrayList<Room> getRooms = floors.get(i).getRoomList();
             updatedFloor.put("Floor Number", floorNumber);
             updatedFloor.put("Floor Name", floorName);
             for(Room room : getRooms){
