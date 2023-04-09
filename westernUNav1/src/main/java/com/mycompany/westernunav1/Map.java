@@ -79,13 +79,11 @@ public class Map extends javax.swing.JFrame {
     private int numFloors;
     private HashMap<String, ArrayList> floorBiPois;
     private HashMap<String, ArrayList> categories;
-    private HashMap<String, ArrayList<JLabel>> toggleHash;
-    private ArrayList<JLabel> toggleLabels;
     private JList biPoiList;
-    private HashMap<String, ArrayList<Floor>> userBuildings; //Hashmap to store the user's POIs for each building
     private JButton devDeletePOI;
     private JButton devEditPOI;
     private JButton addToFav; 
+    private HashMap<Integer, ArrayList<String>> floorRoomNames; // Used to store the names of each room on each floor
     
     
     public Map(User currUser, Building building) {
@@ -110,10 +108,18 @@ public class Map extends javax.swing.JFrame {
         this.buildingName = buildingInfo.getName();
         this.floorList = buildingInfo.getFloors();
         
+        floorRoomNames = new HashMap<Integer, ArrayList<String>>();
+        
         for(int i = 0; i < floorList.size(); i++){
+            ArrayList<String> roomNames = new ArrayList<String>();
             this.floorNumber = floorList.get(i).getFloorNumber();
             this.floorName = floorList.get(i).getFloorName();
             this.roomsList = floorList.get(i).getRoomList();
+            for(int j = 0; j < this.roomsList.size(); j++){
+                String roomName = this.roomsList.get(j).getRoomNumber();
+                roomNames.add(roomName);
+            }
+            floorRoomNames.put(i, roomNames);
             floorBiPois.put(floorName, roomsList); //HashMap to store the built-in POIs for each floor
             floorSelector.addItem(Integer.toString(floorNumber));
         }
@@ -139,9 +145,7 @@ public class Map extends javax.swing.JFrame {
             
             if(this.currUser.getIsDeveloper() == false){
                 JSONArray poi = jsonobj.getJSONArray("poi");
-                if(!poi.isEmpty()){
-                    
-                
+                if(!poi.isEmpty() && poi.length() > 0){
                 for(int a = 0; a < poi.length(); a++){
                     JSONObject getBuildingPoi = poi.getJSONObject(a);
                     if(getBuildingPoi.has(buildingName)){
@@ -152,7 +156,7 @@ public class Map extends javax.swing.JFrame {
                             String poiFloorName = (String) getFloorsPOI.get("Floor Name");
                             int poiFloorNumber = (Integer) getFloorsPOI.get("Floor Number");
                             JSONArray eachFloorPOI = getFloorsPOI.getJSONArray("POI");
-                            if(!eachFloorPOI.isEmpty()){
+                            if(!eachFloorPOI.isEmpty() && eachFloorPOI.length() > 0){
                                 userSavedPOI = new LinkedList<>();
                                 for(int c = 0; c < eachFloorPOI.length(); c++){
                                     JSONObject getThisPOI = eachFloorPOI.getJSONObject(c);
@@ -171,6 +175,8 @@ public class Map extends javax.swing.JFrame {
                             Floor newPOIFloor = new Floor(poiFloorNumber, poiFloorName, userSavedPOI);
                             userPOIFloorList.add(newPOIFloor);
                         }
+                    }else{
+                        userPOIFloorList = new ArrayList<>();
                     }
                 }
                 }
@@ -178,7 +184,7 @@ public class Map extends javax.swing.JFrame {
                 
                 JSONArray favs = jsonobj.getJSONArray("favourites");
                 
-                if(!favs.isEmpty()){
+                if(!favs.isEmpty() && favs.length() > 0){
                 for(int j = 0; j < favs.length(); j++){
                     JSONObject getFavPois = favs.getJSONObject(j);
                     if(getFavPois.has(buildingName)){
@@ -189,7 +195,7 @@ public class Map extends javax.swing.JFrame {
                             String poiFloorName = (String) getFloorFavsPOI.get("Floor Name");
                             int poiFloorNumber = (Integer) getFloorFavsPOI.get("Floor Number");
                             JSONArray eachFloorFavPOI = getFloorFavsPOI.getJSONArray("POI");
-                            if(!eachFloorFavPOI.isEmpty()){
+                            if(!eachFloorFavPOI.isEmpty() && eachFloorFavPOI.length() > 0){
                                 userFavPOI = new LinkedList<>();
                                 for(int l = 0; l < eachFloorFavPOI.length(); l++){
                                     JSONObject getThisFavPOI = eachFloorFavPOI.getJSONObject(l);
@@ -207,6 +213,8 @@ public class Map extends javax.swing.JFrame {
                             Floor addFloor = new Floor(poiFloorNumber, poiFloorName, userFavPOI);
                             userFavFloorList.add(addFloor);
                         }
+                    }else{
+                        userFavFloorList = new ArrayList<>();
                     }
                 }
             }
@@ -766,6 +774,7 @@ public class Map extends javax.swing.JFrame {
     */
     private void floorSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_floorSelectorActionPerformed
         // TODO add your handling code here:
+        
         int selectedInt = Integer.parseInt(floorSelector.getItemAt(floorSelector.getSelectedIndex()));
         setFloorName.setText(floorList.get(floorSelector.getSelectedIndex()).getFloorName());
         setFloorName.repaint();
@@ -855,13 +864,17 @@ public class Map extends javax.swing.JFrame {
             roomString.add(roomPOI.get(i).getRoomNumber());
         }
         
-
+        for(int i = 0; i < floorRoomNames.get(floorSelector.getSelectedIndex()).size(); i++){
+            System.out.println(floorRoomNames.get(floorSelector.getSelectedIndex()).get(i) + "\n");
+        }
+        //floorRoomNames.get(floorSelector.getSelectedIndex());
         
-        biPoiList = new JList(roomString.toArray());
-        biPoiList.setVisibleRowCount(roomString.size());
-        biPoiList.repaint();
-        biPoiList.revalidate();
+        biPoiList = new JList();
+        biPoiList.setListData(floorRoomNames.get(floorSelector.getSelectedIndex()).toArray());
+        //biPoiList.setVisibleRowCount(roomString.size());
         listPOI.add(biPoiList);
+        listPOI.repaint();
+        listPOI.revalidate();
         biPoiList.setOpaque(true);
         biPoiList.setSize(biPOI.getWidth(), biPOI.getHeight());
         biPoiList.setVisible(true);
@@ -913,6 +926,7 @@ public class Map extends javax.swing.JFrame {
                     
                 }  
             }); 
+        
         
         
         
