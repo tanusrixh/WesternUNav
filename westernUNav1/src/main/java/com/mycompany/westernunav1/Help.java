@@ -9,16 +9,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
+ * The Help class contains the GUI components for the help menu in the application.
+ * 
  * @author nourfayadh
  */
 public class Help extends javax.swing.JFrame{
     
-    // constructor method to call the initComponents method where all of the GUI components are created
+    /**
+     * The constructor method creates an instance of the Help class and calls the initComponents method to create all of the GUI components.
+     * 
+     */
     public Help(){
         initComponents();
     }
     
+    /**
+     * The initComponents method creates and initializes all of the GUI components for the help menu.
+     * 
+     */
     private void initComponents() {
         
         FirstTabMenu = new javax.swing.JTabbedPane();
@@ -326,7 +334,9 @@ public class Help extends javax.swing.JFrame{
         });
     }
 
-    // Variables declaration 
+    /**
+     * Variables declaration 
+     */
     private javax.swing.JScrollPane LayerPanel;
     private javax.swing.JScrollPane ReturnPanel;
     private javax.swing.JScrollPane LoginPanel;
