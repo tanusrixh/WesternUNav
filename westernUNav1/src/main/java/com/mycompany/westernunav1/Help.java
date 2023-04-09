@@ -236,6 +236,7 @@ public class Help extends javax.swing.JFrame{
 
         FirstTabMenu.addTab("Maps", MapsTabMenu);
 
+        
         AddFloorText.setEditable(false);
         AddFloorText.setBackground(new java.awt.Color(255, 255, 255));
         AddFloorText.setColumns(20);
@@ -268,7 +269,7 @@ public class Help extends javax.swing.JFrame{
         RemoveFloorPanel.setViewportView(RemoveFloorText);
 
         FloorTabMenu.addTab("Remove", RemoveFloorPanel);
-
+        
         DeveloperTabMenu.addTab("Floors", FloorTabMenu);
 
         EditPOIText_2.setEditable(false);
