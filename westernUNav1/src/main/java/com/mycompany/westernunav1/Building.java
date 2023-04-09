@@ -17,7 +17,9 @@ import org.json.JSONTokener;
 import org.json.JSONObject;
 
 /**
- *
+ * Represents a building in a navigation system. It stores info about the buildings's
+ * name, fil name, array of floors, and number of floors.
+ * 
  * @author nour
  */
 public class Building {
@@ -34,10 +36,16 @@ public class Building {
     /** The building's number of floors*/
     private int numFloors;
     
+    /** The building's array of rooms*/
     private ArrayList<Room> rooms;
 
-    
-    
+    /**
+     * Constructs a Building object with a given name, file code and number of floors
+     * 
+     * @param name  the name of the building
+     * @param fileCode the file name of the building
+     * @param numFloors the number of floors in the building
+     */
     public Building(String name, String fileCode, int numFloors) {
         this.name = name;
         this.numFloors = numFloors;
@@ -97,11 +105,14 @@ public class Building {
         
     }
     
-    /*
-    Creates a new JSON file if the file does not exist and a valis building code 
-    was given in the constructor. This means that a new building was added to the 
-    buildings.json file but a new file for that building was not created
-    -add to developer class if needed later on
+    /**
+     * Creates a new JSON file if the file does not exist and a valis building code 
+     * was given in the constructor. This means that a new building was added to the 
+     * buildings.json file but a new file for that building was not created
+     * add to developer class if needed later on
+     * 
+     * @param code the code of the building
+     * @param floors the number of floors in the building
     */
     public void newJSON(String code, int floors){
         JSONObject newBuilding = new JSONObject();
@@ -132,10 +143,6 @@ public class Building {
         }
     }
 
-    
-
-    
-    
     /** A getter method to get the name of the building
      * @return the building's name
      */
@@ -179,22 +186,39 @@ public class Building {
         this.numFloors = numFloors;
     }
     
+    /**
+    * Returns the name of the file associated with this object.
+    * 
+    * @return the file name
+    */
     public String getFileName() {
         return fileName;
     }
-
+    
+    /**
+     * Sets the name of the file associated with this object.
+     * 
+     * @param fileName the new file name 
+     */
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
+    /**
+     * Returns an ArrayList of Room objects associated with this object.
+     * 
+     * @return the list of rooms 
+     */
     public ArrayList<Room> getRooms() {
         return rooms;
     }
 
+    /**
+     * Sets the list of Room objects associated with this object.
+     * 
+     * @param rooms the new list of rooms
+     */
     public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;
     }
-    
-
-    
 }
