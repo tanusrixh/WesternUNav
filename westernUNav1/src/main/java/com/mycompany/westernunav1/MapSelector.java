@@ -39,7 +39,9 @@ import org.json.JSONTokener;
 
 
 /**
- *
+ * MapSelector is a class for creating a graphical user interface that allows the user to select a building and its floors and view POIs.
+ * It also enables developers to add, edit, and remove buildings.
+ * 
  * @author tanusri
  */
 public class MapSelector extends javax.swing.JFrame {
@@ -50,25 +52,47 @@ public class MapSelector extends javax.swing.JFrame {
     private HashMap<String, Integer> buildingsInfo;
     private HashMap<String, String> buildingsFileInfo;
 
+    /**
+     * Sets the ArrayList of Building objects to the specified value
+     * 
+     * @param buildings the ArrayList of Building objects
+     */
     public void setBuildings(ArrayList<Building> buildings) {
         this.buildings = buildings;
     }
     
+    /**
+     * Removes a building from the ArrayList of Building objects
+     * 
+     * @param buildings the ArrayList of Building objects
+     */
     public void removeBuilding(ArrayList<Building> buildings) {
         this.buildings = buildings;
     }
 
+    /**
+     * Returns the ArrayList of Building objects
+     * 
+     * @return the ArrayList of Building objects
+     */
     public ArrayList<Building> getBuildings() {
         return buildings;
     }
     
+    /**
+     * Returns the Building object at the specified index of the ArrayList of Building objects.
+     * 
+     * @param buildings the ArrayList of Building objects
+     * @param index the index of the Building object to be returned
+     * @return the Building object at the specified index
+     */
     public Building getBuilding(ArrayList<Building> buildings, int index) {
         return buildings.get(index);
     }
 
     /**
-     * Creates new form NewJFrame
-     * @param user
+     * Creates new form MapSelector object with User object
+     * @param user the User object
      */
     public MapSelector(User user) {
         
@@ -273,6 +297,12 @@ public class MapSelector extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Called when the use selects an item from the drop down menu
+     * Creates a new Building object and displays it using a Map object
+     * 
+     * @param evt
+     */
     private void dropDownMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropDownMenuActionPerformed
         // TODO add your handling code here:
         if(!dropDownMenu.getItemAt(dropDownMenu.getSelectedIndex()).equals("---Select a building---")){
@@ -292,9 +322,11 @@ public class MapSelector extends javax.swing.JFrame {
     }//GEN-LAST:event_dropDownMenuActionPerformed
 
     
-    /*
-    Function that adds a new building if the user is a developer and if the 
-    developer clicks the add building button
+    /**
+     * Function that adds a new building if the user is a developer and if the 
+     * developer clicks the add building button
+     * 
+     * @param evt
     */
     private void addBuildingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBuildingButtonActionPerformed
         // TODO add your handling code here:
@@ -358,10 +390,12 @@ public class MapSelector extends javax.swing.JFrame {
     }//GEN-LAST:event_addBuildingButtonActionPerformed
     
     
-    /*
-    Function to delete a building if the user is a developer and if the user presses
-    the delete button. Also deletes the json file containing the built-in POI's 
-    associated with the building being deleted
+    /**
+     * Function to delete a building if the user is a developer and if the user presses
+     * the delete button. Also deletes the json file containing the built-in POI's 
+     * associated with the building being deleted
+     * 
+     * @param evt
     */
     private void removeBuildingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBuildingButtonActionPerformed
         // TODO add your handling code here:
@@ -392,11 +426,21 @@ public class MapSelector extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_removeBuildingButtonActionPerformed
 
+    /**
+     * Display the help window
+     * 
+     * @param evt 
+     */
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
         // TODO add your handling code here:
         new Help().setVisible(true);
     }//GEN-LAST:event_helpButtonActionPerformed
 
+    /**
+     * Logs out the user and display the login window
+     * 
+     * @param evt 
+     */
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         // TODO add your handling code here:
         User newUser = new User();
@@ -404,6 +448,9 @@ public class MapSelector extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_logoutButtonActionPerformed
     
+    /**
+     * Display the logo images
+     */
     public void displayLogo(){
         Buildings.add(logo2);
         Buildings.add(ARImage);
@@ -412,9 +459,9 @@ public class MapSelector extends javax.swing.JFrame {
     }
     
     
-    /*
-    Updates the buildings.json file depending on if the developer has added,
-    edited, or removed a building.
+    /**
+     * Updates the buildings.json file depending on if the developer has added,
+     * edited, or removed a building.
     */
     private void updateJSON(){
         JSONObject updatedObject = new JSONObject();
