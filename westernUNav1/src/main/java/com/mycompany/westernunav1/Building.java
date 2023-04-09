@@ -215,7 +215,6 @@ public class Building {
 
     /**
      * Sets the list of Room objects associated with this object.
-     * 
      * @param rooms the new list of rooms
      */
     public void setRooms(ArrayList<Room> rooms) {
