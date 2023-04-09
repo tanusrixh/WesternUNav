@@ -64,13 +64,32 @@ public class Floor {
     * 
     * @param floorNumber the floor number of the new floor.
     * @param floorName the name of the new floor.
-    * @param pointofInterest the list of points of interest on the new floor.
+    * @param pointOfInterest the list of points of interest on the new floor.
     */
-    public Floor(int floorNumber, String floorName, LinkedList<PointofInterest> pointofInterest) {
+    public Floor(int floorNumber, String floorName, LinkedList<PointofInterest> pointOfInterest) {
         this.floorNumber = floorNumber;
         this.floorName = floorName;
-        this.pointOfInterest = pointofInterest;
+        this.pointOfInterest = pointOfInterest;
     }
+
+    
+    /**
+    * Constructs a new Floor object with the given floor number and list of points of interest.
+    * 
+    * @param floorNumber the floor number of the new floor.
+    * @param floorName the name of the new floor.
+    * @param rooms the list of rooms on the new floor.
+    * @param pointOfInterest the list of points of interest on the new floor.
+    */
+    public Floor(int floorNumber, String floorName, ArrayList<Room> rooms, LinkedList<PointofInterest> pointOfInterest) {
+        this.floorNumber = floorNumber;
+        this.floorName = floorName;
+        this.rooms = rooms;
+        this.pointOfInterest = pointOfInterest;
+    }
+    
+    
+    
     
     /**
      * Constructs a new floor with the given floor number.

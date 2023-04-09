@@ -60,8 +60,7 @@ public class JSONParserUser {
                 
                     userPOI = new LinkedList<>();
                 
-                    // to check if no. of built in POIs on each floor is correct
-                    //System.out.println(roomsArray.length()+"\n"); 
+                    
                 
                     for(int j = 0; j < poiArray.length(); j++){
                         JSONObject room = poiArray.getJSONObject(j);
@@ -89,8 +88,7 @@ public class JSONParserUser {
                 
                     favPOI = new LinkedList<>();
                 
-                    // to check if no. of built in POIs on each floor is correct
-                    //System.out.println(roomsArray.length()+"\n"); 
+                    
                 
                     for(int j = 0; j < poiFavArray.length(); j++){
                         JSONObject room = poiFavArray.getJSONObject(j);
