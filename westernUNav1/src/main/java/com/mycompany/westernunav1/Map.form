@@ -69,10 +69,7 @@
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                               <Component id="myPOIBox" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="editPOI" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="deletePOI" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
                                   <Component id="addPOI" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="myFavPOIs" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -121,11 +118,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="accessibilityToggle" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="addPOI" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="editPOI" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="deletePOI" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="addPOI" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="backWithoutSaving" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -402,19 +395,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPOIActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="editPOI">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Edit"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="deletePOI">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Delete"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deletePOIActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="myPOIBox">
