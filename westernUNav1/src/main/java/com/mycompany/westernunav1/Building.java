@@ -197,7 +197,6 @@ public class Building {
     
     /**
      * Sets the name of the file associated with this object.
-     * 
      * @param fileName the new file name 
      */
     public void setFileName(String fileName) {
